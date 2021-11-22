@@ -101,7 +101,7 @@ const NextDrawCard = () => {
             fontSize="14px"
             color="textSubtle"
             textAlign={['center', null, null, 'left']}
-            unit=" CAKE"
+            unit=" TX8"
             value={getBalanceNumber(amountCollectedInTX8)}
             decimals={0}
           />

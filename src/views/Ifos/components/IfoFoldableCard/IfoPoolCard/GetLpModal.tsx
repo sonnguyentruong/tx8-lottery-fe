@@ -11,7 +11,7 @@ interface Props {
 const GetLpModal: React.FC<Partial<Props>> = ({ currency, onDismiss }) => {
   const { t } = useTranslation()
   return (
-    <Modal title={t('CAKE required')} onDismiss={onDismiss}>
+    <Modal title={t('TX8 required')} onDismiss={onDismiss}>
       <ModalBody maxWidth="288px">
         <Image
           src={`/images/farms/${currency.symbol.split(' ')[0].toLocaleLowerCase()}.svg`}
@@ -20,8 +20,8 @@ const GetLpModal: React.FC<Partial<Props>> = ({ currency, onDismiss }) => {
           margin="auto"
           mb="24px"
         />
-        <Text mb="16px">{t('You’ll need CAKE tokens to participate in the IFO!')}</Text>
-        <Text mb="24px">{t('Get CAKE, or make sure your tokens aren’t staked somewhere else.')}</Text>
+        <Text mb="16px">{t('You’ll need TX8 tokens to participate in the IFO!')}</Text>
+        <Text mb="24px">{t('Get TX8, or make sure your tokens aren’t staked somewhere else.')}</Text>
         <Button
           as={Link}
           external
@@ -29,7 +29,7 @@ const GetLpModal: React.FC<Partial<Props>> = ({ currency, onDismiss }) => {
           endIcon={<OpenNewIcon color="white" />}
           minWidth="100%" // Bypass the width="fit-content" on Links
         >
-          {t('Get %symbol%', { symbol: 'CAKE' })}
+          {t('Get %symbol%', { symbol: 'TX8' })}
         </Button>
       </ModalBody>
     </Modal>
