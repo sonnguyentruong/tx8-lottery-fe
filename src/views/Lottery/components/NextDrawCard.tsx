@@ -83,26 +83,16 @@ const NextDrawCard = () => {
         {prizeInBusd.isNaN() ? (
           <Skeleton my="7px" height={40} width={160} />
         ) : (
+
           <Balance
             fontSize="40px"
             color="secondary"
             textAlign={['center', null, null, 'left']}
             lineHeight="1"
             bold
-            prefix="~$"
-            value={getBalanceNumber(prizeInBusd)}
-            decimals={0}
-          />
-        )}
-        {prizeInBusd.isNaN() ? (
-          <Skeleton my="2px" height={14} width={90} />
-        ) : (
-          <Balance
-            fontSize="14px"
-            color="textSubtle"
-            textAlign={['center', null, null, 'left']}
+            prefix="~"
+            value={getBalanceNumber(amountCollectedInTX8) }
             unit=" TX8"
-            value={getBalanceNumber(amountCollectedInTX8)}
             decimals={0}
           />
         )}

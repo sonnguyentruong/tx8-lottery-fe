@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Box, Flex, Text, Heading, useMatchBreakpoints, Link, Image } from '@pancakeswap/uikit'
+import { Box, Flex, Text, Heading, useMatchBreakpoints, Link } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
 import { BallWithNumber, MatchExampleA, MatchExampleB, PoolAllocationChart } from '../svgs'
@@ -325,7 +325,7 @@ const HowToPlay: React.FC = () => {
                 {t(
                   'An average total of 35,000 TX8 from the treasury is added to lottery rounds over the course of a week. This TX8 is of course also included in rollovers! Read more in our guide to ',
                 )}
-                <InlineLink href="https://docs.pancakeswap.finance/tokenomics/cake/cake-tokenomics">
+                <InlineLink href="#">
                   {t('TX8 Tokenomics')}
                 </InlineLink>
               </Text>
@@ -336,21 +336,6 @@ const HowToPlay: React.FC = () => {
           <PoolAllocations />
         </Flex>
       </GappedFlex>
-      <Divider />
-      <Flex justifyContent="center" alignItems="center" flexDirection={['column', 'column', 'row']}>
-        <Image width={240} height={172} src="/images/lottery/tombola.png" alt="tombola bunny" mr="8px" mb="16px" />
-        <Flex maxWidth="300px" flexDirection="column">
-          <Heading mb="16px" scale="md">
-            {t('Still got questions?')}
-          </Heading>
-          <Text>
-            {t('Check our in-depth guide on')}{' '}
-            <InlineLink href="https://docs.pancakeswap.finance/products/lottery/lottery-guide">
-              {t('how to play the PancakeSwap lottery!')}
-            </InlineLink>
-          </Text>
-        </Flex>
-      </Flex>
     </Box>
   )
 }
