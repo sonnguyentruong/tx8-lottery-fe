@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import { Box, Flex, Heading, Skeleton } from '@pancakeswap/uikit'
 import { LotteryStatus } from 'config/constants/types'
 import { useTranslation } from 'contexts/Localization'
-import { usePriceCakeBusd } from 'state/farms/hooks'
+// import { usePriceCakeBusd } from 'state/farms/hooks'
 import { useLottery } from 'state/lottery/hooks'
 import { getBalanceNumber } from 'utils/formatBalance'
 import Balance from 'components/Balance'
@@ -219,19 +219,17 @@ const Hero = () => {
     isTransitioning,
   } = useLottery()
 
-  const cakePriceBusd = usePriceCakeBusd()
-  const prizeInBusd = amountCollectedInTX8.times(cakePriceBusd)
-  const prizeTotal = getBalanceNumber(prizeInBusd)
+  const prizeTotal = getBalanceNumber(amountCollectedInTX8)
   const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning
 
   const getHeroHeading = () => {
     if (status === LotteryStatus.OPEN) {
       return (
         <>
-          {prizeInBusd.isNaN() ? (
+          {amountCollectedInTX8.isNaN() ? (
             <Skeleton my="7px" height={60} width={190} />
           ) : (
-            <PrizeTotalBalance fontSize="64px" bold prefix="$" value={prizeTotal} mb="8px" decimals={0} />
+            <PrizeTotalBalance fontSize="64px" bold  value={prizeTotal} unit=" TX8" mb="8px" decimals={3} />
           )}
           <Heading mb="32px" scale="lg" color="#ffffff">
             {t('in prizes!')}

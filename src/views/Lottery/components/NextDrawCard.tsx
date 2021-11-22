@@ -93,7 +93,7 @@ const NextDrawCard = () => {
             prefix="~"
             value={getBalanceNumber(amountCollectedInTX8) }
             unit=" TX8"
-            decimals={0}
+            decimals={3}
           />
         )}
       </>
