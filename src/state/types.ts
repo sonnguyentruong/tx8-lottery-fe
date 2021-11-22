@@ -553,7 +553,7 @@ export interface LotteryRoundGraphEntity {
 
 export interface LotteryUserGraphEntity {
   account: string
-  totalCake: string
+  totalTX8: string
   totalTickets: string
   rounds: UserRound[]
 }
