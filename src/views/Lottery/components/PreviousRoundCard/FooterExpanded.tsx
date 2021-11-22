@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import { Flex, Skeleton, Heading, Box, Text } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import { LotteryRound, LotteryRoundGraphEntity } from 'state/types'
-import { usePriceCakeBusd } from 'state/farms/hooks'
+// import { usePriceCakeBusd } from 'state/farms/hooks'
 import { useGetLotteryGraphDataById } from 'state/lottery/hooks'
 import { getGraphLotteries } from 'state/lottery/getLotteriesData'
 import { formatNumber, getBalanceNumber } from 'utils/formatBalance'
@@ -28,7 +28,7 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
   const { t } = useTranslation()
   const [fetchedLotteryGraphData, setFetchedLotteryGraphData] = useState<LotteryRoundGraphEntity>()
   const lotteryGraphDataFromState = useGetLotteryGraphDataById(lotteryId)
-  const cakePriceBusd = usePriceCakeBusd()
+  // const cakePriceBusd = usePriceCakeBusd()
 
   useEffect(() => {
     const getGraphData = async () => {
@@ -40,10 +40,10 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
     }
   }, [lotteryGraphDataFromState, lotteryId])
 
-  let prizeInBusd = new BigNumber(NaN)
+  let prizeInTx8 = new BigNumber(NaN)
   if (lotteryNodeData) {
     const { amountCollectedInTX8 } = lotteryNodeData
-    prizeInBusd = amountCollectedInTX8.times(cakePriceBusd)
+    prizeInTx8 = amountCollectedInTX8;
   }
 
   const getTotalUsers = (): string => {
@@ -61,14 +61,14 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
   const getPrizeBalances = () => {
     return (
       <>
-        {prizeInBusd.isNaN() ? (
+        {prizeInTx8.isNaN() ? (
           <Skeleton my="7px" height={40} width={200} />
         ) : (
           <Heading scale="xl" lineHeight="1" color="secondary">
-            ~${formatNumber(getBalanceNumber(prizeInBusd), 0, 0)}
+            {formatNumber(getBalanceNumber(prizeInTx8, 3), 3, 3)} TX8
           </Heading>
         )}
-        {prizeInBusd.isNaN() ? (
+        {prizeInTx8.isNaN() ? (
           <Skeleton my="2px" height={14} width={90} />
         ) : (
           <Balance
@@ -76,7 +76,7 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
             color="textSubtle"
             unit=" TX8"
             value={getBalanceNumber(lotteryNodeData?.amountCollectedInTX8)}
-            decimals={0}
+            decimals={3}
           />
         )}
       </>

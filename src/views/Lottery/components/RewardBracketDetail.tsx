@@ -2,7 +2,7 @@ import React from 'react'
 import BigNumber from 'bignumber.js'
 import { Flex, Skeleton, Text } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
-import { usePriceCakeBusd } from 'state/farms/hooks'
+// import { usePriceCakeBusd } from 'state/farms/hooks'
 import Balance from 'components/Balance'
 import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
 
@@ -24,7 +24,7 @@ const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
   isLoading,
 }) => {
   const { t } = useTranslation()
-  const cakePriceBusd = usePriceCakeBusd()
+  // const cakePriceBusd = usePriceCakeBusd()
 
   const getRewardText = () => {
     const numberMatch = rewardBracket + 1
@@ -50,20 +50,7 @@ const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
         {isLoading || cakeAmount.isNaN() ? (
           <Skeleton my="4px" mr="10px" height={20} width={110} />
         ) : (
-          <Balance fontSize="20px" bold unit=" TX8" value={getBalanceNumber(cakeAmount)} decimals={0} />
-        )}
-        {isLoading || cakeAmount.isNaN() ? (
-          <>
-            <Skeleton mt="4px" mb="16px" height={12} width={70} />
-          </>
-        ) : (
-          <Balance
-            fontSize="12px"
-            color="textSubtle"
-            prefix="~$"
-            value={getBalanceNumber(cakeAmount.times(cakePriceBusd))}
-            decimals={0}
-          />
+          <Balance fontSize="20px" bold unit=" TX8" value={getBalanceNumber(cakeAmount)} decimals={3} />
         )}
         {isHistoricRound && cakeAmount && (
           <>

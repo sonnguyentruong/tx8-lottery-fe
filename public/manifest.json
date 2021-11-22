@@ -12,12 +12,17 @@
     {
       "src": "favicon.ico",
       "type": "image/x-icon",
-      "sizes": "32x32"
+      "sizes": "360x360"
     },
     {
       "src": "logo.png",
       "type": "image/png",
-      "sizes": "83x76"
+      "sizes": "360x360"
+    },
+    {
+      "src": "hero.png",
+      "type": "image/png",
+      "sizes": "360x360"
     }
   ]
 }
