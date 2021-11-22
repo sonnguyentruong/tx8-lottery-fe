@@ -88,7 +88,7 @@ const PreviousRoundCardBody: React.FC<{ lotteryNodeData: LotteryRound; lotteryId
           {lotteryNodeData ? (
             <WinningNumbers
               rotateText={isLargerScreen || false}
-              number={lotteryNodeData?.finalNumber.toString()}
+              number={lotteryNodeData?.finalNumber?lotteryNodeData?.finalNumber.toString():"123456"}
               mr={[null, null, null, '32px']}
               size="100%"
               fontSize={isLargerScreen ? '42px' : '16px'}
