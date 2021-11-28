@@ -1,9 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { useModal } from '@pancakeswap/uikit'
+import React, { useEffect, useRef } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { getAnniversaryAchievementContract } from 'utils/contractHelpers'
-import AnniversaryAchievementModal from './AnniversaryAchievementModal'
 
 interface GlobalCheckClaimStatusProps {
   excludeLocations: string[]
@@ -15,35 +11,9 @@ interface GlobalCheckClaimStatusProps {
  *
  * TODO: Put global checks in redux or make a generic area to house global checks
  */
-const GlobalCheckClaimStatus: React.FC<GlobalCheckClaimStatusProps> = ({ excludeLocations }) => {
+const GlobalCheckClaimStatus: React.FC<GlobalCheckClaimStatusProps> = () => {
   const hasDisplayedModal = useRef(false)
-  const [canClaimAnniversaryPoints, setCanClaimAnniversaryPoints] = useState(false)
   const { account } = useWeb3React()
-  const { pathname } = useLocation()
-  const [onPresentAnniversaryModal] = useModal(<AnniversaryAchievementModal />)
-
-  // Check claim status
-  useEffect(() => {
-    const fetchClaimAnniversaryStatus = async () => {
-      const { canClaim } = getAnniversaryAchievementContract()
-      const canClaimAnniversary = await canClaim(account)
-      setCanClaimAnniversaryPoints(canClaimAnniversary)
-    }
-
-    if (account) {
-      fetchClaimAnniversaryStatus()
-    }
-  }, [account])
-
-  // Check if we need to display the modal
-  useEffect(() => {
-    const matchesSomeLocations = excludeLocations.some((location) => pathname.includes(location))
-
-    if (canClaimAnniversaryPoints && !matchesSomeLocations && !hasDisplayedModal.current) {
-      onPresentAnniversaryModal()
-      hasDisplayedModal.current = true
-    }
-  }, [pathname, excludeLocations, hasDisplayedModal, onPresentAnniversaryModal, canClaimAnniversaryPoints])
 
   // Reset the check flag when account changes
   useEffect(() => {
