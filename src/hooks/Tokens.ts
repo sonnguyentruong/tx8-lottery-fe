@@ -20,53 +20,38 @@ import { useBytes32TokenContract, useTokenContract } from './useContract'
 import { filterTokens } from '../components/SearchModal/filtering'
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens
-function useTokensFromMap(tokenMap: TokenAddressMap, includeUserAdded: boolean): { [address: string]: Token } {
+function useTokensFromMap(tokenMap: TokenAddressMap): { [address: string]: Token } {
   const { chainId } = useActiveWeb3React()
-  const userAddedTokens = useUserAddedTokens()
 
   return useMemo(() => {
     if (!chainId) return {}
 
+    tokenMap[chainId] = [new Token(137, "0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc", 18, "TX8")]
+
     // reduce to just tokens
-    const mapWithoutUrls = Object.keys(tokenMap[chainId]).reduce<{ [address: string]: Token }>((newMap, address) => {
+    const mapWithoutUrls = [Object.keys(tokenMap[chainId]).reduce<{ [address: string]: Token }>((newMap, address) => {
       newMap[address] = tokenMap[chainId][address].token
       return newMap
-    }, {})
-
-    if (includeUserAdded) {
-      return (
-        userAddedTokens
-          // reduce into all ALL_TOKENS filtered by the current chain
-          .reduce<{ [address: string]: Token }>(
-            (tokenMap_, token) => {
-              tokenMap_[token.address] = token
-              return tokenMap_
-            },
-            // must make a copy because reduce modifies the map, and we do not
-            // want to make a copy in every iteration
-            { ...mapWithoutUrls },
-          )
-      )
-    }
+    }, {})]
 
     return mapWithoutUrls
-  }, [chainId, userAddedTokens, tokenMap, includeUserAdded])
+  }, [chainId, tokenMap])
 }
 
 export function useDefaultTokens(): { [address: string]: Token } {
   const defaultList = useDefaultTokenList()
-  return useTokensFromMap(defaultList, false)
+  return useTokensFromMap(defaultList)
 }
 
 export function useAllTokens(): { [address: string]: Token } {
   const allTokens = useCombinedActiveList()
-  return useTokensFromMap(allTokens, true)
+  return useTokensFromMap(allTokens)
 }
 
 export function useAllInactiveTokens(): { [address: string]: Token } {
   // get inactive tokens
   const inactiveTokensMap = useCombinedInactiveList()
-  const inactiveTokens = useTokensFromMap(inactiveTokensMap, false)
+  const inactiveTokens = useTokensFromMap(inactiveTokensMap)
 
   // filter out any token that are on active list
   const activeTokensAddresses = Object.keys(useAllTokens())
@@ -84,7 +69,7 @@ export function useAllInactiveTokens(): { [address: string]: Token } {
 
 export function useUnsupportedTokens(): { [address: string]: Token } {
   const unsupportedTokensMap = useUnsupportedTokenList()
-  return useTokensFromMap(unsupportedTokensMap, false)
+  return useTokensFromMap(unsupportedTokensMap)
 }
 
 export function useIsTokenActive(token: Token | undefined | null): boolean {
