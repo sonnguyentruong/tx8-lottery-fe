@@ -31,7 +31,7 @@ export const mainnetTokens = {
     'PancakeSwap Token',
     'https://pancakeswap.finance/',
   ),
-  tx8: new Token(MAINNET, '0xA9FaD7e4a8ec0c11e270200dfEa187A5d41186B5', 18, 'TX8', 'TX8 Token', 'https://tx8.vn/'),
+  tx8: new Token(MAINNET, '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', 18, 'TX8', 'TX8 Token', 'https://tx8.vn/'),
   tlos: new Token(MAINNET, '0xb6C53431608E626AC81a9776ac3e999c5556717c', 18, 'TLOS', 'Telos', 'https://www.telos.net/'),
   beta: new Token(
     MAINNET,

@@ -65,7 +65,7 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
           <Skeleton my="7px" height={40} width={200} />
         ) : (
           <Heading scale="xl" lineHeight="1" color="secondary">
-            {formatNumber(getBalanceNumber(prizeInTx8, 3), 3, 3)} TX8
+            {formatNumber(getBalanceNumber(prizeInTx8, 18), 1, 1)} TX8
           </Heading>
         )}
         {prizeInTx8.isNaN() ? (
