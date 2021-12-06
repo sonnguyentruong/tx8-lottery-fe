@@ -6,16 +6,16 @@ import { getBscScanLink, calculateSlippageAmount, isAddress, calculateGasMargin,
 describe('utils', () => {
   describe('#getBscScanLink', () => {
     it('correct for tx', () => {
-      expect(getBscScanLink('abc', 'transaction', ChainId.MAINNET)).toEqual('https://bscscan.com/tx/abc')
+      expect(getBscScanLink('abc', 'transaction', ChainId.MAINNET)).toEqual('https://polygonscan.com/tx/abc')
     })
     it('correct for token', () => {
-      expect(getBscScanLink('abc', 'token', ChainId.MAINNET)).toEqual('https://bscscan.com/token/abc')
+      expect(getBscScanLink('abc', 'token', ChainId.MAINNET)).toEqual('https://polygonscan.com/token/abc')
     })
     it('correct for address', () => {
-      expect(getBscScanLink('abc', 'address', ChainId.MAINNET)).toEqual('https://bscscan.com/address/abc')
+      expect(getBscScanLink('abc', 'address', ChainId.MAINNET)).toEqual('https://polygonscan.com/address/abc')
     })
     it('enum', () => {
-      expect(getBscScanLink('abc', 'address', ChainId.TESTNET)).toEqual('https://testnet.bscscan.com/address/abc')
+      expect(getBscScanLink('abc', 'address', ChainId.TESTNET)).toEqual('https://testnet.polygonscan.com/address/abc')
     })
   })
 

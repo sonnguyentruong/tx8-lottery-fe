@@ -65,7 +65,7 @@ export const mainnetTokens = {
     '0x40E46dE174dfB776BB89E04dF1C47d8a66855EB3',
     18,
     'BSCDEFI',
-    'BSC Defi blue chips token',
+    'MATIC Defi blue chips token',
     'https://powerpool.finance/',
   ),
   busd: new Token(
@@ -1504,7 +1504,7 @@ export const mainnetTokens = {
     '0x045c4324039dA91c52C55DF5D785385Aab073DcF',
     18,
     'bCFX',
-    'BSC Conflux Token',
+    'MATIC Conflux Token',
     'https://www.confluxnetwork.org/',
   ),
   mx: new Token(MAINNET, '0x9F882567A62a5560d147d64871776EeA72Df41D3', 18, 'MX', 'MX Token', 'https://www.mxc.com/'),
