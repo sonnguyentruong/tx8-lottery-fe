@@ -23,7 +23,7 @@ const useEagerConnect = () => {
     const connectorId = window.localStorage.getItem(connectorLocalStorageKey) as ConnectorNames
 
     if (connectorId) {
-      const isConnectorBinanceChain = connectorId === ConnectorNames.MATIC
+      const isConnectorBinanceChain = connectorId === "MATIC"
       const isBinanceChainDefined = Reflect.has(window, 'PolygonChain')
 
       // Currently MATIC extension doesn't always inject in time.
