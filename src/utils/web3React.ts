@@ -18,7 +18,7 @@ const walletconnect = new WalletConnectConnector({
 
 const bscConnector = new BscConnector({ supportedChainIds: [chainId] })
 
-export declare enum ConnectorNames {
+export enum ConnectorNames {
   Injected = "injected",
   WalletConnect = "walletconnect",
   MATIC = "MATIC"
