@@ -29,30 +29,30 @@ function useTokensFromMap(tokenMap: TokenAddressMap): {
   return useMemo(() => {
     if (!chainId) return {}
 
-    const tx8Address = '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc'
-    tokenMap[chainId] = {
-      ...tokenMap[chainId],
-      [tx8Address]: {
-        token: new WrappedTokenInfo(
-          {
-            chainId: 137,
-            address: tx8Address,
-            decimals: 18,
-            symbol: 'TX8',
-            name: 'TX8',
-            logoURI: 'https://i.imgur.com/TFCiyH4.png'
-          },
-          [],
-        ),
-      },
-    }
+    // const tx8Address = '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc'
+    // tokenMap[chainId] = {
+    //   ...tokenMap[chainId],
+    //   [tx8Address]: {
+    //     token: new WrappedTokenInfo(
+    //       {
+    //         chainId: 137,
+    //         address: tx8Address,
+    //         decimals: 18,
+    //         symbol: 'TX8',
+    //         name: 'TX8',
+    //         logoURI: 'https://i.imgur.com/TFCiyH4.png'
+    //       },
+    //       [],
+    //     ),
+    //   },
+    // }
 
     // reduce to just tokens
-    const mapWithoutUrls = 
-      Object.keys(tokenMap[chainId]).reduce<{ [address: string]: Token }>((newMap, address) => {
-        newMap[address] = tokenMap[chainId][address].token
+    const mapWithoutUrls = Object.keys(tokenMap).map(key => 
+      Object.keys(tokenMap[key]).reduce<{ [address: string]: Token }>((newMap, address) => {
+        newMap[address] = tokenMap[key][address].token
         return newMap
-      }, {})
+      }, {})).reduce((map, current) => ({...map, ...current}), {})
     
     return mapWithoutUrls
   }, [chainId, tokenMap])
