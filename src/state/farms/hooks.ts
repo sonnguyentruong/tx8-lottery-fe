@@ -145,7 +145,7 @@ export const useLpTokenPrice = (symbol: string) => {
 // /!\ Deprecated , use the BUSD hook in /hooks
 
 export const usePriceCakeBusd = (): BigNumber => {
-  const cakePriceBusdAsString = 15
+  const cakePriceBusdAsString = 0.005
 
   const cakePriceBusd = useMemo(() => {
     return new BigNumber(cakePriceBusdAsString)

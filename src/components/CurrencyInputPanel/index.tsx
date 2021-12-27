@@ -87,6 +87,7 @@ export default function CurrencyInputPanel({
       showCommonBases={showCommonBases}
     />,
   )
+
   return (
     <InputPanel id={id}>
       <Container hideInput={hideInput}>

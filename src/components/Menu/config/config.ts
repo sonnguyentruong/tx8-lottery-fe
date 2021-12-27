@@ -7,14 +7,16 @@ const config: (t: ContextApi['t']) => ConfigMenuItemsType[] = (t) => [
   {
     label: t('Lottery'),
     icon: 'Trophy',
-    href: '/',
-    showItemsOnMobile: true,
+    href: '/lottery',
+    hideSubNav: true,
+    // showItemsOnMobile: true,
   },
   {
     label: t('Exchange'),
     icon: 'Swap',
     href: '/swap',
-    showItemsOnMobile: false,
+    hideSubNav: true,
+    // showItemsOnMobile: true,
   },
   // {
   //   label: t('Trade'),

@@ -1,5 +1,5 @@
 import React, { lazy } from 'react'
-import { Router, Route, Switch } from 'react-router-dom'
+import { Router, Route, Switch, Redirect } from 'react-router-dom'
 import { ResetCSS } from '@pancakeswap/uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
@@ -15,12 +15,12 @@ import PageLoader from './components/Loader/PageLoader'
 import EasterEgg from './components/EasterEgg'
 import GlobalCheckClaimStatus from './components/GlobalCheckClaimStatus'
 import history from './routerHistory'
-import Swap from './views/Swap'
 
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
 const Lottery = lazy(() => import('./views/Lottery'))
+const Swap = lazy(() => import('./views/Swap'))
 
 // This config is required for number formatting
 BigNumber.config({
@@ -42,8 +42,9 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path="/" exact component={Lottery} />
+            <Route path="/lottery" exact component={Lottery} />
             <Route path="/swap" exact component={Swap} />
+            <Redirect to="/lottery" />
           </Switch>
         </SuspenseWithChunkError>
       </Menu>

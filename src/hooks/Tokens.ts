@@ -10,6 +10,7 @@ import {
   useUnsupportedTokenList,
   useCombinedActiveList,
   useCombinedInactiveList,
+  WrappedTokenInfo,
 } from '../state/lists/hooks'
 
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
@@ -20,20 +21,39 @@ import { useBytes32TokenContract, useTokenContract } from './useContract'
 import { filterTokens } from '../components/SearchModal/filtering'
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens
-function useTokensFromMap(tokenMap: TokenAddressMap): { [address: string]: Token } {
+function useTokensFromMap(tokenMap: TokenAddressMap): {
+  [address: string]: Token
+} {
   const { chainId } = useActiveWeb3React()
 
   return useMemo(() => {
     if (!chainId) return {}
 
-    tokenMap[chainId] = [new Token(137, "0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc", 18, "TX8")]
+    const tx8Address = '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc'
+    tokenMap[chainId] = {
+      ...tokenMap[chainId],
+      [tx8Address]: {
+        token: new WrappedTokenInfo(
+          {
+            chainId: 137,
+            address: tx8Address,
+            decimals: 18,
+            symbol: 'TX8',
+            name: 'TX8',
+            logoURI: 'https://i.imgur.com/TFCiyH4.png'
+          },
+          [],
+        ),
+      },
+    }
 
     // reduce to just tokens
-    const mapWithoutUrls = [Object.keys(tokenMap[chainId]).reduce<{ [address: string]: Token }>((newMap, address) => {
-      newMap[address] = tokenMap[chainId][address].token
-      return newMap
-    }, {})]
-
+    const mapWithoutUrls = 
+      Object.keys(tokenMap[chainId]).reduce<{ [address: string]: Token }>((newMap, address) => {
+        newMap[address] = tokenMap[chainId][address].token
+        return newMap
+      }, {})
+    
     return mapWithoutUrls
   }, [chainId, tokenMap])
 }
@@ -104,7 +124,7 @@ export function useIsUserAddedToken(currency: Currency | undefined | null): bool
     return false
   }
 
-  return !!userAddedTokens.find((token) => currencyEquals(currency, token))
+  return !!userAddedTokens.find(token => currencyEquals(currency, token))
 }
 
 // parse a name or symbol from a token response

@@ -20,7 +20,8 @@ const Menu = (props) => {
   const { pathname } = useLocation()
   const [showPhishingWarningBanner] = usePhishingBannerManager()
 
-  const activeMenuItem = getActiveMenuItem({ menuConfig: config(t), pathname })
+  const menuConfig = config(t)
+  const activeMenuItem = getActiveMenuItem({ menuConfig, pathname })
   const activeSubMenuItem = getActiveSubMenuItem({ menuItem: activeMenuItem, pathname })
 
   return (
@@ -34,7 +35,7 @@ const Menu = (props) => {
       langs={languageList}
       setLang={setLanguage}
       cakePriceUsd={cakePriceUsd.toNumber()}
-      links={config(t)}
+      links={menuConfig}
       subLinks={activeMenuItem?.hideSubNav ? [] : activeMenuItem?.items}
       footerLinks={footerLinks(t)}
       activeItem={activeMenuItem?.href}
