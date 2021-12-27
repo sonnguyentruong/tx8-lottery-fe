@@ -8,7 +8,7 @@ import useScrollOnRouteChange from 'hooks/useScrollOnRouteChange'
 import { usePollBlockNumber } from 'state/block/hooks'
 import { DatePickerPortal } from 'components/DatePicker'
 import GlobalStyle from './style/Global'
-// import Menu from './components/Menu'
+import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
 import { ToastListener } from './contexts/ToastsContext'
 import PageLoader from './components/Loader/PageLoader'
@@ -38,7 +38,7 @@ const App: React.FC = () => {
       <ResetCSS />
       <GlobalStyle />
       <GlobalCheckClaimStatus excludeLocations={[]} />
-      {/* <Menu> */}
+      <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
             <Route path="/" exact>
@@ -46,7 +46,7 @@ const App: React.FC = () => {
             </Route>
           </Switch>
         </SuspenseWithChunkError>
-      {/* </Menu> */}
+      </Menu>
       <EasterEgg iterations={2} />
       <ToastListener />
       <DatePickerPortal />
