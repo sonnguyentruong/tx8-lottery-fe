@@ -15,6 +15,7 @@ import PageLoader from './components/Loader/PageLoader'
 import EasterEgg from './components/EasterEgg'
 import GlobalCheckClaimStatus from './components/GlobalCheckClaimStatus'
 import history from './routerHistory'
+import Swap from './views/Swap'
 
 
 // Route-based code splitting
@@ -41,9 +42,8 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path="/" exact>
-              <Lottery />
-            </Route>
+            <Route path="/" exact component={Lottery} />
+            <Route path="/swap" exact component={Swap} />
           </Switch>
         </SuspenseWithChunkError>
       </Menu>
