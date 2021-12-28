@@ -3,78 +3,23 @@ import { ContextApi } from 'contexts/Localization/types'
 
 export const footerLinks: (t: ContextApi['t']) => FooterLinkType[] = (t) => [
   {
-    label: t('About'),
+    label: t('Win'),
     items: [
       {
-        label: t('Contact'),
+        label: t('Lottery'),
         href: 'https://docs.pancakeswap.finance/contact-us',
       },
-      {
-        label: t('Brand'),
-        href: 'https://docs.pancakeswap.finance/brand',
-      },
-      {
-        label: t('Blog'),
-        href: 'https://medium.com/pancakeswap',
-      },
-      {
-        label: t('Community'),
-        href: 'https://docs.pancakeswap.finance/contact-us/telegram',
-      },
-      {
-        label: t('TX8 token'),
-        href: 'https://docs.pancakeswap.finance/tokenomics/cake',
-      },
-      {
-        label: '—',
-      },
-      {
-        label: t('Online Store'),
-        href: 'https://pancakeswap.creator-spring.com/',
-        isHighlighted: true,
-      },
+     
     ],
   },
   {
-    label: t('Help'),
+    label: t('Trade'),
     items: [
       {
-        label: t('Customer Support'),
+        label: t('Exchange'),
         href: 'https://docs.pancakeswap.finance/contact-us/customer-support',
       },
-      {
-        label: t('Troubleshooting'),
-        href: 'https://docs.pancakeswap.finance/help/troubleshooting',
-      },
-      {
-        label: t('Guides'),
-        href: 'https://docs.pancakeswap.finance/get-started',
-      },
-    ],
-  },
-  {
-    label: t('Developers'),
-    items: [
-      {
-        label: 'Github',
-        href: 'https://github.com/pancakeswap',
-      },
-      {
-        label: t('Documentation'),
-        href: 'https://docs.pancakeswap.finance',
-      },
-      {
-        label: t('Bug Bounty'),
-        href: 'https://app.gitbook.com/@pancakeswap-1/s/pancakeswap/code/bug-bounty',
-      },
-      {
-        label: t('Audits'),
-        href: 'https://docs.pancakeswap.finance/help/faq#is-pancakeswap-safe-has-pancakeswap-been-audited',
-      },
-      {
-        label: t('Careers'),
-        href: 'https://docs.pancakeswap.finance/hiring/become-a-chef',
-      },
+     
     ],
   },
 ]
