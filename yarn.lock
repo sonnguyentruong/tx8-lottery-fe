@@ -2651,7 +2651,7 @@
 
 "@pancakeswap/uikit@https://github.com/hoa-nguyenlexuan/ncc-uikit":
   version "0.56.1"
-  resolved "https://github.com/hoa-nguyenlexuan/ncc-uikit#7edb9560062f187daed52e99a5214d472d245a4b"
+  resolved "https://github.com/hoa-nguyenlexuan/ncc-uikit#36e5ae30868021f0d318702b187658c1d26e997e"
   dependencies:
     "@popperjs/core" "^2.9.2"
     "@types/lodash" "^4.14.168"
