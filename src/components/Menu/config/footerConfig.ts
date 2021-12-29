@@ -7,7 +7,7 @@ export const footerLinks: (t: ContextApi['t']) => FooterLinkType[] = (t) => [
     items: [
       {
         label: t('Lottery'),
-        href: 'https://docs.pancakeswap.finance/contact-us',
+        href: '/',
       },
      
     ],
@@ -17,7 +17,7 @@ export const footerLinks: (t: ContextApi['t']) => FooterLinkType[] = (t) => [
     items: [
       {
         label: t('Exchange'),
-        href: 'https://docs.pancakeswap.finance/contact-us/customer-support',
+        href: '/swap',
       },
      
     ],
