@@ -8,7 +8,6 @@ import {
   TokenAddressMap,
   useDefaultTokenList,
   useUnsupportedTokenList,
-  useCombinedActiveList,
   useCombinedInactiveList,
   WrappedTokenInfo,
 } from '../state/lists/hooks'
@@ -29,31 +28,13 @@ function useTokensFromMap(tokenMap: TokenAddressMap): {
   return useMemo(() => {
     if (!chainId) return {}
 
-    // const tx8Address = '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc'
-    // tokenMap[chainId] = {
-    //   ...tokenMap[chainId],
-    //   [tx8Address]: {
-    //     token: new WrappedTokenInfo(
-    //       {
-    //         chainId: 137,
-    //         address: tx8Address,
-    //         decimals: 18,
-    //         symbol: 'TX8',
-    //         name: 'TX8',
-    //         logoURI: 'https://i.imgur.com/TFCiyH4.png'
-    //       },
-    //       [],
-    //     ),
-    //   },
-    // }
-
     // reduce to just tokens
     const mapWithoutUrls = Object.keys(tokenMap).map(key => 
       Object.keys(tokenMap[key]).reduce<{ [address: string]: Token }>((newMap, address) => {
         newMap[address] = tokenMap[key][address].token
         return newMap
       }, {})).reduce((map, current) => ({...map, ...current}), {})
-    
+
     return mapWithoutUrls
   }, [chainId, tokenMap])
 }
@@ -64,7 +45,39 @@ export function useDefaultTokens(): { [address: string]: Token } {
 }
 
 export function useAllTokens(): { [address: string]: Token } {
-  const allTokens = useCombinedActiveList()
+  // const allTokens = useCombinedActiveList()
+  const chainId = 137
+  const tx8 = new WrappedTokenInfo(
+    {
+      chainId,
+      address: '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc',
+      decimals: 18,
+      symbol: 'TX8',
+      name: 'NCC Token',
+      logoURI: 'https://i.imgur.com/TFCiyH4.png',
+    },
+    [],
+  )
+  const usdt = new WrappedTokenInfo(
+    {
+      chainId,
+      address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+      decimals: 18,
+      symbol: 'USDT',
+      name: 'Tether USD',
+      logoURI: 'https://pancakeswap.finance/images/tokens/0x55d398326f99059ff775485246999027b3197955.png',
+    },
+    [],
+  )
+  const allTokens = {
+    56: {},
+    97: {},
+    [chainId]: {
+      [tx8.address]: { token: tx8 },
+      [usdt.address]: { token: usdt },
+    },
+  }
+
   return useTokensFromMap(allTokens)
 }
 

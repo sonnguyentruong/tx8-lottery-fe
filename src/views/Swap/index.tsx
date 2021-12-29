@@ -34,6 +34,7 @@ import {
   useDerivedSwapInfo,
   useSwapActionHandlers,
   useSwapState,
+  useTradeInfo,
 } from '../../state/swap/hooks'
 import { useExpertModeManager, useUserSlippageTolerance, useUserSingleHopOnly } from '../../state/user/hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
@@ -91,14 +92,16 @@ export default function Swap({ history }: RouteComponentProps) {
   const showWrap: boolean = wrapType !== WrapType.NOT_APPLICABLE
   const trade = showWrap ? undefined : v2Trade
 
+  const { inputAmount, outputAmount } = useTradeInfo()
+
   const parsedAmounts = showWrap
     ? {
         [Field.INPUT]: parsedAmount,
         [Field.OUTPUT]: parsedAmount,
       }
     : {
-        [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
-        [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
+        [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : inputAmount,
+        [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : outputAmount,
       }
 
   const { onSwitchTokens, onCurrencySelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
@@ -176,10 +179,10 @@ export default function Swap({ history }: RouteComponentProps) {
     }
     setSwapState({ attemptingTxn: true, tradeToConfirm, swapErrorMessage: undefined, txHash: undefined })
     swapCallback()
-      .then((hash) => {
+      .then(hash => {
         setSwapState({ attemptingTxn: false, tradeToConfirm, swapErrorMessage: undefined, txHash: hash })
       })
-      .catch((error) => {
+      .catch(error => {
         setSwapState({
           attemptingTxn: false,
           tradeToConfirm,
@@ -220,8 +223,8 @@ export default function Swap({ history }: RouteComponentProps) {
   const [swapWarningCurrency, setSwapWarningCurrency] = useState(null)
   const [onPresentSwapWarningModal] = useModal(<SwapWarningModal swapCurrency={swapWarningCurrency} />)
 
-  const shouldShowSwapWarning = (swapCurrency) => {
-    const isWarningToken = Object.entries(SwapWarningTokens).find((warningTokenConfig) => {
+  const shouldShowSwapWarning = swapCurrency => {
+    const isWarningToken = Object.entries(SwapWarningTokens).find(warningTokenConfig => {
       const warningTokenData = warningTokenConfig[1]
       return swapCurrency.address === warningTokenData.address
     })
@@ -236,7 +239,7 @@ export default function Swap({ history }: RouteComponentProps) {
   }, [swapWarningCurrency])
 
   const handleInputSelect = useCallback(
-    (inputCurrency) => {
+    inputCurrency => {
       setApprovalSubmitted(false) // reset 2 step UI for approvals
       onCurrencySelection(Field.INPUT, inputCurrency)
       const showSwapWarning = shouldShowSwapWarning(inputCurrency)
@@ -256,7 +259,7 @@ export default function Swap({ history }: RouteComponentProps) {
   }, [maxAmountInput, onUserInput])
 
   const handleOutputSelect = useCallback(
-    (outputCurrency) => {
+    outputCurrency => {
       onCurrencySelection(Field.OUTPUT, outputCurrency)
       const showSwapWarning = shouldShowSwapWarning(outputCurrency)
       if (showSwapWarning) {
