@@ -1,11 +1,11 @@
 import { parseUnits } from '@ethersproject/units'
-import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade } from '@pancakeswap/sdk'
+import { Currency, CurrencyAmount, ETHER, Fraction, JSBI, Token, TokenAmount, Trade } from '@pancakeswap/sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useENS from 'hooks/ENS/useENS'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useCurrency } from 'hooks/Tokens'
+import { useAllTokens, useCurrency } from 'hooks/Tokens'
 import { useTradeExactIn, useTradeExactOut } from 'hooks/Trades'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import { useTranslation } from 'contexts/Localization'
@@ -18,7 +18,7 @@ import { SwapState } from './reducer'
 import { useUserSlippageTolerance } from '../user/hooks'
 
 export function useSwapState(): AppState['swap'] {
-  return useSelector<AppState, AppState['swap']>((state) => state.swap)
+  return useSelector<AppState, AppState['swap']>(state => state.swap)
 }
 
 export function useSwapActionHandlers(): {
@@ -99,8 +99,8 @@ const BAD_RECIPIENT_ADDRESSES: string[] = [
  */
 function involvesAddress(trade: Trade, checksummedAddress: string): boolean {
   return (
-    trade.route.path.some((token) => token.address === checksummedAddress) ||
-    trade.route.pairs.some((pair) => pair.liquidityToken.address === checksummedAddress)
+    trade.route.path.some(token => token.address === checksummedAddress) ||
+    trade.route.pairs.some(pair => pair.liquidityToken.address === checksummedAddress)
   )
 }
 
@@ -273,8 +273,10 @@ export function useDefaultsFromURLSearch():
       replaceSwapState({
         typedValue: parsed.typedValue,
         field: parsed.independentField,
-        inputCurrencyId: parsed[Field.INPUT].currencyId,
-        outputCurrencyId: parsed[Field.OUTPUT].currencyId,
+        // inputCurrencyId: parsed[Field.INPUT].currencyId,
+        // outputCurrencyId: parsed[Field.OUTPUT].currencyId,
+        inputCurrencyId: '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', // tx8
+        outputCurrencyId: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', // usdt
         recipient: null,
       }),
     )
@@ -284,4 +286,33 @@ export function useDefaultsFromURLSearch():
   }, [dispatch, chainId])
 
   return result
+}
+
+export const useTradeInfo = (): { inputAmount?: CurrencyAmount; outputAmount?: CurrencyAmount } => {
+  const {
+    independentField,
+    typedValue,
+    [Field.INPUT]: { currencyId: inputCurrencyId },
+    [Field.OUTPUT]: { currencyId: outputCurrencyId },
+  } = useSwapState()
+  const allTokens = useAllTokens()
+  const inputToken = allTokens[inputCurrencyId]
+  const outputToken = allTokens[outputCurrencyId]
+  if (!inputToken || !outputToken) {
+    return { inputAmount: undefined, outputAmount: undefined }
+  }
+
+  if (independentField === Field.INPUT) {
+    const inputAmount = tryParseAmount(typedValue, inputToken)
+    return {
+      inputAmount,
+      outputAmount: tryParseAmount(inputAmount?.divide('200').toSignificant(6), outputToken),
+    }
+  }
+
+  const outputAmount = tryParseAmount(typedValue, outputToken)
+  return {
+    outputAmount,
+    inputAmount: tryParseAmount(outputAmount?.multiply('200').toSignificant(6), inputToken),
+  }
 }
