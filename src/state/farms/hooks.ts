@@ -49,7 +49,7 @@ export const usePollFarmsPublicData = (includeArchive = false) => {
 
   useEffect(() => {
     const farmsToFetch = includeArchive ? farmsConfig : nonArchivedFarms
-    const pids = farmsToFetch.map((farmToFetch) => farmToFetch.pid)
+    const pids = farmsToFetch.map(farmToFetch => farmToFetch.pid)
 
     dispatch(fetchFarmsPublicDataAsync(pids))
   }, [includeArchive, dispatch, slowRefresh])
@@ -62,7 +62,7 @@ export const usePollFarmsWithUserData = (includeArchive = false) => {
 
   useEffect(() => {
     const farmsToFetch = includeArchive ? farmsConfig : nonArchivedFarms
-    const pids = farmsToFetch.map((farmToFetch) => farmToFetch.pid)
+    const pids = farmsToFetch.map(farmToFetch => farmToFetch.pid)
 
     dispatch(fetchFarmsPublicDataAsync(pids))
 
@@ -98,12 +98,12 @@ export const useFarms = (): DeserializedFarmsState => {
 }
 
 export const useFarmFromPid = (pid: number): DeserializedFarm => {
-  const farm = useSelector((state: State) => state.farms.data.find((f) => f.pid === pid))
+  const farm = useSelector((state: State) => state.farms.data.find(f => f.pid === pid))
   return deserializeFarm(farm)
 }
 
 export const useFarmFromLpSymbol = (lpSymbol: string): DeserializedFarm => {
-  const farm = useSelector((state: State) => state.farms.data.find((f) => f.lpSymbol === lpSymbol))
+  const farm = useSelector((state: State) => state.farms.data.find(f => f.lpSymbol === lpSymbol))
   return deserializeFarm(farm)
 }
 
@@ -152,4 +152,10 @@ export const usePriceCakeBusd = (): BigNumber => {
   }, [cakePriceBusdAsString])
 
   return cakePriceBusd
+}
+
+export const usePriceTx8VND = (): BigNumber => {
+  // 0.005 is cakePriceBusdAsString above
+  const tx8PriceVndAsString = 22800 * 0.005
+  return new BigNumber(tx8PriceVndAsString)
 }
