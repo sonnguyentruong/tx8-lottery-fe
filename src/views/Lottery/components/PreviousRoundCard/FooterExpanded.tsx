@@ -10,6 +10,7 @@ import { getGraphLotteries } from 'state/lottery/getLotteriesData'
 import { formatNumber, getBalanceNumber } from 'utils/formatBalance'
 import Balance from 'components/Balance'
 import RewardBrackets from '../RewardBrackets'
+import { usePriceTx8VND } from '../../../../state/farms/hooks'
 
 const NextDrawWrapper = styled(Flex)`
   background: ${({ theme }) => theme.colors.background};
@@ -29,7 +30,7 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
   const [fetchedLotteryGraphData, setFetchedLotteryGraphData] = useState<LotteryRoundGraphEntity>()
   const lotteryGraphDataFromState = useGetLotteryGraphDataById(lotteryId)
   // const cakePriceBusd = usePriceCakeBusd()
-
+  const tx8PriceVnd = usePriceTx8VND()
   useEffect(() => {
     const getGraphData = async () => {
       const fetchedGraphData = await getGraphLotteries(undefined, undefined, { id_in: [lotteryId] })
@@ -43,9 +44,13 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
   let prizeInTx8 = new BigNumber(NaN)
   if (lotteryNodeData) {
     const { amountCollectedInTX8 } = lotteryNodeData
-    prizeInTx8 = amountCollectedInTX8;
+    prizeInTx8 = amountCollectedInTX8
   }
-
+  let prizeInVnd = new BigNumber(NaN)
+  if (lotteryNodeData) {
+    const { amountCollectedInTX8 } = lotteryNodeData
+    prizeInVnd = amountCollectedInTX8.times(tx8PriceVnd)
+  }
   const getTotalUsers = (): string => {
     if (!lotteryGraphDataFromState && fetchedLotteryGraphData) {
       return fetchedLotteryGraphData?.totalUsers?.toLocaleString()
@@ -74,9 +79,10 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
           <Balance
             fontSize="14px"
             color="textSubtle"
-            unit=" TX8"
-            value={getBalanceNumber(lotteryNodeData?.amountCollectedInTX8)}
-            decimals={3}
+            unit=" VND"
+            prefix="~"
+            value={getBalanceNumber(prizeInVnd)}
+            decimals={0}
           />
         )}
       </>

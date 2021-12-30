@@ -5,6 +5,7 @@ import { useTranslation } from 'contexts/Localization'
 // import { usePriceCakeBusd } from 'state/farms/hooks'
 import Balance from 'components/Balance'
 import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
+import { usePriceTx8VND } from '../../../state/farms/hooks'
 
 interface RewardBracketDetailProps {
   cakeAmount: BigNumber
@@ -25,7 +26,8 @@ const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
 }) => {
   const { t } = useTranslation()
   // const cakePriceBusd = usePriceCakeBusd()
-
+  const tx8PriceVnd = usePriceTx8VND()
+  const priceInVnd = cakeAmount ? cakeAmount.times(tx8PriceVnd) : new BigNumber(NaN)
   const getRewardText = () => {
     const numberMatch = rewardBracket + 1
     if (isBurn) {
@@ -50,7 +52,18 @@ const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
         {isLoading || cakeAmount.isNaN() ? (
           <Skeleton my="4px" mr="10px" height={20} width={110} />
         ) : (
-          <Balance fontSize="20px" bold unit=" TX8" value={getBalanceNumber(cakeAmount)} decimals={3} />
+          <>
+            <Balance fontSize="20px" bold unit=" TX8" value={getBalanceNumber(cakeAmount)} decimals={3} />
+            <Balance
+              fontSize="14px"
+              color="textSubtle"
+              textAlign={['center', null, null, 'left']}
+              prefix="~"
+              unit=" VND"
+              value={getBalanceNumber(priceInVnd)}
+              decimals={0}
+            />
+          </>
         )}
         {isHistoricRound && cakeAmount && (
           <>
