@@ -3,7 +3,7 @@ import history from 'routerHistory'
 
 const useScrollOnRouteChange = () => {
   useEffect(() => {
-    const unlisten = history.listen((args) => {
+    const unlisten = history.listen(args => {
       if (args.hash === '') {
         setTimeout(() => {
           window.scroll({

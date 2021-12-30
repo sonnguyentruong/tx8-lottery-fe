@@ -5,12 +5,12 @@ import IfoCardV2Data from './components/IfoCardV2Data'
 import IfoCardV1Data from './components/IfoCardV1Data'
 import IfoLayout from './components/IfoLayout'
 
-const inactiveIfo: Ifo[] = ifosConfig.filter((ifo) => !ifo.isActive)
+const inactiveIfo: Ifo[] = ifosConfig.filter(ifo => !ifo.isActive)
 
 const PastIfo = () => {
   return (
     <IfoLayout id="past-ifos">
-      {inactiveIfo.map((ifo) =>
+      {inactiveIfo.map(ifo =>
         ifo.version === 1 ? (
           <IfoCardV1Data key={ifo.id} ifo={ifo} />
         ) : (

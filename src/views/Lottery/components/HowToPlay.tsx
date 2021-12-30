@@ -245,7 +245,7 @@ const HowToPlay: React.FC = () => {
         <Text>{t('Simple!')}</Text>
       </Flex>
       <StepContainer>
-        {steps.map((step) => (
+        {steps.map(step => (
           <StepCard key={step.label} step={step} />
         ))}
       </StepContainer>
@@ -325,9 +325,7 @@ const HowToPlay: React.FC = () => {
                 {t(
                   'An average total of 35,000 TX8 from the treasury is added to lottery rounds over the course of a week. This TX8 is of course also included in rollovers! Read more in our guide to ',
                 )}
-                <InlineLink href="#">
-                  {t('TX8 Tokenomics')}
-                </InlineLink>
+                <InlineLink href="#">{t('TX8 Tokenomics')}</InlineLink>
               </Text>
             </li>
           </BulletList>

@@ -33,7 +33,7 @@ const ChangeProfilePicPage: React.FC<ChangeProfilePicPageProps> = ({ onDismiss }
   const { toastSuccess } = useToast()
   const { callWithGasPrice } = useCallWithGasPrice()
 
-  const nftsInWallet = nfts.filter((nft) => nft.location === NftLocation.WALLET)
+  const nftsInWallet = nfts.filter(nft => nft.location === NftLocation.WALLET)
 
   const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
     useApproveConfirmTransaction({
@@ -66,7 +66,7 @@ const ChangeProfilePicPage: React.FC<ChangeProfilePicPageProps> = ({ onDismiss }
         {t('Choose a new Collectible to use as your profile pic.')}
       </Text>
       <Box maxHeight="300px" overflowY="scroll">
-        {nftsInWallet.map((walletNft) => {
+        {nftsInWallet.map(walletNft => {
           const handleChange = () => {
             setSelectedNft({
               tokenId: walletNft.tokenId,

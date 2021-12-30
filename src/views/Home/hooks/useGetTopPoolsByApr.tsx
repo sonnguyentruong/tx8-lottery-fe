@@ -26,8 +26,8 @@ const useGetTopPoolsByApr = (isIntersecting: boolean) => {
   const [topPools, setTopPools] = useState<DeserializedPool[]>([null, null, null, null, null])
 
   const pools = useMemo(() => {
-    const activePools = poolsWithoutAutoVault.filter((pool) => !pool.isFinished)
-    const cakePool = activePools.find((pool) => pool.sousId === 0)
+    const activePools = poolsWithoutAutoVault.filter(pool => !pool.isFinished)
+    const cakePool = activePools.find(pool => pool.sousId === 0)
     const cakeAutoVault = { ...cakePool, isAutoVault: true }
     const cakeAutoVaultWithApr = { ...cakeAutoVault, apr: getAprData(cakeAutoVault, performanceFeeAsDecimal).apr }
     return [cakeAutoVaultWithApr, ...poolsWithoutAutoVault]

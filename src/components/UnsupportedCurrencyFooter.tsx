@@ -29,7 +29,7 @@ const UnsupportedModal: React.FC<Props> = ({ currencies, onDismiss }) => {
   const { chainId } = useActiveWeb3React()
   const tokens =
     chainId && currencies
-      ? currencies.map((currency) => {
+      ? currencies.map(currency => {
           return wrappedCurrency(currency, chainId)
         })
       : []
@@ -39,7 +39,7 @@ const UnsupportedModal: React.FC<Props> = ({ currencies, onDismiss }) => {
   return (
     <Modal title="Unsupported Assets" maxWidth="420px" onDismiss={onDismiss}>
       <AutoColumn gap="lg">
-        {tokens.map((token) => {
+        {tokens.map(token => {
           return (
             token &&
             unsupportedTokens &&

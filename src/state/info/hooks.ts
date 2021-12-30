@@ -97,10 +97,10 @@ export const usePoolDatas = (poolAddresses: string[]): PoolData[] => {
   }, [addNewPoolKeys, untrackedAddresses])
 
   const poolsWithData = poolAddresses
-    .map((address) => {
+    .map(address => {
       return allPoolData[address]?.data
     })
-    .filter((pool) => pool)
+    .filter(pool => pool)
 
   return poolsWithData
 }
@@ -180,7 +180,7 @@ export const useTokenDatas = (addresses?: string[]): TokenData[] | undefined => 
   const addNewTokenKeys = useAddTokenKeys()
 
   // if token not tracked yet track it
-  addresses?.forEach((a) => {
+  addresses?.forEach(a => {
     if (!allTokenData[a]) {
       addNewTokenKeys([a])
     }
@@ -191,10 +191,10 @@ export const useTokenDatas = (addresses?: string[]): TokenData[] | undefined => 
       return undefined
     }
     return addresses
-      .map((a) => {
+      .map(a => {
         return allTokenData[a]?.data
       })
-      .filter((token) => token)
+      .filter(token => token)
   }, [addresses, allTokenData])
 
   return tokensWithData

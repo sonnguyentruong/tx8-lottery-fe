@@ -37,7 +37,7 @@ const PancakeSquad: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRefreshCounter((prev) => prev + 1)
+      setRefreshCounter(prev => prev + 1)
     }, REFRESH_INTERVAL)
     return () => clearInterval(interval)
   }, [])

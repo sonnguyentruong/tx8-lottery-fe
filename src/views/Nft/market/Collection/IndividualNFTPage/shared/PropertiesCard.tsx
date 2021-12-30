@@ -42,7 +42,7 @@ const PropertiesCard: React.FC<PropertiesCardProps> = ({ properties, rarity }) =
   const { t } = useTranslation()
   const content = (
     <Box p="24px">
-      {properties.map((property) => (
+      {properties.map(property => (
         <SingleProperty
           key={property.traitType}
           title={property.traitType}

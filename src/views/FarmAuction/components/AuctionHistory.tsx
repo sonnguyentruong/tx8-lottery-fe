@@ -52,7 +52,7 @@ const AuctionHistory: React.FC<AuctionHistoryProps> = ({ mostRecentClosedAuction
 
   const auctionHistory = useAuctionHistory(historyAuctionIdAsInt)
   const selectedAuction = Object.values(auctionHistory).find(
-    (auctionData) => auctionData.auction.id === historyAuctionIdAsInt,
+    auctionData => auctionData.auction.id === historyAuctionIdAsInt,
   )
 
   let auctionTable = selectedAuction ? (

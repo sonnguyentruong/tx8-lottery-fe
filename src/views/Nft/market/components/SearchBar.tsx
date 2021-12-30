@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import AddressInputSelect from 'components/AddressInputSelect'
 import { nftsBaseUrl } from 'views/Nft/market/constants'
 
-const SearchBar: React.FC = (props) => {
+const SearchBar: React.FC = props => {
   const history = useHistory()
 
   const handleAddressClick = (value: string) => {

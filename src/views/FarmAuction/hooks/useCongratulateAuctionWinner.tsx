@@ -24,10 +24,10 @@ const useCongratulateAuctionWinner = (currentAuction: Auction, bidders: Bidder[]
       const sortedBidders = sortAuctionBidders(auctionBidders)
       const { leaderboardThreshold } = processedAuctionData
       const winnerAddresses = sortedBidders
-        .filter((bidder) => leaderboardThreshold.lte(bidder.amount))
-        .map((bidder) => bidder.account)
+        .filter(bidder => leaderboardThreshold.lte(bidder.amount))
+        .map(bidder => bidder.account)
       if (winnerAddresses.includes(account)) {
-        const accountBidderData = sortedBidders.find((bidder) => bidder.account === account)
+        const accountBidderData = sortedBidders.find(bidder => bidder.account === account)
         setWonAuction({
           auction: processedAuctionData,
           bidderData: accountBidderData,
@@ -36,11 +36,11 @@ const useCongratulateAuctionWinner = (currentAuction: Auction, bidders: Bidder[]
     }
 
     const winnerAddresses = bidders
-      .filter((bidder) => currentAuction.leaderboardThreshold.lte(bidder.amount))
-      .map((bidder) => bidder.account)
+      .filter(bidder => currentAuction.leaderboardThreshold.lte(bidder.amount))
+      .map(bidder => bidder.account)
     const previousAuctionId = currentAuction.id - 1
     if (currentAuction.status === AuctionStatus.Closed && winnerAddresses.includes(account)) {
-      const accountBidderData = bidders.find((bidder) => bidder.account === account)
+      const accountBidderData = bidders.find(bidder => bidder.account === account)
       setWonAuction({
         auction: currentAuction,
         bidderData: accountBidderData,

@@ -111,12 +111,12 @@ export const getNftApi = async (
 export const getNftsFromDifferentCollectionsApi = async (
   from: { collectionAddress: string; tokenId: string }[],
 ): Promise<NftToken[]> => {
-  const promises = from.map((nft) => getNftApi(nft.collectionAddress, nft.tokenId))
+  const promises = from.map(nft => getNftApi(nft.collectionAddress, nft.tokenId))
   const responses = await Promise.all(promises)
   // Sometimes API can't find some tokens (e.g. 404 response)
   // at least return the ones that returned successfully
   return responses
-    .filter((resp) => resp)
+    .filter(resp => resp)
     .map((res, index) => ({
       tokenId: res.tokenId,
       name: res.name,
@@ -330,9 +330,7 @@ export const getNftsMarketData = async (
 export const getAllPancakeBunniesLowestPrice = async (bunnyIds: string[]): Promise<Record<string, number>> => {
   try {
     const singlePancakeBunnySubQueries = bunnyIds.map(
-      (
-        bunnyId,
-      ) => `b${bunnyId}:nfts(first: 1, where: { otherId: ${bunnyId}, isTradable: true }, orderBy: currentAskPrice, orderDirection: asc) {
+      bunnyId => `b${bunnyId}:nfts(first: 1, where: { otherId: ${bunnyId}, isTradable: true }, orderBy: currentAskPrice, orderDirection: asc) {
         currentAskPrice
       }
     `,
@@ -362,9 +360,7 @@ export const getAllPancakeBunniesLowestPrice = async (bunnyIds: string[]): Promi
 export const getAllPancakeBunniesRecentUpdatedAt = async (bunnyIds: string[]): Promise<Record<string, number>> => {
   try {
     const singlePancakeBunnySubQueries = bunnyIds.map(
-      (
-        bunnyId,
-      ) => `b${bunnyId}:nfts(first: 1, where: { otherId: ${bunnyId}, isTradable: true }, orderBy: updatedAt, orderDirection: desc) {
+      bunnyId => `b${bunnyId}:nfts(first: 1, where: { otherId: ${bunnyId}, isTradable: true }, orderBy: updatedAt, orderDirection: desc) {
         updatedAt
       }
     `,
@@ -607,7 +603,7 @@ export const fetchWalletTokenIdsForCollections = async (
 
     const tokenIds = await Promise.all(tokenIdPromises)
     const nftLocation = NftLocation.WALLET
-    const tokensWithCollectionAddress = tokenIds.map((tokenId) => {
+    const tokensWithCollectionAddress = tokenIds.map(tokenId => {
       return { tokenId, collectionAddress, nftLocation }
     })
 
@@ -681,9 +677,9 @@ export const attachMarketDataToWalletNfts = (
   walletNfts: TokenIdWithCollectionAddress[],
   marketDataForWalletNfts: TokenMarketData[],
 ): TokenMarketData[] => {
-  const walletNftsWithMarketData = walletNfts.map((walletNft) => {
+  const walletNftsWithMarketData = walletNfts.map(walletNft => {
     const marketData = marketDataForWalletNfts.find(
-      (marketNft) =>
+      marketNft =>
         marketNft.tokenId === walletNft.tokenId &&
         marketNft.collection.id.toLowerCase() === walletNft.collectionAddress.toLowerCase(),
     )
@@ -727,14 +723,14 @@ export const combineNftMarketAndMetadata = (
   tokenIdsForSale: string[],
   profileNftId?: string,
 ): NftToken[] => {
-  const completeNftData = nftsWithMetadata.map<NftToken>((nft) => {
+  const completeNftData = nftsWithMetadata.map<NftToken>(nft => {
     // Get metadata object
-    const isOnSale = nftsForSale.filter((forSaleNft) => forSaleNft.tokenId === nft.tokenId).length > 0
+    const isOnSale = nftsForSale.filter(forSaleNft => forSaleNft.tokenId === nft.tokenId).length > 0
     let marketData
     if (isOnSale) {
-      marketData = nftsForSale.find((marketNft) => marketNft.tokenId === nft.tokenId)
+      marketData = nftsForSale.find(marketNft => marketNft.tokenId === nft.tokenId)
     } else {
-      marketData = walletNfts.find((marketNft) => marketNft.tokenId === nft.tokenId)
+      marketData = walletNfts.find(marketNft => marketNft.tokenId === nft.tokenId)
     }
     const location = getNftLocationForMarketNft(nft.tokenId, tokenIdsInWallet, tokenIdsForSale, profileNftId)
     return { ...nft, marketData, location }
@@ -760,20 +756,20 @@ export const getCompleteAccountNftData = async (
   }
 
   const uniqueCollectionAddresses = uniq(
-    walletNftIdsWithCollectionAddress.map((walletNftId) => walletNftId.collectionAddress),
+    walletNftIdsWithCollectionAddress.map(walletNftId => walletNftId.collectionAddress),
   )
 
-  const walletNftsByCollection = uniqueCollectionAddresses.map((collectionAddress) => {
+  const walletNftsByCollection = uniqueCollectionAddresses.map(collectionAddress => {
     return {
       collectionAddress,
       idWithCollectionAddress: walletNftIdsWithCollectionAddress.filter(
-        (walletNft) => walletNft.collectionAddress === collectionAddress,
+        walletNft => walletNft.collectionAddress === collectionAddress,
       ),
     }
   })
 
-  const walletMarketDataRequests = walletNftsByCollection.map((walletNftByCollection) => {
-    const tokenIdIn = walletNftByCollection.idWithCollectionAddress.map((walletNft) => walletNft.tokenId)
+  const walletMarketDataRequests = walletNftsByCollection.map(walletNftByCollection => {
+    const tokenIdIn = walletNftByCollection.idWithCollectionAddress.map(walletNft => walletNft.tokenId)
     return getNftsMarketData({
       tokenId_in: tokenIdIn,
       collection: walletNftByCollection.collectionAddress.toLowerCase(),
@@ -786,16 +782,16 @@ export const getCompleteAccountNftData = async (
   const walletNftsWithMarketData = attachMarketDataToWalletNfts(walletNftIdsWithCollectionAddress, walletMarketData)
 
   const walletTokenIds = walletNftIdsWithCollectionAddress
-    .filter((walletNft) => {
+    .filter(walletNft => {
       // Profile Pic NFT is no longer wanted in this array, hence the filter
       return profileNftWithCollectionAddress?.tokenId !== walletNft.tokenId
     })
-    .map((nft) => nft.tokenId)
+    .map(nft => nft.tokenId)
 
   const marketDataForSaleNfts = await getNftsMarketData({ currentSeller: account.toLowerCase() })
-  const tokenIdsForSale = marketDataForSaleNfts.map((nft) => nft.tokenId)
+  const tokenIdsForSale = marketDataForSaleNfts.map(nft => nft.tokenId)
 
-  const forSaleNftIds = marketDataForSaleNfts.map((nft) => {
+  const forSaleNftIds = marketDataForSaleNfts.map(nft => {
     return { collectionAddress: nft.collection.id, tokenId: nft.tokenId }
   })
 

@@ -9,7 +9,7 @@ const getFarmFromTokenSymbol = (
   tokenSymbol: string,
   preferredQuoteTokens?: string[],
 ): SerializedFarm => {
-  const farmsWithTokenSymbol = farms.filter((farm) => farm.token.symbol === tokenSymbol)
+  const farmsWithTokenSymbol = farms.filter(farm => farm.token.symbol === tokenSymbol)
   const filteredFarm = filterFarmsByQuoteToken(farmsWithTokenSymbol, preferredQuoteTokens)
   return filteredFarm
 }
@@ -86,10 +86,10 @@ const getFarmQuoteTokenPrice = (
 }
 
 const fetchFarmsPrices = async (farms: SerializedFarm[]) => {
-  const bnbBusdFarm = farms.find((farm) => farm.pid === 252)
+  const bnbBusdFarm = farms.find(farm => farm.pid === 252)
   const bnbPriceBusd = bnbBusdFarm.tokenPriceVsQuote ? BIG_ONE.div(bnbBusdFarm.tokenPriceVsQuote) : BIG_ZERO
 
-  const farmsWithPrices = farms.map((farm) => {
+  const farmsWithPrices = farms.map(farm => {
     const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)
     const tokenPriceBusd = getFarmBaseTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
     const quoteTokenPriceBusd = getFarmQuoteTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)

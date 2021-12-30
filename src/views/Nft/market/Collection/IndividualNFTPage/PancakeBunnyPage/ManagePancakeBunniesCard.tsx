@@ -119,7 +119,7 @@ const CollectiblesByLocation: React.FC<CollectiblesByLocationProps> = ({ locatio
         </Text>
       </Grid>
       <ScrollableContainer>
-        {nfts.map((nft) => (
+        {nfts.map(nft => (
           <CollectibleRow key={nft.tokenId} nft={nft} lowestPrice={lowestPrice} />
         ))}
       </ScrollableContainer>
@@ -139,13 +139,13 @@ const ManagePancakeBunniesCard: React.FC<ManagePancakeBunniesCardProps> = ({ bun
   useFetchUserNfts()
 
   const bunniesInWallet = userNfts.filter(
-    (nft) => nft.attributes[0].value === bunnyId && nft.location === NftLocation.WALLET,
+    nft => nft.attributes[0].value === bunnyId && nft.location === NftLocation.WALLET,
   )
   const bunniesForSale = userNfts.filter(
-    (nft) => nft.attributes[0].value === bunnyId && nft.location === NftLocation.FORSALE,
+    nft => nft.attributes[0].value === bunnyId && nft.location === NftLocation.FORSALE,
   )
   const profilePicBunny = userNfts.filter(
-    (nft) => nft.attributes[0].value === bunnyId && nft.location === NftLocation.PROFILE,
+    nft => nft.attributes[0].value === bunnyId && nft.location === NftLocation.PROFILE,
   )
 
   const loading = userNftsInitializationState !== UserNftInitializationState.INITIALIZED

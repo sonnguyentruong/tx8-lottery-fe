@@ -39,7 +39,7 @@ const EndsInCell: React.FC<FinishCellProps> = ({ pool }) => {
         <Link
           external
           href={getBscScanLink(hasPoolStarted ? endBlock : startBlock, 'countdown')}
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
         >
           <TimerIcon ml="4px" />
         </Link>

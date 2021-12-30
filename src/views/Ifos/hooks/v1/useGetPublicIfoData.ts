@@ -36,7 +36,7 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
   })
   const { currentBlock } = useBlock()
   const fetchIfoData = useCallback(async () => {
-    const ifoCalls = ['startBlock', 'endBlock', 'raisingAmount', 'totalAmount'].map((method) => ({
+    const ifoCalls = ['startBlock', 'endBlock', 'raisingAmount', 'totalAmount'].map(method => ({
       address,
       name: method,
     }))
@@ -56,7 +56,7 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
         ? ((currentBlock - startBlockNum) / totalBlocks) * 100
         : ((currentBlock - releaseBlockNumber) / (startBlockNum - releaseBlockNumber)) * 100
 
-    setState((prev) => ({
+    setState(prev => ({
       status,
       blocksRemaining,
       secondsUntilStart: (startBlockNum - currentBlock) * BSC_BLOCK_TIME,

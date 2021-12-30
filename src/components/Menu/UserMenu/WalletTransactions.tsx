@@ -35,7 +35,7 @@ const WalletTransactions: React.FC = () => {
         )}
       </Flex>
       {sortedTransactions.length > 0 ? (
-        sortedTransactions.map((txn) => <TransactionRow key={txn.hash} txn={txn} />)
+        sortedTransactions.map(txn => <TransactionRow key={txn.hash} txn={txn} />)
       ) : (
         <Text textAlign="center">{t('No recent transactions')}</Text>
       )}

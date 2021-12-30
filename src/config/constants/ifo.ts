@@ -2,7 +2,7 @@ import { Token, ChainId } from '@pancakeswap/sdk'
 import tokens from './tokens'
 import { Ifo } from './types'
 
-const cakeBnbLpToken = new Token(ChainId.MAINNET, "0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc", 18, "TX8")
+const cakeBnbLpToken = new Token(ChainId.MAINNET, '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', 18, 'TX8')
 
 const ifos: Ifo[] = [
   {

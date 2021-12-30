@@ -83,7 +83,7 @@ const ForSaleTableRow: React.FC<ForSaleTableRowsProps> = ({ nftsForSale }) => {
   const bnbBusdPrice = useBNBBusdPrice()
   return (
     <OwnersTableRow>
-      {nftsForSale.map((nft) => (
+      {nftsForSale.map(nft => (
         <Row key={nft.tokenId} t={t} nft={nft} bnbBusdPrice={bnbBusdPrice} account={account} />
       ))}
     </OwnersTableRow>

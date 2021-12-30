@@ -30,11 +30,11 @@ const processViewLotterySuccessResponse = (response, lotteryId: string): Lottery
   } = response
 
   const statusKey = Object.keys(LotteryStatus)[status]
-  const serializedtx8PerBracket = tx8PerBracket.map((tx8InBracket) => ethersToSerializedBigNumber(tx8InBracket))
-  const serializedCountWinnersPerBracket = countWinnersPerBracket.map((winnersInBracket) =>
+  const serializedtx8PerBracket = tx8PerBracket.map(tx8InBracket => ethersToSerializedBigNumber(tx8InBracket))
+  const serializedCountWinnersPerBracket = countWinnersPerBracket.map(winnersInBracket =>
     ethersToSerializedBigNumber(winnersInBracket),
   )
-  const serializedRewardsBreakdown = rewardsBreakdown.map((reward) => ethersToSerializedBigNumber(reward))
+  const serializedRewardsBreakdown = rewardsBreakdown.map(reward => ethersToSerializedBigNumber(reward))
 
   return {
     isLoading: false,
@@ -85,7 +85,7 @@ export const fetchLottery = async (lotteryId: string): Promise<LotteryResponse> 
 }
 
 export const fetchMultipleLotteries = async (lotteryIds: string[]): Promise<LotteryResponse[]> => {
-  const calls = lotteryIds.map((id) => ({
+  const calls = lotteryIds.map(id => ({
     name: 'viewLottery',
     address: getLotteryV2Address(),
     params: [id],
@@ -104,7 +104,7 @@ export const fetchMultipleLotteries = async (lotteryIds: string[]): Promise<Lott
 
 export const fetchCurrentLotteryIdAndMaxBuy = async () => {
   try {
-    const calls = ['currentLotteryId', 'maxNumberTicketsPerBuyOrClaim'].map((method) => ({
+    const calls = ['currentLotteryId', 'maxNumberTicketsPerBuyOrClaim'].map(method => ({
       address: getLotteryV2Address(),
       name: method,
     }))
@@ -131,11 +131,11 @@ export const getRoundIdsArray = (currentLotteryId: string): string[] => {
   for (let i = 0; i < NUM_ROUNDS_TO_FETCH_FROM_NODES; i++) {
     // hot fix
     if (currentIdAsInt - i < 0) {
-      break;
+      break
     }
     roundIds.push(currentIdAsInt - i)
   }
-  return roundIds.map((roundId) => roundId.toString())
+  return roundIds.map(roundId => roundId.toString())
 }
 
 export const useProcessLotteryResponse = (
@@ -180,6 +180,6 @@ export const useProcessLotteryResponse = (
 }
 
 export const hasRoundBeenClaimed = (tickets: LotteryTicket[]): boolean => {
-  const claimedTickets = tickets.filter((ticket) => ticket.status)
+  const claimedTickets = tickets.filter(ticket => ticket.status)
   return claimedTickets.length > 0
 }

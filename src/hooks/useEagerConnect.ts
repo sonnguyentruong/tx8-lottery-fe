@@ -8,7 +8,7 @@ const useEagerConnect = () => {
   useEffect(() => {
     const connectorId = window.localStorage.getItem(connectorLocalStorageKey) as ConnectorNames
 
-    if (connectorId) {      
+    if (connectorId) {
       login(connectorId)
     }
   }, [login])

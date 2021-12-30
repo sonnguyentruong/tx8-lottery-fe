@@ -38,7 +38,7 @@ export const sortUserActivity = (
   }
 
   const transformTransactions = (transactions: Transaction[]): Activity[] => {
-    const transformedTransactions = transactions.map((transaction) => {
+    const transformedTransactions = transactions.map(transaction => {
       const userSeller = transaction.seller.id === account.toLowerCase()
       const marketEvent = userSeller ? MarketEvent.SELL : MarketEvent.BUY
       const { timestamp, nft } = transaction
@@ -52,7 +52,7 @@ export const sortUserActivity = (
   }
 
   const transformAskOrders = (askOrders: AskOrder[]): Activity[] => {
-    const transformedAskOrders = askOrders.map((askOrder) => {
+    const transformedAskOrders = askOrders.map(askOrder => {
       const marketEvent = getAskOrderEvent(askOrder.orderType)
       const { timestamp, nft } = askOrder
       const price = askOrder.askPrice

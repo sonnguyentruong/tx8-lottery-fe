@@ -68,7 +68,7 @@ const FarmMobileCell = styled.td`
   padding-top: 24px;
 `
 
-const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
+const Row: React.FunctionComponent<RowPropsWithLoading> = props => {
   const { details, userDataReady } = props
   const hasStakedAmount = !!useFarmUser(details.pid).stakedBalance.toNumber()
   const [actionPanelExpanded, setActionPanelExpanded] = useState(hasStakedAmount)
@@ -87,13 +87,13 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
 
   const isSmallerScreen = !isDesktop
   const tableSchema = isSmallerScreen ? MobileColumnSchema : DesktopColumnSchema
-  const columnNames = tableSchema.map((column) => column.name)
+  const columnNames = tableSchema.map(column => column.name)
 
   const handleRenderRow = () => {
     if (!isMobile) {
       return (
         <StyledTr onClick={toggleActionPanel}>
-          {Object.keys(props).map((key) => {
+          {Object.keys(props).map(key => {
             const columnIndex = columnNames.indexOf(key)
             if (columnIndex === -1) {
               return null

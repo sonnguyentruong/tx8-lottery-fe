@@ -21,10 +21,10 @@ export const teamsSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {
-    fetchStart: (state) => {
+    fetchStart: state => {
       state.isLoading = true
     },
-    fetchFailed: (state) => {
+    fetchFailed: state => {
       state.isLoading = false
       state.isInitialized = true
     },
@@ -45,7 +45,7 @@ export const teamsSlice = createSlice({
 export const { fetchStart, teamFetchSucceeded, fetchFailed, teamsFetchSucceeded } = teamsSlice.actions
 
 // Thunks
-export const fetchTeam = (teamId: number) => async (dispatch) => {
+export const fetchTeam = (teamId: number) => async dispatch => {
   try {
     dispatch(fetchStart())
     const team = await getTeam(teamId)
@@ -55,7 +55,7 @@ export const fetchTeam = (teamId: number) => async (dispatch) => {
   }
 }
 
-export const fetchTeams = () => async (dispatch) => {
+export const fetchTeams = () => async dispatch => {
   try {
     dispatch(fetchStart())
     const teams = await getTeams()

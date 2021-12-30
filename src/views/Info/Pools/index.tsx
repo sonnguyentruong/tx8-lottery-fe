@@ -13,8 +13,8 @@ const PoolsOverview: React.FC = () => {
   const allPoolData = useAllPoolData()
   const poolDatas = useMemo(() => {
     return Object.values(allPoolData)
-      .map((pool) => pool.data)
-      .filter((pool) => pool)
+      .map(pool => pool.data)
+      .filter(pool => pool)
   }, [allPoolData])
 
   const [savedPools] = useWatchlistPools()

@@ -145,7 +145,7 @@ export default function RemoveLiquidity({
     library
       .send('eth_signTypedData_v4', [account, data])
       .then(splitSignature)
-      .then((signature) => {
+      .then(signature => {
         setSignatureData({
           v: signature.v,
           r: signature.r,
@@ -153,7 +153,7 @@ export default function RemoveLiquidity({
           deadline: deadline.toNumber(),
         })
       })
-      .catch((err) => {
+      .catch(err => {
         // for all errors other than 4001 (EIP-1193 user rejected request), fall back to manual approve
         if (err?.code !== 4001) {
           approveCallback()
@@ -268,17 +268,17 @@ export default function RemoveLiquidity({
     }
 
     const safeGasEstimates: (BigNumber | undefined)[] = await Promise.all(
-      methodNames.map((methodName) =>
+      methodNames.map(methodName =>
         router.estimateGas[methodName](...args)
           .then(calculateGasMargin)
-          .catch((err) => {
+          .catch(err => {
             console.error(`estimateGas failed`, methodName, args, err)
             return undefined
           }),
       ),
     )
 
-    const indexOfSuccessfulEstimation = safeGasEstimates.findIndex((safeGasEstimate) =>
+    const indexOfSuccessfulEstimation = safeGasEstimates.findIndex(safeGasEstimate =>
       BigNumber.isBigNumber(safeGasEstimate),
     )
 
@@ -486,7 +486,7 @@ export default function RemoveLiquidity({
                   min={0}
                   max={100}
                   value={innerLiquidityPercentage}
-                  onValueChanged={(value) => setInnerLiquidityPercentage(Math.ceil(value))}
+                  onValueChanged={value => setInnerLiquidityPercentage(Math.ceil(value))}
                   mb="16px"
                 />
                 <Flex flexWrap="wrap" justifyContent="space-evenly">

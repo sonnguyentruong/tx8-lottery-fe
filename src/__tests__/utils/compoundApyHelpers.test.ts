@@ -109,7 +109,7 @@ it.each`
       compoundFrequency,
       performanceFee,
     })
-    const interestBreakdownAsUSD = interestBreakdown.map((interest) => interest * earningTokenPrice)
+    const interestBreakdownAsUSD = interestBreakdown.map(interest => interest * earningTokenPrice)
     // 2. Calculate principal for same parameters and check if it matches the above
     interestBreakdownAsUSD.forEach((interest: number, index: number) => {
       const principalBreakdown = getPrincipalForInterest(interest, apr, compoundFrequency, performanceFee)

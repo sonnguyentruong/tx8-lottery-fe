@@ -12,7 +12,7 @@ export const fetchPublicVaultData = async () => {
       'totalShares',
       'calculateHarvestCakeRewards',
       'calculateTotalPendingCakeRewards',
-    ].map((method) => ({
+    ].map(method => ({
       address: getCakeVaultAddress(),
       name: method,
     }))
@@ -45,7 +45,7 @@ export const fetchPublicVaultData = async () => {
 
 export const fetchVaultFees = async () => {
   try {
-    const calls = ['performanceFee', 'callFee', 'withdrawFee', 'withdrawFeePeriod'].map((method) => ({
+    const calls = ['performanceFee', 'callFee', 'withdrawFee', 'withdrawFeePeriod'].map(method => ({
       address: getCakeVaultAddress(),
       name: method,
     }))

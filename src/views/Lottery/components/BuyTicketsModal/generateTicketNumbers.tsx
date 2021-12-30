@@ -13,7 +13,7 @@ const generateTicketNumbers = (
   // Populate array with existing tickets (if they have them) to ensure no duplicates when generating new numbers
   const existingTicketNumbers =
     userCurrentTickets?.length > 0
-      ? userCurrentTickets.map((ticket) => {
+      ? userCurrentTickets.map(ticket => {
           return parseInt(ticket?.number)
         })
       : []
@@ -31,7 +31,7 @@ const generateTicketNumbers = (
   // Filter out the users' existing tickets
   const ticketsToBuy =
     userCurrentTickets?.length > 0
-      ? generatedTicketNumbers.filter((ticketNumber) => {
+      ? generatedTicketNumbers.filter(ticketNumber => {
           return !existingTicketNumbers.includes(ticketNumber)
         })
       : generatedTicketNumbers

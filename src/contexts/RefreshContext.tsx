@@ -33,7 +33,7 @@ const RefreshContextProvider = ({ children }) => {
   useEffect(() => {
     const interval = setInterval(async () => {
       if (isBrowserTabActiveRef.current) {
-        setFast((prev) => prev + 1)
+        setFast(prev => prev + 1)
       }
     }, FAST_INTERVAL)
     return () => clearInterval(interval)
@@ -42,7 +42,7 @@ const RefreshContextProvider = ({ children }) => {
   useEffect(() => {
     const interval = setInterval(async () => {
       if (isBrowserTabActiveRef.current) {
-        setSlow((prev) => prev + 1)
+        setSlow(prev => prev + 1)
       }
     }, SLOW_INTERVAL)
     return () => clearInterval(interval)

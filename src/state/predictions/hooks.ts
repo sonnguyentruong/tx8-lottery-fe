@@ -42,7 +42,7 @@ export const useGetBetByEpoch = (account: string, epoch: number) => {
   return parseBigNumberObj<ReduxNodeLedger, NodeLedger>(bets[account][epoch])
 }
 
-export const useGetIsClaimable = (epoch) => {
+export const useGetIsClaimable = epoch => {
   const claimableStatuses = useSelector((state: State) => state.predictions.claimableStatuses)
   return claimableStatuses[epoch] || false
 }

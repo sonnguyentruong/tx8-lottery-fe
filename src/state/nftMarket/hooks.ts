@@ -36,10 +36,10 @@ export const useFetchByBunnyIdAndUpdate = (bunnyId: string) => {
   // Extra guard in case market data shifts
   // we don't wanna fetch same tokens multiple times
   const existingBunniesInState = useGetAllBunniesByBunnyId(bunnyId)
-  const existingTokensWithBunnyId = existingBunniesInState ? existingBunniesInState.map((nft) => nft.tokenId) : []
+  const existingTokensWithBunnyId = existingBunniesInState ? existingBunniesInState.map(nft => nft.tokenId) : []
 
   const allPancakeBunnies = useNftsFromCollection(pancakeBunniesAddress)
-  const allExistingPBTokenIds = allPancakeBunnies ? allPancakeBunnies.map((nft) => nft.tokenId) : []
+  const allExistingPBTokenIds = allPancakeBunnies ? allPancakeBunnies.map(nft => nft.tokenId) : []
 
   const firstBunny = existingBunniesInState.length > 0 ? existingBunniesInState[0] : null
 
@@ -93,7 +93,7 @@ export const useNftsFromCollection = (collectionAddress: string) => {
 
 export const useGetAllBunniesByBunnyId = (bunnyId: string) => {
   const nfts: NftToken[] = useSelector((state: State) => state.nftMarket.data.nfts[pancakeBunniesAddress])
-  return nfts ? nfts.filter((nft) => nft.attributes[0].value === bunnyId && nft.marketData.isTradable) : []
+  return nfts ? nfts.filter(nft => nft.attributes[0].value === bunnyId && nft.marketData.isTradable) : []
 }
 
 export const useGetNFTInitializationState = () => {
@@ -106,7 +106,7 @@ export const useUserNfts = (): UserNftsState => {
 
 export const useHasGen0Nfts = (): boolean => {
   const userNfts = useSelector((state: State) => state.nftMarket.data.user)
-  return userNfts.nfts.some((nft) => nft.attributes && Number(nft.attributes[0]?.value) <= MAX_GEN0_ID)
+  return userNfts.nfts.some(nft => nft.attributes && Number(nft.attributes[0]?.value) <= MAX_GEN0_ID)
 }
 
 export const useGetNftFilters = (collectionAddress: string) => {

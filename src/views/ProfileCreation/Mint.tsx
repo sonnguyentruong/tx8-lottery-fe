@@ -43,7 +43,7 @@ const Mint: React.FC = () => {
   useEffect(() => {
     const getStarterNfts = async () => {
       const { data: allPbTokens } = await getNftsFromCollectionApi(pancakeBunniesAddress)
-      const nfts = STARTER_NFT_BUNNY_IDS.map((bunnyId) => {
+      const nfts = STARTER_NFT_BUNNY_IDS.map(bunnyId => {
         if (allPbTokens && allPbTokens[bunnyId]) {
           return { ...allPbTokens[bunnyId], bunnyId }
         }
@@ -107,7 +107,7 @@ const Mint: React.FC = () => {
           <Text as="p" mb="24px" color="textSubtle">
             {t('Cost: %num% TX8', { num: formatUnits(MINT_COST) })}
           </Text>
-          {starterNfts.map((nft) => {
+          {starterNfts.map(nft => {
             const handleChange = (value: string) => setSelectedBunnyId(value)
 
             return (

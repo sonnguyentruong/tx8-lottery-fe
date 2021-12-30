@@ -19,7 +19,7 @@ export const useGetUserLotteriesGraphData = () => {
 
 export const useGetUserLotteryGraphRoundById = (lotteryId: string) => {
   const userLotteriesData = useGetUserLotteriesGraphData()
-  return userLotteriesData.rounds.find((userRound) => userRound.lotteryId === lotteryId)
+  return userLotteriesData.rounds.find(userRound => userRound.lotteryId === lotteryId)
 }
 
 export const useGetLotteriesGraphData = () => {
@@ -28,7 +28,7 @@ export const useGetLotteriesGraphData = () => {
 
 export const useGetLotteryGraphDataById = (lotteryId: string) => {
   const lotteriesData = useGetLotteriesGraphData()
-  return lotteriesData?.find((lottery) => lottery.id === lotteryId)
+  return lotteriesData?.find(lottery => lottery.id === lotteryId)
 }
 
 export const useFetchLottery = () => {

@@ -32,7 +32,7 @@ const PoolRow: React.FC<PoolRowProps> = ({ pool, account, userDataLoaded }) => {
   const shouldRenderActionPanel = useDelayedUnmount(expanded, 300)
 
   const toggleExpanded = () => {
-    setExpanded((prev) => !prev)
+    setExpanded(prev => !prev)
   }
 
   return (

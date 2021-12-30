@@ -31,7 +31,7 @@ export const OffsetAnimation = keyframes`
     stroke-dashoffset: 0
   }
   to {
-    stroke-dashoffset: ${(props) => -props.offset};
+    stroke-dashoffset: ${props => -props.offset};
   }
 `
 
@@ -44,7 +44,7 @@ export const SVG = styled.svg`
 const DefaultSlice = styled.circle<SliceProps>`
   fill: none;
   stroke-width: 16;
-  stroke-dasharray: ${(props) => `${props.length} 339.292`};
+  stroke-dasharray: ${props => `${props.length} 339.292`};
 `
 
 export const LostSlice = styled(DefaultSlice)`
@@ -54,7 +54,7 @@ export const LostSlice = styled(DefaultSlice)`
 
 export const WonSlice = styled(DefaultSlice)`
   stroke: #31d0aa;
-  stroke-dashoffset: ${(props) => -props.offset};
+  stroke-dashoffset: ${props => -props.offset};
   animation: ${DrawAnimation} 1s ease, ${OffsetAnimation} 1s ease;
 `
 

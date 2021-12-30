@@ -33,13 +33,13 @@ function useFetchListCallback(): (listUrl: string, sendDispatch?: boolean) => Pr
         dispatch(fetchTokenList.pending({ requestId, url: listUrl }))
       }
       return getTokenList(listUrl, ensResolver)
-        .then((tokenList) => {
+        .then(tokenList => {
           if (sendDispatch) {
             dispatch(fetchTokenList.fulfilled({ url: listUrl, tokenList, requestId }))
           }
           return tokenList
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(`Failed to get list at url ${listUrl}`, error)
           if (sendDispatch) {
             dispatch(fetchTokenList.rejected({ url: listUrl, requestId, errorMessage: error.message }))

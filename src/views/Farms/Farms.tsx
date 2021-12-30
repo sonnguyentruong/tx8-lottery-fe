@@ -138,25 +138,25 @@ const Farms: React.FC = () => {
 
   const [stakedOnly, setStakedOnly] = useUserFarmStakedOnly(isActive)
 
-  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.multiplier !== '0X' && !isArchivedPid(farm.pid))
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.multiplier === '0X' && !isArchivedPid(farm.pid))
-  const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter(farm => farm.pid !== 0 && farm.multiplier !== '0X' && !isArchivedPid(farm.pid))
+  const inactiveFarms = farmsLP.filter(farm => farm.pid !== 0 && farm.multiplier === '0X' && !isArchivedPid(farm.pid))
+  const archivedFarms = farmsLP.filter(farm => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+    farm => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
 
   const stakedInactiveFarms = inactiveFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+    farm => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
 
   const stakedArchivedFarms = archivedFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+    farm => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
 
   const farmsList = useCallback(
     (farmsToDisplay: DeserializedFarm[]): FarmWithStakedValue[] => {
-      let farmsToDisplayWithAPR: FarmWithStakedValue[] = farmsToDisplay.map((farm) => {
+      let farmsToDisplayWithAPR: FarmWithStakedValue[] = farmsToDisplay.map(farm => {
         if (!farm.lpTotalInQuoteToken || !farm.quoteTokenPriceBusd) {
           return farm
         }
@@ -242,7 +242,7 @@ const Farms: React.FC = () => {
 
   useEffect(() => {
     if (isIntersecting) {
-      setNumberOfFarmsVisible((farmsCurrentlyVisible) => {
+      setNumberOfFarmsVisible(farmsCurrentlyVisible => {
         if (farmsCurrentlyVisible <= chosenFarmsLength.current) {
           return farmsCurrentlyVisible + NUMBER_OF_FARMS_VISIBLE
         }
@@ -251,7 +251,7 @@ const Farms: React.FC = () => {
     }
   }, [isIntersecting])
 
-  const rowData = chosenFarmsMemoized.map((farm) => {
+  const rowData = chosenFarmsMemoized.map(farm => {
     const { token, quoteToken } = farm
     const tokenAddress = token.address
     const quoteTokenAddress = quoteToken.address
@@ -295,7 +295,7 @@ const Farms: React.FC = () => {
     if (viewMode === ViewMode.TABLE && rowData.length) {
       const columnSchema = DesktopColumnSchema
 
-      const columns = columnSchema.map((column) => ({
+      const columns = columnSchema.map(column => ({
         id: column.id,
         name: column.name,
         label: column.label,
@@ -324,7 +324,7 @@ const Farms: React.FC = () => {
     return (
       <FlexLayout>
         <Route exact path={`${path}`}>
-          {chosenFarmsMemoized.map((farm) => (
+          {chosenFarmsMemoized.map(farm => (
             <FarmCard
               key={farm.pid}
               farm={farm}
@@ -336,7 +336,7 @@ const Farms: React.FC = () => {
           ))}
         </Route>
         <Route exact path={`${path}/history`}>
-          {chosenFarmsMemoized.map((farm) => (
+          {chosenFarmsMemoized.map(farm => (
             <FarmCard
               key={farm.pid}
               farm={farm}
@@ -348,7 +348,7 @@ const Farms: React.FC = () => {
           ))}
         </Route>
         <Route exact path={`${path}/archived`}>
-          {chosenFarmsMemoized.map((farm) => (
+          {chosenFarmsMemoized.map(farm => (
             <FarmCard
               key={farm.pid}
               farm={farm}

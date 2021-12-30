@@ -92,7 +92,7 @@ const CompositeImage: React.FC<ComponentProps> = ({ path, attributes, maxHeight 
         maxHeight={maxHeight}
         srcSet={getSrcSet(path, attributes[0].src)}
       />
-      {attributes.map((image) => (
+      {attributes.map(image => (
         <ImageWrapper key={image.src}>
           <img src={getImageUrl(path, image.src)} srcSet={getSrcSet(path, image.src)} alt={image.alt} />
         </ImageWrapper>

@@ -19,7 +19,7 @@ const useNewestNfts = () => {
     const fetchNewestNfts = async () => {
       const nftsFromSg = await getLatestListedNfts(16)
       const nftsFromApi = await getNftsFromDifferentCollectionsApi(
-        nftsFromSg.map((nft) => ({ collectionAddress: nft.collection.id, tokenId: nft.tokenId })),
+        nftsFromSg.map(nft => ({ collectionAddress: nft.collection.id, tokenId: nft.tokenId })),
       )
 
       const nfts = nftsFromSg.map((nftFromSg, index) => {
@@ -58,7 +58,7 @@ const Newest: React.FC = () => {
           gridColumnGap="16px"
           gridTemplateColumns={['1fr', 'repeat(2, 1fr)', 'repeat(2, 1fr)', 'repeat(4, 1fr)']}
         >
-          {nfts.map((nft) => {
+          {nfts.map(nft => {
             const isPBCollection = nft.collectionAddress.toLowerCase() === pancakeBunniesAddress.toLowerCase()
             const currentAskPrice =
               !isPBCollection && nft.marketData?.isTradable ? parseFloat(nft.marketData.currentAskPrice) : undefined

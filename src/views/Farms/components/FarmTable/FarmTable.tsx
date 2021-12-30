@@ -58,7 +58,7 @@ const ScrollButtonContainer = styled.div`
   padding-bottom: 5px;
 `
 
-const FarmTable: React.FC<ITableProps> = (props) => {
+const FarmTable: React.FC<ITableProps> = props => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
   const { data, columns, userDataReady } = props
@@ -77,7 +77,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
         <TableWrapper ref={tableWrapperEl}>
           <StyledTable>
             <TableBody>
-              {rows.map((row) => {
+              {rows.map(row => {
                 return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
               })}
             </TableBody>

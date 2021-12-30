@@ -51,7 +51,7 @@ interface PoolSearchResponse {
 const getIds = (entityArrays: SingleQueryResponse[][]) => {
   const ids = entityArrays
     .reduce((entities, currentTokenArray) => [...entities, ...currentTokenArray], [])
-    .map((entity) => entity.id)
+    .map(entity => entity.id)
   return Array.from(new Set(ids))
 }
 

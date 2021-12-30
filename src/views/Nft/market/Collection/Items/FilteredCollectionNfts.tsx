@@ -27,7 +27,7 @@ const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collect
   const nftFilterLoadingState = useGetNftFilterLoadingState(collectionAddress)
 
   const handleLoadMore = () => {
-    setNumToShow((prevNumToShow) => prevNumToShow + REQUEST_SIZE)
+    setNumToShow(prevNumToShow => prevNumToShow + REQUEST_SIZE)
   }
 
   if (nftFilterLoadingState === NftFilterLoadingState.LOADING) {
@@ -37,7 +37,7 @@ const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collect
   const orderedNfts = collectionNfts
     ? orderBy(
         collectionNfts,
-        (nft) => {
+        nft => {
           if (selectedOrder.field === 'currentAskPrice') {
             const currentAskPriceAsNumber = nft.marketData?.currentAskPrice
               ? parseFloat(nft.marketData?.currentAskPrice)
@@ -58,7 +58,7 @@ const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collect
       )
     : []
 
-  const filteredNfts = showOnlyNftsOnSale ? orderedNfts.filter((nft) => nft.marketData?.isTradable) : orderedNfts
+  const filteredNfts = showOnlyNftsOnSale ? orderedNfts.filter(nft => nft.marketData?.isTradable) : orderedNfts
 
   const nftsToShow = filteredNfts.slice(0, numToShow)
 
@@ -76,7 +76,7 @@ const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collect
             gridTemplateColumns={['1fr', null, 'repeat(3, 1fr)', null, 'repeat(4, 1fr)']}
             alignItems="start"
           >
-            {nftsToShow.map((nft) => {
+            {nftsToShow.map(nft => {
               const currentAskPriceAsNumber = nft.marketData && parseFloat(nft.marketData.currentAskPrice)
 
               return (

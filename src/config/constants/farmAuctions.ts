@@ -456,7 +456,7 @@ export const whitelistedBidders: FarmAuctionBidderConfig[] = [
     tokenName: 'Bomb Crypto',
     projectSite: 'https://bombcrypto.io/',
   },
-].map((bidderConfig) => ({
+].map(bidderConfig => ({
   ...bidderConfig,
   lpAddress: getLpAddress(bidderConfig.tokenAddress, bidderConfig.quoteToken),
 }))
@@ -470,7 +470,7 @@ const UNKNOWN_BIDDER: FarmAuctionBidderConfig = {
 }
 
 export const getBidderInfo = (account: string): FarmAuctionBidderConfig => {
-  const matchingBidder = whitelistedBidders.find((bidder) => bidder.account.toLowerCase() === account.toLowerCase())
+  const matchingBidder = whitelistedBidders.find(bidder => bidder.account.toLowerCase() === account.toLowerCase())
   if (matchingBidder) {
     return matchingBidder
   }

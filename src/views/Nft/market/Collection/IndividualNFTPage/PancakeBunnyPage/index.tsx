@@ -38,9 +38,9 @@ const IndividualPancakeBunnyPage: React.FC<IndividualPancakeBunnyPageProps> = ({
     useFetchByBunnyIdAndUpdate(bunnyId)
   const { fastRefresh } = useRefresh()
   const isWindowVisible = useIsWindowVisible()
-  const bunniesSortedByPrice = orderBy(allBunnies, (nft) => parseFloat(nft.marketData.currentAskPrice))
+  const bunniesSortedByPrice = orderBy(allBunnies, nft => parseFloat(nft.marketData.currentAskPrice))
   const allBunniesFromOtherSellers = account
-    ? bunniesSortedByPrice.filter((bunny) => bunny.marketData.currentSeller !== account.toLowerCase())
+    ? bunniesSortedByPrice.filter(bunny => bunny.marketData.currentSeller !== account.toLowerCase())
     : bunniesSortedByPrice
   const cheapestBunny = bunniesSortedByPrice[0]
   const cheapestBunnyFromOtherSellers = allBunniesFromOtherSellers[0]
@@ -111,7 +111,7 @@ const IndividualPancakeBunnyPage: React.FC<IndividualPancakeBunnyPageProps> = ({
   }
 
   const togglePriceSort = () => {
-    setPriceSort((currentValue) => (currentValue === 'asc' ? 'desc' : 'asc'))
+    setPriceSort(currentValue => (currentValue === 'asc' ? 'desc' : 'asc'))
   }
 
   const getBunnyIdCount = () => {

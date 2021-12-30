@@ -69,7 +69,7 @@ const AllHistoryCard = () => {
     return () => clearInterval(timer.current)
   }, [selectedRoundId, currentLotteryId, numRoundsFetched, dispatch])
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const {
       target: { value },
     } = event
@@ -86,7 +86,7 @@ const AllHistoryCard = () => {
     }
   }
 
-  const handleArrowButtonPress = (targetRound) => {
+  const handleArrowButtonPress = targetRound => {
     if (targetRound) {
       setSelectedRoundId(targetRound.toString())
     } else {

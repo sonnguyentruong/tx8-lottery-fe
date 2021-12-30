@@ -78,13 +78,13 @@ const OpenRoundCard: React.FC<OpenRoundCardProps> = ({
   const canEnterPosition = getHasEnteredPosition()
 
   const handleBack = () =>
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState,
       isSettingPosition: false,
     }))
 
   const handleSetPosition = (newPosition: BetPosition) => {
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState,
       isSettingPosition: true,
       position: newPosition,
@@ -92,7 +92,7 @@ const OpenRoundCard: React.FC<OpenRoundCardProps> = ({
   }
 
   const togglePosition = () => {
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState,
       position: prevState.position === BetPosition.BULL ? BetPosition.BEAR : BetPosition.BULL,
     }))

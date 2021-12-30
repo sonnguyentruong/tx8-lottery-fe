@@ -68,7 +68,7 @@ const AddressInputSelect: React.FC<AddressInputSelectProps> = ({
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value: newValue } = evt.target
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState,
       value: newValue,
     }))
@@ -85,23 +85,23 @@ const AddressInputSelect: React.FC<AddressInputSelectProps> = ({
 
     const validAddressHandler = async () => {
       try {
-        setState((prevState) => ({ ...prevState, isFetching: true }))
+        setState(prevState => ({ ...prevState, isFetching: true }))
         const hasResults = await onValidAddress(value)
 
-        setState((prevState) => ({
+        setState(prevState => ({
           ...prevState,
           isFetching: false,
           resultFound: hasResults ? ResultStatus.FOUND : ResultStatus.NOT_FOUND,
         }))
       } catch {
-        setState((prevState) => ({ ...prevState, isFetching: false }))
+        setState(prevState => ({ ...prevState, isFetching: false }))
       }
     }
 
     if (isValidAddress) {
       validAddressHandler()
     } else {
-      setState((prevState) => ({ ...prevState, resultFound: ResultStatus.NOT_VALID }))
+      setState(prevState => ({ ...prevState, resultFound: ResultStatus.NOT_VALID }))
     }
   }, [value, onValidAddress, setState])
 

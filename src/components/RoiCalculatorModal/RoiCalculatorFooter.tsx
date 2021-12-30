@@ -74,7 +74,7 @@ const RoiCalculatorFooter: React.FC<RoiCalculatorFooterProps> = ({
 
   return (
     <Footer p="16px" flexDirection="column">
-      <ExpandableLabel expanded={isExpanded} onClick={() => setIsExpanded((prev) => !prev)}>
+      <ExpandableLabel expanded={isExpanded} onClick={() => setIsExpanded(prev => !prev)}>
         {isExpanded ? t('Hide') : t('Details')}
       </ExpandableLabel>
       {isExpanded && (

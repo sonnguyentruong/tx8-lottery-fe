@@ -10,14 +10,14 @@ import { getSouschefV2Contract } from 'utils/contractHelpers'
 import tokens from 'config/constants/tokens'
 
 export const fetchPoolsBlockLimits = async () => {
-  const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0)
-  const callsStartBlock = poolsWithEnd.map((poolConfig) => {
+  const poolsWithEnd = poolsConfig.filter(p => p.sousId !== 0)
+  const callsStartBlock = poolsWithEnd.map(poolConfig => {
     return {
       address: getAddress(poolConfig.contractAddress),
       name: 'startBlock',
     }
   })
-  const callsEndBlock = poolsWithEnd.map((poolConfig) => {
+  const callsEndBlock = poolsWithEnd.map(poolConfig => {
     return {
       address: getAddress(poolConfig.contractAddress),
       name: 'bonusEndBlock',
@@ -39,10 +39,10 @@ export const fetchPoolsBlockLimits = async () => {
 }
 
 export const fetchPoolsTotalStaking = async () => {
-  const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
-  const bnbPool = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
+  const nonBnbPools = poolsConfig.filter(p => p.stakingToken.symbol !== 'BNB')
+  const bnbPool = poolsConfig.filter(p => p.stakingToken.symbol === 'BNB')
 
-  const callsNonBnbPools = nonBnbPools.map((poolConfig) => {
+  const callsNonBnbPools = nonBnbPools.map(poolConfig => {
     return {
       address: poolConfig.stakingToken.address,
       name: 'balanceOf',
@@ -50,7 +50,7 @@ export const fetchPoolsTotalStaking = async () => {
     }
   })
 
-  const callsBnbPools = bnbPool.map((poolConfig) => {
+  const callsBnbPools = bnbPool.map(poolConfig => {
     return {
       address: tokens.wbnb.address,
       name: 'balanceOf',
@@ -87,12 +87,12 @@ export const fetchPoolsStakingLimits = async (
   poolsWithStakingLimit: number[],
 ): Promise<{ [key: string]: BigNumber }> => {
   const validPools = poolsConfig
-    .filter((p) => p.stakingToken.symbol !== 'BNB' && !p.isFinished)
-    .filter((p) => !poolsWithStakingLimit.includes(p.sousId))
+    .filter(p => p.stakingToken.symbol !== 'BNB' && !p.isFinished)
+    .filter(p => !poolsWithStakingLimit.includes(p.sousId))
 
   // Get the staking limit for each valid pool
   // Note: We cannot batch the calls via multicall because V1 pools do not have "poolLimitPerUser" and will throw an error
-  const stakingLimitPromises = validPools.map((validPool) => fetchPoolStakingLimit(validPool.sousId))
+  const stakingLimitPromises = validPools.map(validPool => fetchPoolStakingLimit(validPool.sousId))
   const stakingLimits = await Promise.all(stakingLimitPromises)
 
   return stakingLimits.reduce((accum, stakingLimit, index) => {

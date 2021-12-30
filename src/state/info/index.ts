@@ -27,7 +27,7 @@ const initialState: InfoState = {
   tokens: { byAddress: {} },
 }
 
-export default createReducer(initialState, (builder) =>
+export default createReducer(initialState, builder =>
   builder
     // Protocol actions
     .addCase(updateProtocolData, (state, { payload: { protocolData } }) => {
@@ -41,7 +41,7 @@ export default createReducer(initialState, (builder) =>
     })
     // Pools actions
     .addCase(updatePoolData, (state, { payload: { pools } }) => {
-      pools.forEach((poolData) => {
+      pools.forEach(poolData => {
         state.pools.byAddress[poolData.address] = {
           ...state.pools.byAddress[poolData.address],
           data: poolData,
@@ -49,7 +49,7 @@ export default createReducer(initialState, (builder) =>
       })
     })
     .addCase(addPoolKeys, (state, { payload: { poolAddresses } }) => {
-      poolAddresses.forEach((address) => {
+      poolAddresses.forEach(address => {
         if (!state.pools.byAddress[address]) {
           state.pools.byAddress[address] = {
             data: undefined,
@@ -67,7 +67,7 @@ export default createReducer(initialState, (builder) =>
     })
     // Tokens actions
     .addCase(updateTokenData, (state, { payload: { tokens } }) => {
-      tokens.forEach((tokenData) => {
+      tokens.forEach(tokenData => {
         state.tokens.byAddress[tokenData.address] = {
           ...state.tokens.byAddress[tokenData.address],
           data: tokenData,
@@ -75,7 +75,7 @@ export default createReducer(initialState, (builder) =>
       })
     })
     .addCase(addTokenKeys, (state, { payload: { tokenAddresses } }) => {
-      tokenAddresses.forEach((address) => {
+      tokenAddresses.forEach(address => {
         if (!state.tokens.byAddress[address]) {
           state.tokens.byAddress[address] = {
             poolAddresses: undefined,

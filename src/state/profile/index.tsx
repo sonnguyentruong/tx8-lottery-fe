@@ -13,7 +13,7 @@ export const initialState: ProfileState = {
 
 export const fetchProfile = createAsyncThunk<{ hasRegistered: boolean; profile?: Profile }, string>(
   'profile/fetchProfile',
-  async (account) => {
+  async account => {
     const { hasRegistered, profile } = await getProfile(account)
     return { hasRegistered, profile }
   },
@@ -21,7 +21,7 @@ export const fetchProfile = createAsyncThunk<{ hasRegistered: boolean; profile?:
 
 export const fetchProfileAvatar = createAsyncThunk<{ account: string; nft: NftToken; hasRegistered: boolean }, string>(
   'profile/fetchProfileAvatar',
-  async (account) => {
+  async account => {
     const { nft, hasRegistered } = await getProfileAvatar(account)
     return { account, nft, hasRegistered }
   },
@@ -50,8 +50,8 @@ export const profileSlice = createSlice({
       state.data.points += action.payload
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchProfile.pending, (state) => {
+  extraReducers: builder => {
+    builder.addCase(fetchProfile.pending, state => {
       state.isLoading = true
     })
     builder.addCase(fetchProfile.fulfilled, (state, action) => {
@@ -62,7 +62,7 @@ export const profileSlice = createSlice({
       state.hasRegistered = hasRegistered
       state.data = profile
     })
-    builder.addCase(fetchProfile.rejected, (state) => {
+    builder.addCase(fetchProfile.rejected, state => {
       state.isLoading = false
       state.isInitialized = true
     })

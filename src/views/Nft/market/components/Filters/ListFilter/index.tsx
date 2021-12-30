@@ -67,7 +67,7 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
 
   const filteredItems =
     query && query.length > 1
-      ? items.filter((item) => item.label.toLowerCase().indexOf(query.toLowerCase()) !== -1)
+      ? items.filter(item => item.label.toLowerCase().indexOf(query.toLowerCase()) !== -1)
       : items
 
   const handleClearItem = () => {
@@ -100,7 +100,7 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
   }
 
   const toggleSort = (newOrderKey: string) => () => {
-    setOrderState((prevOrderDir) => {
+    setOrderState(prevOrderDir => {
       if (prevOrderDir.orderKey !== newOrderKey) {
         return {
           orderKey: newOrderKey,
@@ -182,7 +182,7 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
             </Flex>
             <Box height="240px" overflowY="auto">
               {filteredItems.length > 0 ? (
-                orderBy(filteredItems, orderKey, orderDir).map((filteredItem) => {
+                orderBy(filteredItems, orderKey, orderDir).map(filteredItem => {
                   const handleSelect = () => handleItemSelect(filteredItem)
                   const isItemSelected = traitFilter ? traitFilter.value === filteredItem.attr.value : false
 

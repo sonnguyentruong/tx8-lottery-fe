@@ -106,16 +106,16 @@ const Pools: React.FC = () => {
   const performanceFeeAsDecimal = performanceFee && performanceFee / 100
 
   const pools = useMemo(() => {
-    const cakePool = poolsWithoutAutoVault.find((pool) => pool.sousId === 0)
+    const cakePool = poolsWithoutAutoVault.find(pool => pool.sousId === 0)
     const cakeAutoVault = { ...cakePool, isAutoVault: true }
     return [cakeAutoVault, ...poolsWithoutAutoVault]
   }, [poolsWithoutAutoVault])
 
   // TODO aren't arrays in dep array checked just by reference, i.e. it will rerender every time reference changes?
-  const [finishedPools, openPools] = useMemo(() => partition(pools, (pool) => pool.isFinished), [pools])
+  const [finishedPools, openPools] = useMemo(() => partition(pools, pool => pool.isFinished), [pools])
   const stakedOnlyFinishedPools = useMemo(
     () =>
-      finishedPools.filter((pool) => {
+      finishedPools.filter(pool => {
         if (pool.isAutoVault) {
           return accountHasVaultShares
         }
@@ -125,7 +125,7 @@ const Pools: React.FC = () => {
   )
   const stakedOnlyOpenPools = useMemo(
     () =>
-      openPools.filter((pool) => {
+      openPools.filter(pool => {
         if (pool.isAutoVault) {
           return accountHasVaultShares
         }
@@ -142,7 +142,7 @@ const Pools: React.FC = () => {
 
   useEffect(() => {
     if (isIntersecting) {
-      setNumberOfPoolsVisible((poolsCurrentlyVisible) => {
+      setNumberOfPoolsVisible(poolsCurrentlyVisible => {
         if (poolsCurrentlyVisible <= chosenPoolsLength.current) {
           return poolsCurrentlyVisible + NUMBER_OF_POOLS_VISIBLE
         }
@@ -231,9 +231,7 @@ const Pools: React.FC = () => {
 
   if (searchQuery) {
     const lowercaseQuery = latinise(searchQuery.toLowerCase())
-    chosenPools = chosenPools.filter((pool) =>
-      latinise(pool.earningToken.symbol.toLowerCase()).includes(lowercaseQuery),
-    )
+    chosenPools = chosenPools.filter(pool => latinise(pool.earningToken.symbol.toLowerCase()).includes(lowercaseQuery))
   }
 
   chosenPools = sortPools(chosenPools).slice(0, numberOfPoolsVisible)
@@ -241,7 +239,7 @@ const Pools: React.FC = () => {
 
   const cardLayout = (
     <CardLayout>
-      {chosenPools.map((pool) =>
+      {chosenPools.map(pool =>
         pool.isAutoVault ? (
           <CakeVaultCard key="auto-cake" pool={pool} showStakedOnly={stakedOnly} />
         ) : (

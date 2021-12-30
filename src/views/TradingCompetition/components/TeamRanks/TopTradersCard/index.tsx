@@ -73,7 +73,7 @@ const TopTradersCard: React.FC<TeamRanksProps> = ({
         </CardHeader>
         <Box mt="16px">
           <TabMenu activeIndex={activeTab} onItemClick={handleItemClick}>
-            {tabs.map((tabText) => {
+            {tabs.map(tabText => {
               return <Tab key={tabText}>{tabText}</Tab>
             })}
           </TabMenu>

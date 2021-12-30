@@ -32,7 +32,7 @@ const BunniesSection = () => {
         >
           <ColoredWordHeading text={headingText} color="text" mb="0" />
           <ColoredWordHeading text={subHeadingText} color="text" firstColor="failure" />
-          {bodyText.map((text) => (
+          {bodyText.map(text => (
             <Text key={text} color="textSubtle" mb="20px">
               {text}
             </Text>

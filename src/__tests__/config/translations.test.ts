@@ -3,7 +3,7 @@ import fs from 'fs'
 import translations from 'config/localization/translations.json'
 
 describe('Check translations integrity', () => {
-  it.each(Object.keys(translations))('Translation key value should be equal', (key) => {
+  it.each(Object.keys(translations))('Translation key value should be equal', key => {
     expect(key).toEqual(translations[key])
   })
 })
@@ -13,7 +13,7 @@ describe('Check translations available', () => {
   const translationKeys = Object.keys(translations)
 
   function throughDirectory(directory) {
-    fs.readdirSync(directory).forEach((file) => {
+    fs.readdirSync(directory).forEach(file => {
       const absolute = Path.join(directory, file)
       if (fs.statSync(absolute).isDirectory()) return throughDirectory(absolute)
       if (absolute.includes('.tsx') || absolute.includes('.ts')) {
@@ -25,7 +25,7 @@ describe('Check translations available', () => {
 
   throughDirectory('src/')
 
-  it.each(files)('Translation key should exist in translations json', (file) => {
+  it.each(files)('Translation key should exist in translations json', file => {
     const data = fs.readFileSync(file, { encoding: 'utf8', flag: 'r' })
 
     let match

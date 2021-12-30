@@ -17,7 +17,7 @@ import { getStatus } from '../helpers'
 // 1,000,000,000 / 100
 const TAX_PRECISION = ethers.FixedNumber.from(10000000000)
 
-const formatPool = (pool) => ({
+const formatPool = pool => ({
   raisingAmountPool: pool ? new BigNumber(pool[0].toString()) : BIG_ZERO,
   offeringAmountPool: pool ? new BigNumber(pool[1].toString()) : BIG_ZERO,
   limitPerUserInLP: pool ? new BigNumber(pool[2].toString()) : BIG_ZERO,
@@ -118,7 +118,7 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
         ? ((currentBlock - startBlockNum) / totalBlocks) * 100
         : ((currentBlock - releaseBlockNumber) / (startBlockNum - releaseBlockNumber)) * 100
 
-    setState((prev) => ({
+    setState(prev => ({
       ...prev,
       secondsUntilEnd: blocksRemaining * BSC_BLOCK_TIME,
       secondsUntilStart: (startBlockNum - currentBlock) * BSC_BLOCK_TIME,

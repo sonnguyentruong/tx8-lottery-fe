@@ -150,7 +150,7 @@ const AuctionLeaderboardTable: React.FC<{ bidders: Bidder[]; noBidsText: string 
         </Text>
         <Box />
         {/* Rows */}
-        {bidders.slice(0, visibleBidders).map((bidder) => (
+        {bidders.slice(0, visibleBidders).map(bidder => (
           <LeaderboardRow key={bidder.account} bidder={bidder} cakePriceBusd={cakePriceBusd} isMobile={isMobile} />
         ))}
       </LeaderboardContainer>
@@ -168,7 +168,7 @@ const AuctionLeaderboardTable: React.FC<{ bidders: Bidder[]; noBidsText: string 
             mt="16px"
             variant="text"
             onClick={() =>
-              setVisibleBidders((prev) => {
+              setVisibleBidders(prev => {
                 if (totalBidders - prev > 10) {
                   return prev + 10
                 }

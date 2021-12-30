@@ -37,7 +37,7 @@ export const LanguageProvider: React.FC = ({ children }) => {
         languageMap.set(codeFromStorage, { ...enLocale, ...currentLocale })
       }
 
-      setState((prevState) => ({
+      setState(prevState => ({
         ...prevState,
         isFetching: false,
       }))
@@ -48,7 +48,7 @@ export const LanguageProvider: React.FC = ({ children }) => {
 
   const setLanguage = async (language: Language) => {
     if (!languageMap.has(language.locale)) {
-      setState((prevState) => ({
+      setState(prevState => ({
         ...prevState,
         isFetching: true,
       }))
@@ -60,14 +60,14 @@ export const LanguageProvider: React.FC = ({ children }) => {
       languageMap.set(language.locale, { ...enLocale, ...locale })
       localStorage.setItem(LS_KEY, language.locale)
 
-      setState((prevState) => ({
+      setState(prevState => ({
         ...prevState,
         isFetching: false,
         currentLanguage: language,
       }))
     } else {
       localStorage.setItem(LS_KEY, language.locale)
-      setState((prevState) => ({
+      setState(prevState => ({
         ...prevState,
         isFetching: false,
         currentLanguage: language,
@@ -87,7 +87,7 @@ export const LanguageProvider: React.FC = ({ children }) => {
 
       if (includesVariable && data) {
         let interpolatedText = translatedText
-        Object.keys(data).forEach((dataKey) => {
+        Object.keys(data).forEach(dataKey => {
           const templateKey = new RegExp(`%${dataKey}%`, 'g')
           interpolatedText = interpolatedText.replace(templateKey, data[dataKey].toString())
         })

@@ -107,9 +107,9 @@ export const initialState: UserState = {
   showPhishingWarningBanner: true,
 }
 
-export default createReducer(initialState, (builder) =>
+export default createReducer(initialState, builder =>
   builder
-    .addCase(updateVersion, (state) => {
+    .addCase(updateVersion, state => {
       // slippage isnt being tracked in local storage, reset to default
       // noinspection SuspiciousTypeOfGuard
       if (typeof state.userSlippageTolerance !== 'number') {
@@ -174,13 +174,13 @@ export default createReducer(initialState, (builder) =>
       }
       state.timestamp = currentTimestamp()
     })
-    .addCase(muteAudio, (state) => {
+    .addCase(muteAudio, state => {
       state.audioPlay = false
     })
-    .addCase(unmuteAudio, (state) => {
+    .addCase(unmuteAudio, state => {
       state.audioPlay = true
     })
-    .addCase(toggleTheme, (state) => {
+    .addCase(toggleTheme, state => {
       state.isDark = !state.isDark
     })
     .addCase(updateUserFarmStakedOnly, (state, { payload: { userFarmStakedOnly } }) => {
@@ -217,7 +217,7 @@ export default createReducer(initialState, (builder) =>
         state.watchlistTokens = [...tokenWatchlist, address]
       } else {
         // Remove token from watchlist
-        const newTokens = state.watchlistTokens.filter((x) => x !== address)
+        const newTokens = state.watchlistTokens.filter(x => x !== address)
         state.watchlistTokens = newTokens
       }
     })
@@ -228,11 +228,11 @@ export default createReducer(initialState, (builder) =>
         state.watchlistPools = [...poolsWatchlist, address]
       } else {
         // Remove pool from watchlist
-        const newPools = state.watchlistPools.filter((x) => x !== address)
+        const newPools = state.watchlistPools.filter(x => x !== address)
         state.watchlistPools = newPools
       }
     })
-    .addCase(hidePhishingWarningBanner, (state) => {
+    .addCase(hidePhishingWarningBanner, state => {
       state.showPhishingWarningBanner = false
     }),
 )

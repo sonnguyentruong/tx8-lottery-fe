@@ -19,7 +19,7 @@ const useGetProfileCosts = () => {
   useEffect(() => {
     const fetchCosts = async () => {
       try {
-        const calls = ['numberCakeToReactivate', 'numberCakeToRegister', 'numberCakeToUpdate'].map((method) => ({
+        const calls = ['numberCakeToReactivate', 'numberCakeToRegister', 'numberCakeToUpdate'].map(method => ({
           address: getPancakeProfileAddress(),
           name: method,
         }))

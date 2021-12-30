@@ -12,7 +12,7 @@ import {
 } from './fetchFarmUser'
 import { SerializedFarmsState, SerializedFarm } from '../types'
 
-const noAccountFarmConfig = farmsConfig.map((farm) => ({
+const noAccountFarmConfig = farmsConfig.map(farm => ({
   ...farm,
   userData: {
     allowance: '0',
@@ -33,8 +33,8 @@ export const nonArchivedFarms = farmsConfig.filter(({ pid }) => !isArchivedPid(p
 // Async thunks
 export const fetchFarmsPublicDataAsync = createAsyncThunk<SerializedFarm[], number[]>(
   'farms/fetchFarmsPublicDataAsync',
-  async (pids) => {
-    const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
+  async pids => {
+    const farmsToFetch = farmsConfig.filter(farmConfig => pids.includes(farmConfig.pid))
 
     // Add price helper farms
     const farmsWithPriceHelpers = farmsToFetch.concat(priceHelperLpsConfig)
@@ -62,7 +62,7 @@ interface FarmUserDataResponse {
 export const fetchFarmUserDataAsync = createAsyncThunk<FarmUserDataResponse[], { account: string; pids: number[] }>(
   'farms/fetchFarmUserDataAsync',
   async ({ account, pids }) => {
-    const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
+    const farmsToFetch = farmsConfig.filter(farmConfig => pids.includes(farmConfig.pid))
     const userFarmAllowances = await fetchFarmUserAllowances(account, farmsToFetch)
     const userFarmTokenBalances = await fetchFarmUserTokenBalances(account, farmsToFetch)
     const userStakedBalances = await fetchFarmUserStakedBalances(account, farmsToFetch)
@@ -84,20 +84,20 @@ export const farmsSlice = createSlice({
   name: 'Farms',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     // Update farms with live data
     builder.addCase(fetchFarmsPublicDataAsync.fulfilled, (state, action) => {
-      state.data = state.data.map((farm) => {
-        const liveFarmData = action.payload.find((farmData) => farmData.pid === farm.pid)
+      state.data = state.data.map(farm => {
+        const liveFarmData = action.payload.find(farmData => farmData.pid === farm.pid)
         return { ...farm, ...liveFarmData }
       })
     })
 
     // Update farms with user data
     builder.addCase(fetchFarmUserDataAsync.fulfilled, (state, action) => {
-      action.payload.forEach((userDataEl) => {
+      action.payload.forEach(userDataEl => {
         const { pid } = userDataEl
-        const index = state.data.findIndex((farm) => farm.pid === pid)
+        const index = state.data.findIndex(farm => farm.pid === pid)
         state.data[index] = { ...state.data[index], userData: userDataEl }
       })
       state.userDataLoaded = true

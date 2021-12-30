@@ -49,7 +49,7 @@ const IndividualNFTPage: React.FC<IndividualNFTPageProps> = ({ collectionAddress
     }
     if (userNftsInitializationState === UserNftInitializationState.INITIALIZED) {
       const nftOwnedByConnectedUser = userNfts.find(
-        (userNft) =>
+        userNft =>
           userNft.collectionAddress.toLowerCase() === collectionAddress.toLowerCase() && userNft.tokenId === tokenId,
       )
       if (nftOwnedByConnectedUser) {
@@ -78,7 +78,7 @@ const IndividualNFTPage: React.FC<IndividualNFTPageProps> = ({ collectionAddress
 
   const properties = nft.attributes
 
-  const userProfilePicture = userNfts.find((userNft) => userNft.location === NftLocation.PROFILE)
+  const userProfilePicture = userNfts.find(userNft => userNft.location === NftLocation.PROFILE)
   const nftIsProfilePic = userProfilePicture
     ? nft.tokenId === userProfilePicture.tokenId && nft.collectionAddress === userProfilePicture.collectionAddress
     : false
@@ -87,7 +87,7 @@ const IndividualNFTPage: React.FC<IndividualNFTPageProps> = ({ collectionAddress
     if (distributionData && !isFetchingDistribution) {
       return Object.keys(distributionData).reduce((rarityMap, traitType) => {
         const total = sum(Object.values(distributionData[traitType]))
-        const nftAttributeValue = nft.attributes.find((attribute) => attribute.traitType === traitType)?.value
+        const nftAttributeValue = nft.attributes.find(attribute => attribute.traitType === traitType)?.value
         const count = distributionData[traitType][nftAttributeValue]
         const rarity = (count / total) * 100
         return {

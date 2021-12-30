@@ -89,10 +89,7 @@ const Lottery = () => {
             {t('Finished Rounds')}
           </Heading>
           <Box mb="24px">
-            <HistoryTabMenu
-              activeIndex={historyTabMenuIndex}
-              setActiveIndex={(index) => setHistoryTabMenuIndex(index)}
-            />
+            <HistoryTabMenu activeIndex={historyTabMenuIndex} setActiveIndex={index => setHistoryTabMenuIndex(index)} />
           </Box>
           {historyTabMenuIndex === 0 ? (
             <AllHistoryCard />

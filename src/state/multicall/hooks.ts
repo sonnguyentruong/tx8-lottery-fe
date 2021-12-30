@@ -31,7 +31,7 @@ function isMethodArg(x: unknown): x is MethodArg {
 function isValidMethodArgs(x: unknown): x is MethodArgs | undefined {
   return (
     x === undefined ||
-    (Array.isArray(x) && x.every((xi) => isMethodArg(xi) || (Array.isArray(xi) && xi.every(isMethodArg))))
+    (Array.isArray(x) && x.every(xi => isMethodArg(xi) || (Array.isArray(xi) && xi.every(isMethodArg))))
   )
 }
 
@@ -51,9 +51,7 @@ export const NEVER_RELOAD: ListenerOptions = {
 // the lowest level call for subscribing to contract data
 function useCallsData(calls: (Call | undefined)[], options?: ListenerOptions): CallResult[] {
   const { chainId } = useActiveWeb3React()
-  const callResults = useSelector<AppState, AppState['multicall']['callResults']>(
-    (state) => state.multicall.callResults,
-  )
+  const callResults = useSelector<AppState, AppState['multicall']['callResults']>(state => state.multicall.callResults)
   const dispatch = useDispatch<AppDispatch>()
 
   const serializedCallKeys: string = useMemo(
@@ -72,7 +70,7 @@ function useCallsData(calls: (Call | undefined)[], options?: ListenerOptions): C
     const callKeys: string[] = JSON.parse(serializedCallKeys)
     if (!chainId || callKeys.length === 0) return undefined
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    const calls = callKeys.map((key) => parseCallKey(key))
+    const calls = callKeys.map(key => parseCallKey(key))
     dispatch(
       addMulticallListeners({
         chainId,
@@ -94,7 +92,7 @@ function useCallsData(calls: (Call | undefined)[], options?: ListenerOptions): C
 
   return useMemo(
     () =>
-      calls.map<CallResult>((call) => {
+      calls.map<CallResult>(call => {
         if (!chainId || !call) return INVALID_RESULT
 
         const result = callResults[chainId]?.[toCallKey(call)]
@@ -173,7 +171,7 @@ export function useSingleContractMultipleData(
   const calls = useMemo(
     () =>
       contract && fragment && callInputs && callInputs.length > 0
-        ? callInputs.map<Call>((inputs) => {
+        ? callInputs.map<Call>(inputs => {
             return {
               address: contract.address,
               callData: contract.interface.encodeFunctionData(fragment, inputs),
@@ -188,7 +186,7 @@ export function useSingleContractMultipleData(
   const { currentBlock } = useBlock()
 
   return useMemo(() => {
-    return results.map((result) => toCallState(result, contract?.interface, fragment, currentBlock))
+    return results.map(result => toCallState(result, contract?.interface, fragment, currentBlock))
   }, [fragment, contract, results, currentBlock])
 }
 
@@ -211,7 +209,7 @@ export function useMultipleContractSingleData(
   const calls = useMemo(
     () =>
       fragment && addresses && addresses.length > 0 && callData
-        ? addresses.map<Call | undefined>((address) => {
+        ? addresses.map<Call | undefined>(address => {
             return address && callData
               ? {
                   address,
@@ -228,7 +226,7 @@ export function useMultipleContractSingleData(
   const { currentBlock } = useBlock()
 
   return useMemo(() => {
-    return results.map((result) => toCallState(result, contractInterface, fragment, currentBlock))
+    return results.map(result => toCallState(result, contractInterface, fragment, currentBlock))
   }, [fragment, results, contractInterface, currentBlock])
 }
 

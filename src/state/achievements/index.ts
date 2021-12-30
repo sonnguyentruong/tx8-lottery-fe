@@ -9,7 +9,7 @@ const initialState: AchievementState = {
 
 export const fetchAchievements = createAsyncThunk<Achievement[], string>(
   'achievements/fetchAchievements',
-  async (account) => {
+  async account => {
     const achievements = await getAchievements(account)
     return achievements
   },
@@ -23,15 +23,15 @@ export const achievementSlice = createSlice({
       state.achievements.push(action.payload)
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchAchievements.pending, (state) => {
+  extraReducers: builder => {
+    builder.addCase(fetchAchievements.pending, state => {
       state.achievementFetchStatus = AchievementFetchStatus.FETCHING
     })
     builder.addCase(fetchAchievements.fulfilled, (state, action) => {
       state.achievementFetchStatus = AchievementFetchStatus.FETCHED
       state.achievements = action.payload
     })
-    builder.addCase(fetchAchievements.rejected, (state) => {
+    builder.addCase(fetchAchievements.rejected, state => {
       state.achievementFetchStatus = AchievementFetchStatus.ERROR
     })
   },

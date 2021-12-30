@@ -23,7 +23,7 @@ export const useCompetitionCakeRewards = (userCakeReward: ReactText) => {
 // Achievement keys are consistent across different teams regardless of team team rank
 // If a teamRank value isn't passed, this helper can be used to return achievement keys for a given userRewardGroup
 export const getRewardGroupAchievements = (userRewardGroup: string, teamRank = 1) => {
-  const userGroup = easterPrizes[teamRank].filter((prizeGroup) => {
+  const userGroup = easterPrizes[teamRank].filter(prizeGroup => {
     return prizeGroup.group === userRewardGroup
   })[0]
   const userAchievements = userGroup && userGroup.achievements

@@ -94,8 +94,8 @@ const ProfilePicture: React.FC = () => {
           </Text>
           <NftWrapper>
             {nfts
-              .filter((walletNft) => walletNft.location === NftLocation.WALLET)
-              .map((walletNft) => {
+              .filter(walletNft => walletNft.location === NftLocation.WALLET)
+              .map(walletNft => {
                 return (
                   <SelectionCard
                     name="profilePicture"

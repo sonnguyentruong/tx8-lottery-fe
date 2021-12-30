@@ -5,7 +5,7 @@ import { BLOCKS_CLIENT } from 'config/constants/endpoints'
 import { Block } from 'state/info/types'
 
 const getBlockSubqueries = (timestamps: number[]) =>
-  timestamps.map((timestamp) => {
+  timestamps.map(timestamp => {
     return `t${timestamp}:blocks(first: 1, orderBy: timestamp, orderDirection: desc, where: { timestamp_gt: ${timestamp}, timestamp_lt: ${
       timestamp + 600
     } }) {

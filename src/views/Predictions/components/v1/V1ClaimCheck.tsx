@@ -32,7 +32,7 @@ const ClaimCheck = () => {
       const betHistory = await getAllV1History({ user: account.toLowerCase(), claimed: false })
 
       // Filter out bets that can be claimed
-      const unclaimedBets = betHistory.filter((bet) => {
+      const unclaimedBets = betHistory.filter(bet => {
         return bet.round.position === bet.position || bet.round.failed === true
       })
 

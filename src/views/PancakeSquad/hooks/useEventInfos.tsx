@@ -20,7 +20,7 @@ const useEventInfos = ({ refreshCounter, setCallback }) => {
           'totalTicketsDistributed',
           'currentStatus',
           'startTimestamp',
-        ].map((method) => ({
+        ].map(method => ({
           address: nftSaleAddress,
           name: method,
         }))

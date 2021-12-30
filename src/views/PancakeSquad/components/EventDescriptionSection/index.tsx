@@ -41,7 +41,7 @@ const EventDescriptionSection = () => {
           </Text>
           <Text color="textSubtle">{bodyTextHeader}</Text>
           <StyledBodyTextList>
-            {bodyText.map((text) => (
+            {bodyText.map(text => (
               <StyledBodyTextElement key={text.id}>{text.content}</StyledBodyTextElement>
             ))}
           </StyledBodyTextList>
@@ -67,7 +67,7 @@ const EventDescriptionSection = () => {
             <img src={image.src} alt={image.alt} />
           </Box>
           <StyledBunnyAccessoriesContainer>
-            {accessoriesImages.map((accessory) => (
+            {accessoriesImages.map(accessory => (
               <StyledBunnyAccessory key={accessory.alt} src={accessory.src} alt={accessory.alt} />
             ))}
           </StyledBunnyAccessoriesContainer>

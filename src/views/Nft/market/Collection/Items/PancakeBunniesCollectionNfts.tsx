@@ -16,7 +16,7 @@ const PancakeBunniesCollectionNfts: React.FC<CollectionNftsProps> = ({ collectio
   const allPancakeBunnyNfts = useAllPancakeBunnyNfts(address)
 
   const sortedNfts = allPancakeBunnyNfts
-    ? orderBy(allPancakeBunnyNfts, (nft) => (nft.meta[sortBy] ? Number(nft?.meta[sortBy]) : 0), [
+    ? orderBy(allPancakeBunnyNfts, nft => (nft.meta[sortBy] ? Number(nft?.meta[sortBy]) : 0), [
         sortBy === 'currentAskPrice' ? 'asc' : 'desc',
       ])
     : []
@@ -32,7 +32,7 @@ const PancakeBunniesCollectionNfts: React.FC<CollectionNftsProps> = ({ collectio
         gridTemplateColumns={['1fr', null, 'repeat(3, 1fr)', null, 'repeat(4, 1fr)']}
         alignItems="start"
       >
-        {sortedNfts.map((nft) => {
+        {sortedNfts.map(nft => {
           return <CollectibleLinkCard key={`${nft.tokenId}-${nft.collectionName}`} nft={nft} />
         })}
       </Grid>

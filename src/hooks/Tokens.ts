@@ -29,11 +29,14 @@ function useTokensFromMap(tokenMap: TokenAddressMap): {
     if (!chainId) return {}
 
     // reduce to just tokens
-    const mapWithoutUrls = Object.keys(tokenMap).map(key => 
-      Object.keys(tokenMap[key]).reduce<{ [address: string]: Token }>((newMap, address) => {
-        newMap[address] = tokenMap[key][address].token
-        return newMap
-      }, {})).reduce((map, current) => ({...map, ...current}), {})
+    const mapWithoutUrls = Object.keys(tokenMap)
+      .map(key =>
+        Object.keys(tokenMap[key]).reduce<{ [address: string]: Token }>((newMap, address) => {
+          newMap[address] = tokenMap[key][address].token
+          return newMap
+        }, {}),
+      )
+      .reduce((map, current) => ({ ...map, ...current }), {})
 
     return mapWithoutUrls
   }, [chainId, tokenMap])

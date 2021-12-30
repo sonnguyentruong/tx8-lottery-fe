@@ -33,7 +33,7 @@ const Pre = styled.pre`
   overflow-x: auto;
 `
 
-const Title = (props) => {
+const Title = props => {
   return <Heading as="h4" scale="lg" my="16px" {...props} />
 }
 
@@ -44,14 +44,14 @@ const markdownComponents: Partial<NormalComponents & SpecialComponents> = {
   h4: Title,
   h5: Title,
   h6: Title,
-  p: (props) => {
+  p: props => {
     return <Text as="p" my="16px" {...props} />
   },
   table: Table,
-  ol: (props) => {
+  ol: props => {
     return <ThemedComponent as="ol" {...props} />
   },
-  ul: (props) => {
+  ul: props => {
     return <ThemedComponent as="ul" {...props} />
   },
   pre: Pre,

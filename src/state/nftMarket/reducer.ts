@@ -81,7 +81,7 @@ export const fetchCollections = createAsyncThunk<Record<string, Collection>>('nf
  */
 export const fetchCollection = createAsyncThunk<Record<string, Collection>, string>(
   'nft/fetchCollection',
-  async (collectionAddress) => {
+  async collectionAddress => {
     const [collection, collectionMarket] = await Promise.all([
       getCollectionApi(collectionAddress),
       getCollectionSg(collectionAddress),
@@ -113,12 +113,12 @@ export const fetchNftsFromCollections = createAsyncThunk<
       return []
     }
 
-    const tokenIds = Object.values(nfts.data).map((nft) => nft.tokenId)
+    const tokenIds = Object.values(nfts.data).map(nft => nft.tokenId)
     const nftsMarket = await getMarketDataForTokenIds(collectionAddress, tokenIds)
 
-    return tokenIds.map((id) => {
+    return tokenIds.map(id => {
       const apiMetadata = nfts.data[id]
-      const marketData = nftsMarket.find((nft) => nft.tokenId === id)
+      const marketData = nftsMarket.find(nft => nft.tokenId === id)
 
       return {
         tokenId: id,
@@ -155,11 +155,11 @@ export const filterNftsFromCollection = createAsyncThunk<
     const attrFilters = await fetchNftsFiltered(collectionAddress, attrParams)
 
     // Fetch market data for each token returned
-    const tokenIds = Object.values(attrFilters.data).map((apiToken) => apiToken.tokenId)
+    const tokenIds = Object.values(attrFilters.data).map(apiToken => apiToken.tokenId)
     const marketData = await getNftsMarketData({ tokenId_in: tokenIds, collection: collectionAddress.toLowerCase() })
 
-    const nftTokens: NftToken[] = Object.values(attrFilters.data).map((apiToken) => {
-      const apiTokenMarketData = marketData.find((tokenMarketData) => tokenMarketData.tokenId === apiToken.tokenId)
+    const nftTokens: NftToken[] = Object.values(attrFilters.data).map(apiToken => {
+      const apiTokenMarketData = marketData.find(tokenMarketData => tokenMarketData.tokenId === apiToken.tokenId)
 
       return {
         tokenId: apiToken.tokenId,
@@ -206,7 +206,7 @@ export const fetchNewPBAndUpdateExisting = createAsyncThunk<
       if (!updatedNfts?.data) {
         return []
       }
-      const updatedTokens = updatedNftsMarket.map((marketData) => {
+      const updatedTokens = updatedNftsMarket.map(marketData => {
         const apiMetadata = getMetadataWithFallback(updatedNfts.data, marketData.otherId)
         const attributes = getPancakeBunniesAttributesField(marketData.otherId)
         return combineApiAndSgResponseToNftToken(apiMetadata, marketData, attributes)
@@ -224,7 +224,7 @@ export const fetchNewPBAndUpdateExisting = createAsyncThunk<
         return updatedTokens
       }
 
-      const moreTokensWithRequestedBunnyId = nftsMarket.map((marketData) => {
+      const moreTokensWithRequestedBunnyId = nftsMarket.map(marketData => {
         const apiMetadata = getMetadataWithFallback(newNfts.data, marketData.otherId)
         const attributes = getPancakeBunniesAttributesField(marketData.otherId)
         return combineApiAndSgResponseToNftToken(apiMetadata, marketData, attributes)
@@ -320,11 +320,11 @@ export const NftMarket = createSlice({
         }
       }
     },
-    resetUserNftState: (state) => {
+    resetUserNftState: state => {
       state.data.user = { ...initialState.data.user }
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(filterNftsFromCollection.pending, (state, action) => {
       const { collectionAddress } = action.meta.arg
       if (state.data.filters[collectionAddress]) {
@@ -369,7 +369,7 @@ export const NftMarket = createSlice({
       const { collectionAddress } = action.meta.arg
       const existingNfts: NftToken[] = state.data.nfts[collectionAddress] ?? []
       const existingNftsWithoutNewOnes = existingNfts.filter(
-        (nftToken) => !action.payload.find((newToken) => newToken.tokenId === nftToken.tokenId),
+        nftToken => !action.payload.find(newToken => newToken.tokenId === nftToken.tokenId),
       )
 
       state.data.filters[collectionAddress] = {
@@ -379,7 +379,7 @@ export const NftMarket = createSlice({
       }
       state.data.nfts[collectionAddress] = [...existingNftsWithoutNewOnes, ...action.payload]
     })
-    builder.addCase(fetchNewPBAndUpdateExisting.pending, (state) => {
+    builder.addCase(fetchNewPBAndUpdateExisting.pending, state => {
       state.data.loadingState.isUpdatingPancakeBunnies = true
     })
     builder.addCase(fetchNewPBAndUpdateExisting.fulfilled, (state, action) => {
@@ -389,14 +389,14 @@ export const NftMarket = createSlice({
       state.data.loadingState.isUpdatingPancakeBunnies = false
       state.data.loadingState.latestPancakeBunniesUpdateAt = Date.now()
     })
-    builder.addCase(fetchNewPBAndUpdateExisting.rejected, (state) => {
+    builder.addCase(fetchNewPBAndUpdateExisting.rejected, state => {
       state.data.loadingState.isUpdatingPancakeBunnies = false
       state.data.loadingState.latestPancakeBunniesUpdateAt = Date.now()
     })
-    builder.addCase(fetchUserNfts.rejected, (state) => {
+    builder.addCase(fetchUserNfts.rejected, state => {
       state.data.user.userNftsInitializationState = UserNftInitializationState.ERROR
     })
-    builder.addCase(fetchUserNfts.pending, (state) => {
+    builder.addCase(fetchUserNfts.pending, state => {
       state.data.user.userNftsInitializationState = UserNftInitializationState.INITIALIZING
     })
     builder.addCase(fetchUserNfts.fulfilled, (state, action) => {
@@ -405,13 +405,13 @@ export const NftMarket = createSlice({
     })
     builder.addCase(updateUserNft.fulfilled, (state, action) => {
       const userNftsState: NftToken[] = state.data.user.nfts
-      const nftToUpdate = userNftsState.find((nft) => nft.tokenId === action.payload.tokenId)
+      const nftToUpdate = userNftsState.find(nft => nft.tokenId === action.payload.tokenId)
       const indexInState = userNftsState.indexOf(nftToUpdate)
       state.data.user.nfts[indexInState] = action.payload
     })
     builder.addCase(removeUserNft.fulfilled, (state, action) => {
       const copyOfState: NftToken[] = [...state.data.user.nfts]
-      const nftToRemove = copyOfState.find((nft) => nft.tokenId === action.payload)
+      const nftToRemove = copyOfState.find(nft => nft.tokenId === action.payload)
       const indexInState = copyOfState.indexOf(nftToRemove)
       copyOfState.splice(indexInState, 1)
       state.data.user.nfts = copyOfState
@@ -422,10 +422,10 @@ export const NftMarket = createSlice({
     builder.addCase(fetchUserActivity.fulfilled, (state, action) => {
       state.data.user.activity = { ...action.payload, initializationState: UserNftInitializationState.INITIALIZED }
     })
-    builder.addCase(fetchUserActivity.rejected, (state) => {
+    builder.addCase(fetchUserActivity.rejected, state => {
       state.data.user.activity.initializationState = UserNftInitializationState.ERROR
     })
-    builder.addCase(fetchUserActivity.pending, (state) => {
+    builder.addCase(fetchUserActivity.pending, state => {
       state.data.user.activity.initializationState = UserNftInitializationState.INITIALIZING
     })
   },

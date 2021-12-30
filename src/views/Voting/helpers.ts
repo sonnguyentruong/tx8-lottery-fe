@@ -11,9 +11,9 @@ export const isCoreProposal = (proposal: Proposal) => {
 export const filterProposalsByType = (proposals: Proposal[], proposalType: ProposalType) => {
   switch (proposalType) {
     case ProposalType.COMMUNITY:
-      return proposals.filter((proposal) => !isCoreProposal(proposal))
+      return proposals.filter(proposal => !isCoreProposal(proposal))
     case ProposalType.CORE:
-      return proposals.filter((proposal) => isCoreProposal(proposal))
+      return proposals.filter(proposal => isCoreProposal(proposal))
     case ProposalType.ALL:
     default:
       return proposals
@@ -21,7 +21,7 @@ export const filterProposalsByType = (proposals: Proposal[], proposalType: Propo
 }
 
 export const filterProposalsByState = (proposals: Proposal[], state: ProposalState) => {
-  return proposals.filter((proposal) => proposal.state === state)
+  return proposals.filter(proposal => proposal.state === state)
 }
 
 export interface Message {

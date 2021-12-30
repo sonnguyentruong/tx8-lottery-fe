@@ -136,7 +136,7 @@ const SlippageTabs = () => {
                 onBlur={() => {
                   parseCustomSlippage((userSlippageTolerance / 100).toFixed(2))
                 }}
-                onChange={(event) => {
+                onChange={event => {
                   if (event.currentTarget.validity.valid) {
                     parseCustomSlippage(event.target.value.replace(/,/g, '.'))
                   }
@@ -181,7 +181,7 @@ const SlippageTabs = () => {
               }}
               placeholder={(ttl / 60).toString()}
               value={deadlineInput}
-              onChange={(event) => {
+              onChange={event => {
                 if (event.currentTarget.validity.valid) {
                   parseCustomDeadline(event.target.value)
                 }

@@ -14,7 +14,7 @@ const applyNodeDataToLotteriesGraphResponse = (
 ): LotteryRoundGraphEntity[] => {
   //   If no graph response - return node data
   if (graphResponse.length === 0) {
-    return nodeData.map((nodeRound) => {
+    return nodeData.map(nodeRound => {
       return {
         endTime: nodeRound.endTime,
         finalNumber: nodeRound.finalNumber.toString(),
@@ -30,8 +30,8 @@ const applyNodeDataToLotteriesGraphResponse = (
   }
 
   // Populate all nodeRound data with supplementary graphResponse round data when available
-  const nodeRoundsWithGraphData = nodeData.map((nodeRoundData) => {
-    const graphRoundData = graphResponse.find((graphResponseRound) => graphResponseRound.id === nodeRoundData.lotteryId)
+  const nodeRoundsWithGraphData = nodeData.map(nodeRoundData => {
+    const graphRoundData = graphResponse.find(graphResponseRound => graphResponseRound.id === nodeRoundData.lotteryId)
     return {
       endTime: nodeRoundData.endTime,
       finalNumber: nodeRoundData.finalNumber.toString(),
@@ -47,9 +47,7 @@ const applyNodeDataToLotteriesGraphResponse = (
 
   // Return the rounds with combined node + subgraph data, plus all remaining subgraph rounds.
   const [lastCombinedDataRound] = nodeRoundsWithGraphData.slice(-1)
-  const lastCombinedDataRoundIndex = graphResponse
-    .map((graphRound) => graphRound?.id)
-    .indexOf(lastCombinedDataRound?.id)
+  const lastCombinedDataRoundIndex = graphResponse.map(graphRound => graphRound?.id).indexOf(lastCombinedDataRound?.id)
 
   const remainingSubgraphRounds = graphResponse ? graphResponse.splice(lastCombinedDataRoundIndex + 1) : []
   const mergedResponse = [...nodeRoundsWithGraphData, ...remainingSubgraphRounds]

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Svg, SvgProps } from '@pancakeswap/uikit'
 
-const TicketPurchaseCard: React.FC<SvgProps> = (props) => {
+const TicketPurchaseCard: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 296 121" {...props}>
       <g filter="url(#filter0_dd_ticket_purchase_card)">

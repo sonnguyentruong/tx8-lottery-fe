@@ -65,7 +65,7 @@ const HistoricalBet: React.FC<BetProps> = ({ bet }) => {
 
   const toggleOpen = () => setIsOpen(!isOpen)
 
-  const getRoundColor = (result) => {
+  const getRoundColor = result => {
     switch (result) {
       case Result.WIN:
         return 'success'
@@ -80,7 +80,7 @@ const HistoricalBet: React.FC<BetProps> = ({ bet }) => {
     }
   }
 
-  const getRoundPrefix = (result) => {
+  const getRoundPrefix = result => {
     if (result === Result.LOSE) {
       return '-'
     }

@@ -102,12 +102,12 @@ export const useMasterchef = () => {
   return useMemo(() => getMasterchefContract(library.getSigner()), [library])
 }
 
-export const useSousChef = (id) => {
+export const useSousChef = id => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getSouschefContract(id, library.getSigner()), [id, library])
 }
 
-export const useSousChefV2 = (id) => {
+export const useSousChefV2 = id => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getSouschefV2Contract(id, library.getSigner()), [id, library])
 }

@@ -129,7 +129,7 @@ const useReclaimAuctionBid = (): [ReclaimableAuction | null, () => void] => {
         if (isClaimable) {
           const [auctionBidders] = await farmAuctionContract.viewBidsPerAuction(auctionToCheck.id, 0, 500)
           const sortedBidders = sortAuctionBidders(auctionBidders)
-          const accountBidderData = sortedBidders.find((bidder) => bidder.account === account)
+          const accountBidderData = sortedBidders.find(bidder => bidder.account === account)
           const position = accountBidderData?.position
           const auctionToReclaim = { id: auctionToCheck.id, amount: auctionToCheck.amount, position }
           dispatch({ type: 'setAuctionToReclaim', payload: { auctionToReclaim } })

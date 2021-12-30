@@ -22,7 +22,7 @@ const useBlockCountdown = (blockNumber: number) => {
         }
 
         timer.current = setInterval(() => {
-          setSecondsRemaining((prevSecondsRemaining) => {
+          setSecondsRemaining(prevSecondsRemaining => {
             if (prevSecondsRemaining === 1) {
               clearInterval(timer.current)
             }

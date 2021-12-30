@@ -17,7 +17,7 @@ const multicall = async <T = any>(abi: any[], calls: Call[]): Promise<T> => {
     const multi = getMulticallContract()
     const itf = new ethers.utils.Interface(abi)
 
-    const calldata = calls.map((call) => [call.address.toLowerCase(), itf.encodeFunctionData(call.name, call.params)])
+    const calldata = calls.map(call => [call.address.toLowerCase(), itf.encodeFunctionData(call.name, call.params)])
     const { returnData } = await multi.aggregate(calldata)
 
     const res = returnData.map((call, i) => itf.decodeFunctionResult(calls[i].name, call))
@@ -43,7 +43,7 @@ export const multicallv2 = async <T = any>(
   const multi = getMulticallContract()
   const itf = new ethers.utils.Interface(abi)
 
-  const calldata = calls.map((call) => [call.address.toLowerCase(), itf.encodeFunctionData(call.name, call.params)])
+  const calldata = calls.map(call => [call.address.toLowerCase(), itf.encodeFunctionData(call.name, call.params)])
   const returnData = await multi.tryAggregate(requireSuccess, calldata)
   const res = returnData.map((call, i) => {
     const [result, data] = call

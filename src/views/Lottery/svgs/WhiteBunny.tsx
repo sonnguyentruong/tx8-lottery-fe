@@ -1,7 +1,7 @@
 import React from 'react'
 import { Svg, SvgProps } from '@pancakeswap/uikit'
 
-const WhiteBunny: React.FC<SvgProps> = (props) => {
+const WhiteBunny: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 27 26" {...props}>
       <mask

@@ -221,7 +221,7 @@ const PoolPage: React.FC<RouteComponentProps<{ address: string }>> = ({
                 <Flex flexDirection="column" p="24px">
                   <ButtonMenu
                     activeIndex={showWeeklyData}
-                    onItemClick={(index) => setShowWeeklyData(index)}
+                    onItemClick={index => setShowWeeklyData(index)}
                     scale="sm"
                     variant="subtle"
                   >

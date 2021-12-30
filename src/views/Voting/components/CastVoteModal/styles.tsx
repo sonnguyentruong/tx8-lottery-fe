@@ -13,6 +13,6 @@ export const VotingBox = styled.div`
   padding: 0 16px;
 `
 
-export const ModalInner: React.FC<BoxProps> = (props) => {
+export const ModalInner: React.FC<BoxProps> = props => {
   return <Box mb="24px" maxWidth="320px" {...props} />
 }

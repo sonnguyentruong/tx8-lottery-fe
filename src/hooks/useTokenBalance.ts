@@ -37,7 +37,7 @@ const useTokenBalance = (tokenAddress: string) => {
         setBalanceState({ balance: new BigNumber(res.toString()), fetchStatus: SUCCESS })
       } catch (e) {
         console.error(e)
-        setBalanceState((prev) => ({
+        setBalanceState(prev => ({
           ...prev,
           fetchStatus: FAILED,
         }))

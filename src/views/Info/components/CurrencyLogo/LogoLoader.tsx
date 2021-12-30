@@ -24,7 +24,7 @@ const LogoLoader: React.FC<LogoLoaderProps> = ({ src, alt, ...rest }) => {
         src={src}
         onError={() => {
           if (src) BAD_SRCS.push(src)
-          refresh((i) => i + 1)
+          refresh(i => i + 1)
         }}
       />
     )

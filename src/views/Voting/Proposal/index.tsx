@@ -33,7 +33,7 @@ const Proposal = () => {
   const votes = useGetVotes(id)
   const voteLoadingStatus = useGetVotingStateLoadingStatus()
   const proposalLoadingStatus = useGetProposalLoadingStatus()
-  const hasAccountVoted = account && votes.some((vote) => vote.voter.toLowerCase() === account.toLowerCase())
+  const hasAccountVoted = account && votes.some(vote => vote.voter.toLowerCase() === account.toLowerCase())
   const { id: proposalId = null, snapshot = null } = proposal ?? {}
   const isPageLoading =
     voteLoadingStatus === VotingStateLoadingStatus.LOADING || proposalLoadingStatus === VotingStateLoadingStatus.LOADING

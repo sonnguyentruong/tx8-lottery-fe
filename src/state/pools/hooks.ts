@@ -31,7 +31,7 @@ export const useFetchPublicPoolsData = () => {
   }, [dispatch, slowRefresh])
 }
 
-export const useFetchUserPools = (account) => {
+export const useFetchUserPools = account => {
   const { fastRefresh } = useRefresh()
   const dispatch = useAppDispatch()
   useEffect(() => {

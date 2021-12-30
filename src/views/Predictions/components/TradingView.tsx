@@ -12,7 +12,7 @@ const TRADING_VIEW_COMPONENT_ID = 'tradingview_b239c'
  * available on the window. So we listen for when it gets set
  */
 const tradingViewListener = async () =>
-  new Promise<void>((resolve) =>
+  new Promise<void>(resolve =>
     Object.defineProperty(window, 'TradingView', {
       configurable: true,
       set(value) {
@@ -71,7 +71,7 @@ const TradingView = () => {
       // @ts-ignore
       initializeTradingView(window.tv, theme, currentLanguage.code)
     } else {
-      tradingViewListener().then((tv) => {
+      tradingViewListener().then(tv => {
         initializeTradingView(tv, theme, currentLanguage.code)
       })
     }

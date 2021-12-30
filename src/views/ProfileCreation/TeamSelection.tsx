@@ -36,7 +36,7 @@ const Team: React.FC = () => {
             )}
           </Text>
           {teamValues &&
-            teamValues.map((team) => {
+            teamValues.map(team => {
               return (
                 <SelectionCard
                   key={team.name}

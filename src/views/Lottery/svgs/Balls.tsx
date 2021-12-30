@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Svg, SvgProps, Text, Flex } from '@pancakeswap/uikit'
 
-export const PinkBall: React.FC<SvgProps> = (props) => {
+export const PinkBall: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 32 32" {...props}>
       <circle cx="16" cy="16" r="16" fill="#D750B2" />
@@ -42,7 +42,7 @@ export const PinkBall: React.FC<SvgProps> = (props) => {
   )
 }
 
-export const LilacBall: React.FC<SvgProps> = (props) => {
+export const LilacBall: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 32 32" {...props}>
       <circle cx="16" cy="16" r="16" fill="#A881FC" />
@@ -82,7 +82,7 @@ export const LilacBall: React.FC<SvgProps> = (props) => {
   )
 }
 
-export const TealBall: React.FC<SvgProps> = (props) => {
+export const TealBall: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 32 32" {...props}>
       <circle cx="16" cy="16" r="16" fill="#1FC7D4" />
@@ -122,7 +122,7 @@ export const TealBall: React.FC<SvgProps> = (props) => {
   )
 }
 
-export const AquaBall: React.FC<SvgProps> = (props) => {
+export const AquaBall: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 32 32" {...props}>
       <circle cx="16" cy="16" r="16" fill="#31D0AA" />
@@ -162,7 +162,7 @@ export const AquaBall: React.FC<SvgProps> = (props) => {
   )
 }
 
-export const GreenBall: React.FC<SvgProps> = (props) => {
+export const GreenBall: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 32 32" {...props}>
       <circle cx="16" cy="16" r="16" fill="#93D45A" />
@@ -202,7 +202,7 @@ export const GreenBall: React.FC<SvgProps> = (props) => {
   )
 }
 
-export const YellowBall: React.FC<SvgProps> = (props) => {
+export const YellowBall: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 32 32" {...props}>
       <circle cx="16" cy="16" r="16" fill="#FFC43C" />

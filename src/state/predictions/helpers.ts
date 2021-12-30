@@ -207,9 +207,9 @@ export const getRoundResult = (bet: Bet, currentEpoch: number): Result => {
 export const getFilteredBets = (bets: Bet[], filter: HistoryFilter) => {
   switch (filter) {
     case HistoryFilter.COLLECTED:
-      return bets.filter((bet) => bet.claimed === true)
+      return bets.filter(bet => bet.claimed === true)
     case HistoryFilter.UNCOLLECTED:
-      return bets.filter((bet) => {
+      return bets.filter(bet => {
         return !bet.claimed && (bet.position === bet.round.position || bet.round.failed === true)
       })
     case HistoryFilter.ALL:
@@ -285,7 +285,7 @@ export const getBet = async (betId: string): Promise<BetResponse> => {
 
 export const getLedgerData = async (account: string, epochs: number[]) => {
   const address = getPredictionsAddress()
-  const ledgerCalls = epochs.map((epoch) => ({
+  const ledgerCalls = epochs.map(epoch => ({
     address,
     name: 'ledger',
     params: [epoch, account],
@@ -349,7 +349,7 @@ export const getClaimStatuses = async (
   epochs: number[],
 ): Promise<PredictionsState['claimableStatuses']> => {
   const address = getPredictionsAddress()
-  const claimableCalls = epochs.map((epoch) => ({
+  const claimableCalls = epochs.map(epoch => ({
     address,
     name: 'claimable',
     params: [epoch, account],
@@ -373,7 +373,7 @@ export type MarketData = Pick<
 >
 export const getPredictionData = async (): Promise<MarketData> => {
   const address = getPredictionsAddress()
-  const staticCalls = ['currentEpoch', 'intervalSeconds', 'minBetAmount', 'paused', 'bufferSeconds'].map((method) => ({
+  const staticCalls = ['currentEpoch', 'intervalSeconds', 'minBetAmount', 'paused', 'bufferSeconds'].map(method => ({
     address,
     name: method,
   }))
@@ -393,7 +393,7 @@ export const getPredictionData = async (): Promise<MarketData> => {
 
 export const getRoundsData = async (epochs: number[]): Promise<PredictionsRoundsResponse[]> => {
   const address = getPredictionsAddress()
-  const calls = epochs.map((epoch) => ({
+  const calls = epochs.map(epoch => ({
     address,
     name: 'rounds',
     params: [epoch],

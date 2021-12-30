@@ -46,7 +46,7 @@ const Results: React.FC<ResultsProps> = ({ choices, votes }) => {
             const choiceVotes = results[choice] || []
             const totalChoiceVote = getTotalFromVotes(choiceVotes)
             const progress = totalVotes === 0 ? 0 : (totalChoiceVote / totalVotes) * 100
-            const hasVoted = choiceVotes.some((vote) => {
+            const hasVoted = choiceVotes.some(vote => {
               return account && vote.voter.toLowerCase() === account.toLowerCase()
             })
 

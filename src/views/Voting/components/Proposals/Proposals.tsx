@@ -37,14 +37,14 @@ const Proposals = () => {
   }, [filterState, dispatch])
 
   const handleProposalTypeChange = (newProposalType: ProposalType) => {
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState,
       proposalType: newProposalType,
     }))
   }
 
   const handleFilterChange = (newFilterState: ProposalState) => {
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState,
       filterState: newFilterState,
     }))
@@ -69,7 +69,7 @@ const Proposals = () => {
         {isLoading && <ProposalsLoading />}
         {isIdle &&
           filteredProposals.length > 0 &&
-          filteredProposals.map((proposal) => {
+          filteredProposals.map(proposal => {
             return <ProposalRow key={proposal.id} proposal={proposal} />
           })}
         {isIdle && filteredProposals.length === 0 && (

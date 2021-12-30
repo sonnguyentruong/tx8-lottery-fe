@@ -10,11 +10,11 @@ export const ToastsProvider: React.FC = ({ children }) => {
 
   const toast = useCallback(
     ({ title, description, type }: Omit<Toast, 'id'>) => {
-      setToasts((prevToasts) => {
+      setToasts(prevToasts => {
         const id = kebabCase(title)
 
         // Remove any existing toasts with the same id
-        const currentToasts = prevToasts.filter((prevToast) => prevToast.id !== id)
+        const currentToasts = prevToasts.filter(prevToast => prevToast.id !== id)
 
         return [
           {
@@ -44,7 +44,7 @@ export const ToastsProvider: React.FC = ({ children }) => {
   }
   const clear = () => setToasts([])
   const remove = (id: string) => {
-    setToasts((prevToasts) => prevToasts.filter((prevToast) => prevToast.id !== id))
+    setToasts(prevToasts => prevToasts.filter(prevToast => prevToast.id !== id))
   }
 
   return (
