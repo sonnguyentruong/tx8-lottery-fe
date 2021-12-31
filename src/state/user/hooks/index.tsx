@@ -37,7 +37,7 @@ import { deserializeToken, GAS_PRICE_GWEI, serializeToken } from './helpers'
 
 export function useAudioModeManager(): [boolean, () => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const audioPlay = useSelector<AppState, AppState['user']['audioPlay']>((state) => state.user.audioPlay)
+  const audioPlay = useSelector<AppState, AppState['user']['audioPlay']>(state => state.user.audioPlay)
 
   const toggleSetAudioMode = useCallback(() => {
     if (audioPlay) {
@@ -53,7 +53,7 @@ export function useAudioModeManager(): [boolean, () => void] {
 export function usePhishingBannerManager(): [boolean, () => void] {
   const dispatch = useDispatch<AppDispatch>()
   const showPhishingWarningBanner = useSelector<AppState, AppState['user']['showPhishingWarningBanner']>(
-    (state) => state.user.showPhishingWarningBanner,
+    state => state.user.showPhishingWarningBanner,
   )
 
   const hideBanner = useCallback(() => {
@@ -64,7 +64,7 @@ export function usePhishingBannerManager(): [boolean, () => void] {
 }
 
 export function useIsExpertMode(): boolean {
-  return useSelector<AppState, AppState['user']['userExpertMode']>((state) => state.user.userExpertMode)
+  return useSelector<AppState, AppState['user']['userExpertMode']>(state => state.user.userExpertMode)
 }
 
 export function useExpertModeManager(): [boolean, () => void] {
@@ -80,7 +80,7 @@ export function useExpertModeManager(): [boolean, () => void] {
 
 export function useThemeManager(): [boolean, () => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const isDark = useSelector<AppState, AppState['user']['isDark']>((state) => state.user.isDark)
+  const isDark = useSelector<AppState, AppState['user']['isDark']>(state => state.user.isDark)
 
   const toggleTheme = useCallback(() => {
     dispatch(toggleThemeAction())
@@ -93,7 +93,7 @@ export function useUserSingleHopOnly(): [boolean, (newSingleHopOnly: boolean) =>
   const dispatch = useDispatch<AppDispatch>()
 
   const singleHopOnly = useSelector<AppState, AppState['user']['userSingleHopOnly']>(
-    (state) => state.user.userSingleHopOnly,
+    state => state.user.userSingleHopOnly,
   )
 
   const setSingleHopOnly = useCallback(
@@ -108,7 +108,7 @@ export function useUserSingleHopOnly(): [boolean, (newSingleHopOnly: boolean) =>
 
 export function useUserSlippageTolerance(): [number, (slippage: number) => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const userSlippageTolerance = useSelector<AppState, AppState['user']['userSlippageTolerance']>((state) => {
+  const userSlippageTolerance = useSelector<AppState, AppState['user']['userSlippageTolerance']>(state => {
     return state.user.userSlippageTolerance
   })
 
@@ -124,7 +124,7 @@ export function useUserSlippageTolerance(): [number, (slippage: number) => void]
 
 export function useUserFarmStakedOnly(isActive: boolean): [boolean, (stakedOnly: boolean) => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const userFarmStakedOnly = useSelector<AppState, AppState['user']['userFarmStakedOnly']>((state) => {
+  const userFarmStakedOnly = useSelector<AppState, AppState['user']['userFarmStakedOnly']>(state => {
     return state.user.userFarmStakedOnly
   })
 
@@ -144,7 +144,7 @@ export function useUserFarmStakedOnly(isActive: boolean): [boolean, (stakedOnly:
 
 export function useUserPoolStakedOnly(): [boolean, (stakedOnly: boolean) => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const userPoolStakedOnly = useSelector<AppState, AppState['user']['userPoolStakedOnly']>((state) => {
+  const userPoolStakedOnly = useSelector<AppState, AppState['user']['userPoolStakedOnly']>(state => {
     return state.user.userPoolStakedOnly
   })
 
@@ -160,7 +160,7 @@ export function useUserPoolStakedOnly(): [boolean, (stakedOnly: boolean) => void
 
 export function useUserPoolsViewMode(): [ViewMode, (viewMode: ViewMode) => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const userPoolsViewMode = useSelector<AppState, AppState['user']['userPoolsViewMode']>((state) => {
+  const userPoolsViewMode = useSelector<AppState, AppState['user']['userPoolsViewMode']>(state => {
     return state.user.userPoolsViewMode
   })
 
@@ -176,7 +176,7 @@ export function useUserPoolsViewMode(): [ViewMode, (viewMode: ViewMode) => void]
 
 export function useUserFarmsViewMode(): [ViewMode, (viewMode: ViewMode) => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const userFarmsViewMode = useSelector<AppState, AppState['user']['userFarmsViewMode']>((state) => {
+  const userFarmsViewMode = useSelector<AppState, AppState['user']['userFarmsViewMode']>(state => {
     return state.user.userFarmsViewMode
   })
 
@@ -192,7 +192,7 @@ export function useUserFarmsViewMode(): [ViewMode, (viewMode: ViewMode) => void]
 
 export function useUserPredictionAcceptedRisk(): [boolean, (acceptedRisk: boolean) => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const userPredictionAcceptedRisk = useSelector<AppState, AppState['user']['userPredictionAcceptedRisk']>((state) => {
+  const userPredictionAcceptedRisk = useSelector<AppState, AppState['user']['userPredictionAcceptedRisk']>(state => {
     return state.user.userPredictionAcceptedRisk
   })
 
@@ -211,7 +211,7 @@ export function useUserPredictionChartDisclaimerShow(): [boolean, (showDisclaime
   const userPredictionChartDisclaimerShow = useSelector<
     AppState,
     AppState['user']['userPredictionChartDisclaimerShow']
-  >((state) => {
+  >(state => {
     return state.user.userPredictionChartDisclaimerShow
   })
 
@@ -230,7 +230,7 @@ export function useUserExpertModeAcknowledgementShow(): [boolean, (showAcknowled
   const userExpertModeAcknowledgementShow = useSelector<
     AppState,
     AppState['user']['userExpertModeAcknowledgementShow']
-  >((state) => {
+  >(state => {
     return state.user.userExpertModeAcknowledgementShow
   })
 
@@ -246,7 +246,7 @@ export function useUserExpertModeAcknowledgementShow(): [boolean, (showAcknowled
 
 export function useUserUsernameVisibility(): [boolean, (usernameVisibility: boolean) => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const userUsernameVisibility = useSelector<AppState, AppState['user']['userUsernameVisibility']>((state) => {
+  const userUsernameVisibility = useSelector<AppState, AppState['user']['userUsernameVisibility']>(state => {
     return state.user.userUsernameVisibility
   })
 
@@ -262,7 +262,7 @@ export function useUserUsernameVisibility(): [boolean, (usernameVisibility: bool
 
 export function useUserTransactionTTL(): [number, (slippage: number) => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const userDeadline = useSelector<AppState, AppState['user']['userDeadline']>((state) => {
+  const userDeadline = useSelector<AppState, AppState['user']['userDeadline']>(state => {
     return state.user.userDeadline
   })
 
@@ -298,7 +298,7 @@ export function useRemoveUserAddedToken(): (chainId: number, address: string) =>
 
 export function useGasPrice(): string {
   const chainId = process.env.REACT_APP_CHAIN_ID
-  const userGas = useSelector<AppState, AppState['user']['gasPrice']>((state) => state.user.gasPrice)
+  const userGas = useSelector<AppState, AppState['user']['gasPrice']>(state => state.user.gasPrice)
   return chainId === ChainId.MAINNET.toString() ? userGas : GAS_PRICE_GWEI.testnet
 }
 
@@ -357,14 +357,14 @@ export function useTrackedTokenPairs(): [Token, Token][] {
   const generatedPairs: [Token, Token][] = useMemo(
     () =>
       chainId
-        ? flatMap(Object.keys(tokens), (tokenAddress) => {
+        ? flatMap(Object.keys(tokens), tokenAddress => {
             const token = tokens[tokenAddress]
             // for each token on the current chain,
             return (
               // loop though all bases on the current chain
               (BASES_TO_TRACK_LIQUIDITY_FOR[chainId] ?? [])
                 // to construct pairs of the given token with each base
-                .map((base) => {
+                .map(base => {
                   if (base.address === token.address) {
                     return null
                   }
@@ -385,7 +385,7 @@ export function useTrackedTokenPairs(): [Token, Token][] {
     const forChain = savedSerializedPairs[chainId]
     if (!forChain) return []
 
-    return Object.keys(forChain).map((pairId) => {
+    return Object.keys(forChain).map(pairId => {
       return [deserializeToken(forChain[pairId].token0), deserializeToken(forChain[pairId].token1)]
     })
   }, [savedSerializedPairs, chainId])
@@ -405,7 +405,7 @@ export function useTrackedTokenPairs(): [Token, Token][] {
       return memo
     }, {})
 
-    return Object.keys(keyed).map((key) => keyed[key])
+    return Object.keys(keyed).map(key => keyed[key])
   }, [combinedList])
 }
 

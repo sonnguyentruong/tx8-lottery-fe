@@ -21,7 +21,7 @@ const lotteryAddress = getLotteryV2Address()
 const fetchCakeRewardsForTickets = async (
   winningTickets: LotteryTicket[],
 ): Promise<{ ticketsWithUnclaimedRewards: LotteryTicket[]; cakeTotal: BigNumber }> => {
-  const calls = winningTickets.map((winningTicket) => {
+  const calls = winningTickets.map(winningTicket => {
     const { roundId, id, rewardBracket } = winningTicket
     return {
       name: 'viewRewardsForTicketId',
@@ -72,7 +72,7 @@ export const getWinningTickets = async (
 ): Promise<LotteryTicketClaimData> => {
   const { roundId, userTickets, finalNumber } = roundDataAndUserTickets
 
-  const ticketsWithRewardBrackets = userTickets.map((ticket) => {
+  const ticketsWithRewardBrackets = userTickets.map(ticket => {
     return {
       roundId,
       id: ticket.id,
@@ -83,12 +83,12 @@ export const getWinningTickets = async (
   })
 
   // A rewardBracket of -1 means no matches. 0 and above means there has been a match
-  const allWinningTickets = ticketsWithRewardBrackets.filter((ticket) => {
+  const allWinningTickets = ticketsWithRewardBrackets.filter(ticket => {
     return ticket.rewardBracket >= 0
   })
 
   // If ticket.status is true, the ticket has already been claimed
-  const unclaimedWinningTickets = allWinningTickets.filter((ticket) => {
+  const unclaimedWinningTickets = allWinningTickets.filter(ticket => {
     return !ticket.status
   })
 
@@ -105,7 +105,7 @@ export const getWinningTickets = async (
 }
 
 const getWinningNumbersForRound = (targetRoundId: string, lotteriesData: LotteryRoundGraphEntity[]) => {
-  const targetRound = lotteriesData.find((pastLottery) => pastLottery.id === targetRoundId)
+  const targetRound = lotteriesData.find(pastLottery => pastLottery.id === targetRoundId)
   return targetRound?.finalNumber
 }
 
@@ -128,19 +128,19 @@ const fetchUnclaimedUserRewards = async (
   }
 
   // Filter out rounds without subgraph data (i.e. >100 rounds ago)
-  const roundsInRange = rounds.filter((round) => {
+  const roundsInRange = rounds.filter(round => {
     const lastCheckableRoundId = parseInt(currentLotteryId, 10) - MAX_LOTTERIES_REQUEST_SIZE
     const roundId = parseInt(round.lotteryId, 10)
     return roundId >= lastCheckableRoundId
   })
 
   // Filter out non-claimable rounds
-  const claimableRounds = roundsInRange.filter((round) => {
+  const claimableRounds = roundsInRange.filter(round => {
     return round.status.toLowerCase() === LotteryStatus.CLAIMABLE
   })
 
   // Rounds with no tickets claimed OR rounds where a user has over 100 tickets, could have prizes
-  const roundsWithPossibleWinnings = claimableRounds.filter((round) => {
+  const roundsWithPossibleWinnings = claimableRounds.filter(round => {
     return !round.claimed || parseInt(round.totalTickets, 10) > 100
   })
 
@@ -148,26 +148,24 @@ const fetchUnclaimedUserRewards = async (
   const roundsToCheck = roundsWithPossibleWinnings.slice(0, NUM_ROUNDS_TO_CHECK_FOR_REWARDS)
 
   if (roundsToCheck.length > 0) {
-    const idsToCheck = roundsToCheck.map((round) => round.lotteryId)
+    const idsToCheck = roundsToCheck.map(round => round.lotteryId)
     const userTicketData = await fetchUserTicketsForMultipleRounds(idsToCheck, account)
-    const roundsWithTickets = userTicketData.filter((roundData) => roundData?.userTickets?.length > 0)
+    const roundsWithTickets = userTicketData.filter(roundData => roundData?.userTickets?.length > 0)
 
-    const roundDataAndWinningTickets = roundsWithTickets.map((roundData) => {
+    const roundDataAndWinningTickets = roundsWithTickets.map(roundData => {
       return { ...roundData, finalNumber: getWinningNumbersForRound(roundData.roundId, lotteriesData) }
     })
 
     const winningTicketsForPastRounds = await Promise.all(
-      roundDataAndWinningTickets.map((roundData) => getWinningTickets(roundData)),
+      roundDataAndWinningTickets.map(roundData => getWinningTickets(roundData)),
     )
 
     // Filter out null values (returned when no winning tickets found for past round)
-    const roundsWithWinningTickets = winningTicketsForPastRounds.filter(
-      (winningTicketData) => winningTicketData !== null,
-    )
+    const roundsWithWinningTickets = winningTicketsForPastRounds.filter(winningTicketData => winningTicketData !== null)
 
     // Filter to only rounds with unclaimed tickets
     const roundsWithUnclaimedWinningTickets = roundsWithWinningTickets.filter(
-      (winningTicketData) => winningTicketData.ticketsWithUnclaimedRewards,
+      winningTicketData => winningTicketData.ticketsWithUnclaimedRewards,
     )
 
     return roundsWithUnclaimedWinningTickets

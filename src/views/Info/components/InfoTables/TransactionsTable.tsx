@@ -150,7 +150,7 @@ const TransactionTable: React.FC<{
             }
             return -1
           })
-          .filter((x) => {
+          .filter(x => {
             return txFilter === undefined || x.type === txFilter
           })
           .slice(ITEMS_PER_INFO_TABLE_PAGE * (page - 1), page * ITEMS_PER_INFO_TABLE_PAGE)
@@ -160,7 +160,7 @@ const TransactionTable: React.FC<{
   // Update maxPage based on amount of items & applied filtering
   useEffect(() => {
     if (transactions) {
-      const filteredTransactions = transactions.filter((tx) => {
+      const filteredTransactions = transactions.filter(tx => {
         return txFilter === undefined || tx.type === txFilter
       })
       if (filteredTransactions.length % ITEMS_PER_INFO_TABLE_PAGE === 0) {

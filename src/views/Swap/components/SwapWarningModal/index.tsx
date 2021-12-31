@@ -26,18 +26,18 @@ interface SwapWarningModalProps {
 // Modal is fired by a useEffect and doesn't respond to closeOnOverlayClick prop being set to false
 const usePreventModalOverlayClick = () => {
   useEffect(() => {
-    const preventClickHandler = (e) => {
+    const preventClickHandler = e => {
       e.stopPropagation()
       e.preventDefault()
       return false
     }
 
-    document.querySelectorAll('[role="presentation"]').forEach((el) => {
+    document.querySelectorAll('[role="presentation"]').forEach(el => {
       el.addEventListener('click', preventClickHandler, true)
     })
 
     return () => {
-      document.querySelectorAll('[role="presentation"]').forEach((el) => {
+      document.querySelectorAll('[role="presentation"]').forEach(el => {
         el.removeEventListener('click', preventClickHandler, true)
       })
     }

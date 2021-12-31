@@ -229,7 +229,7 @@ const Hero = () => {
           {amountCollectedInTX8.isNaN() ? (
             <Skeleton my="7px" height={60} width={190} />
           ) : (
-            <PrizeTotalBalance fontSize="64px" bold  value={prizeTotal} unit=" TX8" mb="8px" decimals={3} />
+            <PrizeTotalBalance fontSize="64px" bold value={prizeTotal} unit=" TX8" mb="8px" decimals={3} />
           )}
           <Heading mb="32px" scale="lg" color="#ffffff">
             {t('in prizes!')}

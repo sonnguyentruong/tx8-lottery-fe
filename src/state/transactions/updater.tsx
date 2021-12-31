@@ -37,7 +37,7 @@ export default function Updater(): null {
   const { currentBlock } = useBlock()
 
   const dispatch = useDispatch<AppDispatch>()
-  const state = useSelector<AppState, AppState['transactions']>((s) => s.transactions)
+  const state = useSelector<AppState, AppState['transactions']>(s => s.transactions)
 
   const transactions = useMemo(() => (chainId ? state[chainId] ?? {} : {}), [chainId, state])
 
@@ -47,11 +47,11 @@ export default function Updater(): null {
     if (!chainId || !library || !currentBlock) return
 
     Object.keys(transactions)
-      .filter((hash) => shouldCheck(currentBlock, transactions[hash]))
-      .forEach((hash) => {
+      .filter(hash => shouldCheck(currentBlock, transactions[hash]))
+      .forEach(hash => {
         library
           .getTransactionReceipt(hash)
-          .then((receipt) => {
+          .then(receipt => {
             if (receipt) {
               dispatch(
                 finalizeTransaction({
@@ -86,7 +86,7 @@ export default function Updater(): null {
               dispatch(checkedTransaction({ chainId, hash, blockNumber: currentBlock }))
             }
           })
-          .catch((error) => {
+          .catch(error => {
             console.error(`failed to check transaction hash: ${hash}`, error)
           })
       })

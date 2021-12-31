@@ -70,8 +70,8 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
   let nftsToShow = useMemo(() => {
     return shuffle(
       allPancakeBunnyNfts
-        ? allPancakeBunnyNfts.filter((nft) => nft.name !== currentTokenName)
-        : collectionNfts?.filter((nft) => nft.name !== currentTokenName && nft.marketData?.isTradable),
+        ? allPancakeBunnyNfts.filter(nft => nft.name !== currentTokenName)
+        : collectionNfts?.filter(nft => nft.name !== currentTokenName && nft.marketData?.isTradable),
     )
   }, [allPancakeBunnyNfts, collectionNfts, currentTokenName])
 
@@ -96,7 +96,7 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
     // PancakeBunnies should display 1 card per bunny id
     nftsToShow = nftsToShow.reduce((nftArray, current) => {
       const bunnyId = current.attributes[0].value
-      if (!nftArray.find((nft) => nft.attributes[0].value === bunnyId)) {
+      if (!nftArray.find(nft => nft.attributes[0].value === bunnyId)) {
         nftArray.push(current)
       }
       return nftArray
@@ -106,14 +106,14 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
 
   const nextSlide = () => {
     if (activeIndex < maxPageIndex - 1) {
-      setActiveIndex((index) => index + 1)
+      setActiveIndex(index => index + 1)
       swiperRef.slideNext()
     }
   }
 
   const previousSlide = () => {
     if (activeIndex > 0) {
-      setActiveIndex((index) => index - 1)
+      setActiveIndex(index => index - 1)
       swiperRef.slidePrev()
     }
   }
@@ -137,7 +137,7 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
       {isMobile ? (
         <StyledSwiper>
           <Swiper spaceBetween={16} slidesPerView={1.5}>
-            {nftsToShow.map((nft) => (
+            {nftsToShow.map(nft => (
               <SwiperSlide key={nft.tokenId}>
                 <CollectibleLinkCard nft={nft} />
               </SwiperSlide>
@@ -154,7 +154,7 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
             slidesPerGroup={slidesPerView}
             initialSlide={INITIAL_SLIDE}
           >
-            {nftsToShow.map((nft) => (
+            {nftsToShow.map(nft => (
               <SwiperSlide key={nft.tokenId}>
                 <CollectibleLinkCard
                   nft={nft}
@@ -167,7 +167,7 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
             <IconButton variant="text" onClick={previousSlide}>
               <ArrowBackIcon />
             </IconButton>
-            {[...Array(maxPageIndex).keys()].map((index) => (
+            {[...Array(maxPageIndex).keys()].map(index => (
               <SwiperCircle
                 key={index}
                 onClick={() => goToSlide(index * slidesPerView)}

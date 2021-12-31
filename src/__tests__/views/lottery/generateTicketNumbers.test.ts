@@ -52,7 +52,7 @@ describe('generateTicketNumbers', () => {
     const ticketsArray = generateTicketNumbers(10, null, 0, 9)
     const expectedNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    expectedNumbers.forEach((expectedNumber) => {
+    expectedNumbers.forEach(expectedNumber => {
       expect(ticketsArray).toContain(expectedNumber)
     })
     expect(ticketsArray).toHaveLength(10)
@@ -60,7 +60,7 @@ describe('generateTicketNumbers', () => {
     expect(ticketsArray).not.toContain(10)
   })
 
-  withoutExistingNumbers.forEach((data) => {
+  withoutExistingNumbers.forEach(data => {
     const { startingNumber, endingNumber, numbersToGenerate } = data
 
     it(`generates ${numbersToGenerate} unique numbers between ${startingNumber} & ${endingNumber} WITHOUT existing numbers`, () => {
@@ -71,7 +71,7 @@ describe('generateTicketNumbers', () => {
         expectedNumbers.push(i)
       }
 
-      expectedNumbers.forEach((expectedNumber) => {
+      expectedNumbers.forEach(expectedNumber => {
         expect(ticketsArray).toContain(expectedNumber)
       })
       expect(ticketsArray).toHaveLength(numbersToGenerate)
@@ -80,14 +80,14 @@ describe('generateTicketNumbers', () => {
     })
   })
 
-  withExistingTickets.forEach((data) => {
+  withExistingTickets.forEach(data => {
     const { startingNumber, endingNumber, numbersToGenerate, existingTickets } = data
     const numberExistingTickets = existingTickets.length
 
     it(`generates ${numbersToGenerate} unique numbers between ${startingNumber} & ${endingNumber} WITH ${numberExistingTickets} existing numbers`, () => {
       const ticketsArray = generateTicketNumbers(numbersToGenerate, existingTickets, startingNumber, endingNumber)
       expect(ticketsArray).toHaveLength(numbersToGenerate)
-      existingTickets.forEach((existingTicket) => expect(ticketsArray).not.toContain(existingTicket.number))
+      existingTickets.forEach(existingTicket => expect(ticketsArray).not.toContain(existingTicket.number))
     })
   })
 })

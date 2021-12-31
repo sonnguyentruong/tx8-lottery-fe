@@ -25,9 +25,9 @@ const useGetTopFarmsByApr = (isIntersecting: boolean) => {
   useEffect(() => {
     const fetchFarmData = async () => {
       setFetchStatus(FetchStatus.FETCHING)
-      const activeFarms = nonArchivedFarms.filter((farm) => farm.pid !== 0)
+      const activeFarms = nonArchivedFarms.filter(farm => farm.pid !== 0)
       try {
-        await dispatch(fetchFarmsPublicDataAsync(activeFarms.map((farm) => farm.pid)))
+        await dispatch(fetchFarmsPublicDataAsync(activeFarms.map(farm => farm.pid)))
         setFetchStatus(FetchStatus.SUCCESS)
       } catch (e) {
         console.error(e)
@@ -43,14 +43,14 @@ const useGetTopFarmsByApr = (isIntersecting: boolean) => {
   useEffect(() => {
     const getTopFarmsByApr = (farmsState: DeserializedFarm[]) => {
       const farmsWithPrices = farmsState.filter(
-        (farm) =>
+        farm =>
           farm.lpTotalInQuoteToken &&
           farm.quoteTokenPriceBusd &&
           farm.pid !== 0 &&
           farm.multiplier &&
           farm.multiplier !== '0X',
       )
-      const farmsWithApr: FarmWithStakedValue[] = farmsWithPrices.map((farm) => {
+      const farmsWithApr: FarmWithStakedValue[] = farmsWithPrices.map(farm => {
         const totalLiquidity = farm.lpTotalInQuoteToken.times(farm.quoteTokenPriceBusd)
         const { cakeRewardsApr, lpRewardsApr } = getFarmApr(
           farm.poolWeight,
@@ -61,7 +61,7 @@ const useGetTopFarmsByApr = (isIntersecting: boolean) => {
         return { ...farm, apr: cakeRewardsApr, lpRewardsApr }
       })
 
-      const sortedByApr = orderBy(farmsWithApr, (farm) => farm.apr + farm.lpRewardsApr, 'desc')
+      const sortedByApr = orderBy(farmsWithApr, farm => farm.apr + farm.lpRewardsApr, 'desc')
       setTopFarms(sortedByApr.slice(0, 5))
     }
 

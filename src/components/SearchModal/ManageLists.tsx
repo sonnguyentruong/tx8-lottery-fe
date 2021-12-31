@@ -43,7 +43,7 @@ function listUrlRowHTMLId(listUrl: string) {
 }
 
 const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
-  const listsByUrl = useSelector<AppState, AppState['lists']['byUrl']>((state) => state.lists.byUrl)
+  const listsByUrl = useSelector<AppState, AppState['lists']['byUrl']>(state => state.lists.byUrl)
   const dispatch = useDispatch<AppDispatch>()
   const { current: list, pendingUpdate: pending } = listsByUrl[listUrl]
 
@@ -156,7 +156,7 @@ function ManageLists({
     }
   }, [activeCopy, activeListUrls])
 
-  const handleInput = useCallback((e) => {
+  const handleInput = useCallback(e => {
     setListUrlInput(e.target.value)
   }, [])
 
@@ -169,7 +169,7 @@ function ManageLists({
   const sortedLists = useMemo(() => {
     const listUrls = Object.keys(lists)
     return listUrls
-      .filter((listUrl) => {
+      .filter(listUrl => {
         // only show loaded lists, hide unsupported lists
         return Boolean(lists[listUrl].current) && !UNSUPPORTED_LIST_URLS.includes(listUrl)
       })
@@ -205,7 +205,7 @@ function ManageLists({
   useEffect(() => {
     async function fetchTempList() {
       fetchList(listUrlInput, false)
-        .then((list) => setTempList(list))
+        .then(list => setTempList(list))
         .catch(() => setAddError('Error importing list'))
     }
     // if valid url, fetch details for card
@@ -282,7 +282,7 @@ function ManageLists({
       )}
       <ListContainer>
         <AutoColumn gap="md">
-          {sortedLists.map((listUrl) => (
+          {sortedLists.map(listUrl => (
             <ListRow key={listUrl} listUrl={listUrl} />
           ))}
         </AutoColumn>

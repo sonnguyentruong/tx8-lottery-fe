@@ -58,7 +58,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ icon, title, content })
         <Text bold>{title}</Text>
         <IconButton
           onClick={() => {
-            setExpanded((prev) => !prev)
+            setExpanded(prev => !prev)
           }}
           variant="text"
           maxWidth="32px"

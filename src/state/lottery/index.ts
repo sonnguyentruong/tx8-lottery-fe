@@ -58,7 +58,7 @@ export const fetchUserTicketsAndLotteries = createAsyncThunk<
   { account: string; currentLotteryId: string }
 >('lottery/fetchUserTicketsAndLotteries', async ({ account, currentLotteryId }) => {
   const userLotteriesRes = await getUserLotteryData(account, currentLotteryId)
-  const userParticipationInCurrentRound = userLotteriesRes.rounds?.find((round) => round.lotteryId === currentLotteryId)
+  const userParticipationInCurrentRound = userLotteriesRes.rounds?.find(round => round.lotteryId === currentLotteryId)
   const userTickets = userParticipationInCurrentRound?.tickets
 
   // User has not bought tickets for the current lottery, or there has been an error
@@ -104,7 +104,7 @@ export const LotterySlice = createSlice({
   name: 'Lottery',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(fetchCurrentLottery.fulfilled, (state, action: PayloadAction<LotteryResponse>) => {
       state.currentRound = { ...state.currentRound, ...action.payload }
     })

@@ -14,7 +14,7 @@ const Collections = () => {
 
   const orderedCollections = orderBy(
     collections,
-    (collection) => (collection.totalVolumeBNB ? parseFloat(collection.totalVolumeBNB) : 0),
+    collection => (collection.totalVolumeBNB ? parseFloat(collection.totalVolumeBNB) : 0),
     'desc',
   )
 
@@ -35,7 +35,7 @@ const Collections = () => {
         </Button>
       </Flex>
       <Grid gridGap="16px" gridTemplateColumns={['1fr', '1fr', 'repeat(2, 1fr)', 'repeat(3, 1fr)']} mb="64px">
-        {orderedCollections.slice(0, 5).map((collection) => {
+        {orderedCollections.slice(0, 5).map(collection => {
           return (
             <HotCollectionCard
               key={collection.address}

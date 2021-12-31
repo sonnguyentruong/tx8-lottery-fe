@@ -21,7 +21,7 @@ const useFarmsWithBalance = () => {
 
   useEffect(() => {
     const fetchBalances = async () => {
-      const calls = farmsConfig.map((farm) => ({
+      const calls = farmsConfig.map(farm => ({
         address: getMasterChefAddress(),
         name: 'pendingCake',
         params: [farm.pid, account],
@@ -29,7 +29,7 @@ const useFarmsWithBalance = () => {
 
       const rawResults = await multicall(masterChefABI, calls)
       const results = farmsConfig.map((farm, index) => ({ ...farm, balance: new BigNumber(rawResults[index]) }))
-      const farmsWithBalances = results.filter((balanceType) => balanceType.balance.gt(0))
+      const farmsWithBalances = results.filter(balanceType => balanceType.balance.gt(0))
       const totalEarned = farmsWithBalances.reduce((accum, earning) => {
         const earningNumber = new BigNumber(earning.balance)
         if (earningNumber.eq(0)) {

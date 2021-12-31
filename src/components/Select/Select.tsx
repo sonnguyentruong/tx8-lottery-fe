@@ -49,7 +49,7 @@ const DropDownContainer = styled(Box)<{ isOpen: boolean }>`
     min-width: 168px;
   }
 
-  ${(props) =>
+  ${props =>
     props.isOpen &&
     css`
       ${DropDownHeader} {

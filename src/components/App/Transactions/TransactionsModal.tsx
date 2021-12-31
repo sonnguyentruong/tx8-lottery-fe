@@ -15,7 +15,7 @@ import ConnectWalletButton from '../../ConnectWalletButton'
 function renderTransactions(transactions: TransactionDetails[]) {
   return (
     <Flex flexDirection="column">
-      {transactions.map((tx) => {
+      {transactions.map(tx => {
         return <Transaction key={tx.hash + tx.addedTime} tx={tx} />
       })}
     </Flex>
@@ -35,8 +35,8 @@ const TransactionsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
     'desc',
   )
 
-  const pending = sortedRecentTransactions.filter((tx) => !tx.receipt)
-  const confirmed = sortedRecentTransactions.filter((tx) => tx.receipt)
+  const pending = sortedRecentTransactions.filter(tx => !tx.receipt)
+  const confirmed = sortedRecentTransactions.filter(tx => tx.receipt)
 
   const clearAllTransactionsCallback = useCallback(() => {
     if (chainId) dispatch(clearAllTransactions({ chainId }))

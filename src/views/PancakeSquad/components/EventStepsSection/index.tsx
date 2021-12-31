@@ -56,7 +56,7 @@ const EventStepsSection: React.FC<EventStepsProps> = ({ eventInfos, userInfos, i
                         <Text color="secondary" fontSize="20px" mb="16px" bold>
                           {step.title}
                         </Text>
-                        {step.bodyText.map((text) => (
+                        {step.bodyText.map(text => (
                           <Text key={text} color="textSubtle" mb="16px">
                             {text}
                           </Text>

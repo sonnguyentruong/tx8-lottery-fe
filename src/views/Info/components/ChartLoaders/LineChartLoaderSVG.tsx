@@ -1,7 +1,7 @@
 import React from 'react'
 import { Svg, SvgProps } from '@pancakeswap/uikit'
 
-const LineChartLoaderSVG: React.FC<SvgProps> = (props) => {
+const LineChartLoaderSVG: React.FC<SvgProps> = props => {
   return (
     <Svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 50" {...props}>
       <path

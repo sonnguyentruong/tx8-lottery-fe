@@ -31,7 +31,7 @@ export default function Manage({
     <ModalBody>
       <StyledButtonMenu
         activeIndex={showLists ? 0 : 1}
-        onItemClick={() => setShowLists((prev) => !prev)}
+        onItemClick={() => setShowLists(prev => !prev)}
         scale="sm"
         variant="subtle"
         mb="32px"

@@ -45,7 +45,7 @@ export const getAchievementDescription = (campaign: Campaign): TranslatableText 
  * Checks if a wallet is eligible to claim points from valid IFO's
  */
 export const getClaimableIfoData = async (account: string): Promise<Achievement[]> => {
-  const ifoCampaigns = ifosList.filter((ifoItem) => ifoItem.campaignId !== undefined)
+  const ifoCampaigns = ifosList.filter(ifoItem => ifoItem.campaignId !== undefined)
 
   // Returns the claim status of every IFO with a campaign ID
   const claimStatusCalls = ifoCampaigns.map(({ address }) => {
@@ -86,7 +86,7 @@ export const getClaimableIfoData = async (account: string): Promise<Achievement[
     }
 
     const campaignMeta = campaignMap.get(claimableCampaignId)
-    const { address } = ifoCampaigns.find((ifoCampaign) => ifoCampaign.campaignId === claimableCampaignId)
+    const { address } = ifoCampaigns.find(ifoCampaign => ifoCampaign.campaignId === claimableCampaignId)
 
     return [
       ...accum,

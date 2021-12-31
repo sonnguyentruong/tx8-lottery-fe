@@ -95,7 +95,7 @@ const TopTokenMovers: React.FC = () => {
     }
   }, [])
 
-  if (topPriceIncrease.length === 0 || !topPriceIncrease.some((entry) => entry.data)) {
+  if (topPriceIncrease.length === 0 || !topPriceIncrease.some(entry => entry.data)) {
     return null
   }
 
@@ -105,7 +105,7 @@ const TopTokenMovers: React.FC = () => {
         {t('Top Movers')}
       </Text>
       <ScrollableRow ref={increaseRef}>
-        {topPriceIncrease.map((entry) =>
+        {topPriceIncrease.map(entry =>
           entry.data ? <DataCard key={`top-card-token-${entry.data?.address}`} tokenData={entry.data} /> : null,
         )}
       </ScrollableRow>

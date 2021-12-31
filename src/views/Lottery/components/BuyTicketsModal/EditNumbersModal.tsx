@@ -55,7 +55,7 @@ const EditNumbersModal: React.FC<{
         <Button disabled={isConfirming} mb="16px" variant="secondary" width="100%" height="32px" onClick={randomize}>
           {t('Randomize')}
         </Button>
-        {tickets.map((ticket) => (
+        {tickets.map(ticket => (
           <TicketInput
             key={ticket.id}
             ticket={ticket}

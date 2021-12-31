@@ -40,7 +40,7 @@ function ImportToken({ tokens, handleCurrencySelect }: ImportProps) {
         </Text>
       </Message>
 
-      {tokens.map((token) => {
+      {tokens.map(token => {
         const list = chainId && inactiveTokenList?.[chainId]?.[token.address]?.list
         const address = token.address ? `${truncateHash(token.address)}` : null
         return (
@@ -92,7 +92,7 @@ function ImportToken({ tokens, handleCurrencySelect }: ImportProps) {
           variant="danger"
           disabled={!confirmed}
           onClick={() => {
-            tokens.map((token) => addToken(token))
+            tokens.map(token => addToken(token))
             if (handleCurrencySelect) {
               handleCurrencySelect(tokens[0])
             }

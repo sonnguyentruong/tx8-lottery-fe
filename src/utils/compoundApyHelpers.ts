@@ -33,7 +33,7 @@ export const getInterestBreakdown = ({
   const isHighValueToken = Math.round(earningTokenPrice / 1000) > 0
   const roundingDecimalsNew = isHighValueToken ? 5 : 3
 
-  return DAYS_TO_CALCULATE_AGAINST.map((days) => {
+  return DAYS_TO_CALCULATE_AGAINST.map(days => {
     const daysAsDecimalOfYear = days / 365
     // Calculate the starting TOKEN balance with a dollar balance of principalInUSD.
     const principal = principalInUSD / earningTokenPrice
@@ -65,7 +65,7 @@ export const getPrincipalForInterest = (
   compoundingFrequency: number,
   performanceFee = 0,
 ) => {
-  return DAYS_TO_CALCULATE_AGAINST.map((days) => {
+  return DAYS_TO_CALCULATE_AGAINST.map(days => {
     const apyAsDecimal = getApy(apr, compoundingFrequency, days, performanceFee)
     // console.log('inside', interest, apyAsDecimal)
     // const apyAsBN = new BigNumber(apyAsDecimal).decimalPlaces(6, BigNumber.ROUND_DOWN).toNumber()

@@ -38,7 +38,7 @@ const CollectionNfts: React.FC<CollectionNftsProps> = ({ collection }) => {
 
   const handleLoadMore = () => {
     if (orderField === 'tokenId') {
-      setPage((prevPage) => prevPage + 1)
+      setPage(prevPage => prevPage + 1)
     }
     setSkip(skip + REQUEST_SIZE)
   }
@@ -56,7 +56,7 @@ const CollectionNfts: React.FC<CollectionNftsProps> = ({ collection }) => {
 
   useEffect(() => {
     const fetchApiData = async (marketData: TokenMarketData[]) => {
-      const apiRequestPromises = marketData.map((marketNft) => getNftApi(collectionAddress, marketNft.tokenId))
+      const apiRequestPromises = marketData.map(marketNft => getNftApi(collectionAddress, marketNft.tokenId))
       const apiResponses = await Promise.all(apiRequestPromises)
       const responsesWithMarketData = apiResponses.map((apiNft, i) => {
         return {
@@ -67,7 +67,7 @@ const CollectionNfts: React.FC<CollectionNftsProps> = ({ collection }) => {
         }
       })
       setIsFetchingFilteredNfts(false)
-      setNfts((prevState) => {
+      setNfts(prevState => {
         const combinedNfts = [...prevState, ...responsesWithMarketData]
         return uniqBy(combinedNfts, 'tokenId')
       })
@@ -106,7 +106,7 @@ const CollectionNfts: React.FC<CollectionNftsProps> = ({ collection }) => {
 
   const nftsToShow =
     orderField === 'tokenId'
-      ? collectionNfts?.filter((nft) => {
+      ? collectionNfts?.filter(nft => {
           if (showOnlyNftsOnSale) {
             return nft.marketData?.isTradable
           }
@@ -137,7 +137,7 @@ const CollectionNfts: React.FC<CollectionNftsProps> = ({ collection }) => {
         gridTemplateColumns={['1fr', null, 'repeat(3, 1fr)', null, 'repeat(4, 1fr)']}
         alignItems="start"
       >
-        {nftsToShow.map((nft) => {
+        {nftsToShow.map(nft => {
           const currentAskPriceAsNumber = nft.marketData && parseFloat(nft.marketData.currentAskPrice)
 
           return (

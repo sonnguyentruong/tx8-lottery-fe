@@ -43,6 +43,7 @@ import { ERC20_BYTES32_ABI } from '../config/abi/erc20'
 import ERC20_ABI from '../config/abi/erc20.json'
 import WETH_ABI from '../config/abi/weth.json'
 import multiCallAbi from '../config/abi/Multicall.json'
+import TX8_SWAP_ABI from '../config/abi/tx8Swap.json'
 import { getContract } from '../utils'
 
 /**
@@ -102,12 +103,12 @@ export const useMasterchef = () => {
   return useMemo(() => getMasterchefContract(library.getSigner()), [library])
 }
 
-export const useSousChef = (id) => {
+export const useSousChef = id => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getSouschefContract(id, library.getSigner()), [id, library])
 }
 
-export const useSousChefV2 = (id) => {
+export const useSousChefV2 = id => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getSouschefV2Contract(id, library.getSigner()), [id, library])
 }
@@ -265,4 +266,8 @@ export function usePairContract(pairAddress?: string, withSignerIfPossible?: boo
 
 export function useMulticallContract(): Contract | null {
   return useContract(getMulticallAddress(), multiCallAbi, false)
+}
+
+export function useTx8SwapContract(): Contract | null {
+  return useContract('0xa295497E756463f732ea31E576839C36671d5512', TX8_SWAP_ABI, true)
 }

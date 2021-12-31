@@ -68,7 +68,7 @@ const Chart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
           dataKey="time"
           axisLine={false}
           tickLine={false}
-          tickFormatter={(time) => format(time, 'dd')}
+          tickFormatter={time => format(time, 'dd')}
           minTickGap={10}
         />
         <YAxis
@@ -79,7 +79,7 @@ const Chart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
           tickLine={false}
           color={theme.colors.textSubtle}
           fontSize="12px"
-          tickFormatter={(val) => `$${formatAmount(val)}`}
+          tickFormatter={val => `$${formatAmount(val)}`}
           orientation="right"
           tick={{ dx: 10, fill: theme.colors.textSubtle }}
         />
@@ -93,7 +93,7 @@ const Chart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
         <Bar
           dataKey="value"
           fill={theme.colors.primary}
-          shape={(props) => (
+          shape={props => (
             <CustomBar height={props.height} width={props.width} x={props.x} y={props.y} fill={theme.colors.primary} />
           )}
         />

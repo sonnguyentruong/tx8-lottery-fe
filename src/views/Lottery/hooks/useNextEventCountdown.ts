@@ -16,7 +16,7 @@ const useNextEventCountdown = (nextEventTime: number): number => {
     setSecondsRemaining(secondsRemainingCalc)
 
     timer.current = setInterval(() => {
-      setSecondsRemaining((prevSecondsRemaining) => {
+      setSecondsRemaining(prevSecondsRemaining => {
         // Clear current interval at end of countdown and fetch current lottery to get updated state
         if (prevSecondsRemaining <= 1) {
           clearInterval(timer.current)

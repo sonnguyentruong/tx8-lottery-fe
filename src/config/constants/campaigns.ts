@@ -234,7 +234,7 @@ const campaigns: Campaign[] = [
  */
 export const campaignMap = new Map<string, Campaign>()
 
-campaigns.forEach((campaign) => {
+campaigns.forEach(campaign => {
   campaignMap.set(campaign.id, campaign)
 })
 

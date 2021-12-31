@@ -9,7 +9,7 @@ export interface LowestNftPrice {
 }
 
 const getBunnyIdFromNft = (nft: NftToken): string => {
-  const bunnyId = nft.attributes?.find((attr) => attr.traitType === 'bunnyId')?.value
+  const bunnyId = nft.attributes?.find(attr => attr.traitType === 'bunnyId')?.value
   return bunnyId ? bunnyId.toString() : null
 }
 

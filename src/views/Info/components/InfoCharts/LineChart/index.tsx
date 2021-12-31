@@ -57,7 +57,7 @@ const LineChart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
           dataKey="time"
           axisLine={false}
           tickLine={false}
-          tickFormatter={(time) => format(time, 'dd')}
+          tickFormatter={time => format(time, 'dd')}
           minTickGap={10}
         />
         <YAxis
@@ -67,7 +67,7 @@ const LineChart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
           axisLine={false}
           tickLine={false}
           fontSize="12px"
-          tickFormatter={(val) => `$${formatAmount(val)}`}
+          tickFormatter={val => `$${formatAmount(val)}`}
           orientation="right"
           tick={{ dx: 10, fill: theme.colors.textSubtle }}
         />

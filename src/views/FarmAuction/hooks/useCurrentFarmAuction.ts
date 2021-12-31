@@ -81,7 +81,7 @@ export const useCurrentFarmAuction = (account: string) => {
   useEffect(() => {
     const getBidderData = () => {
       if (bidders && bidders.length > 0) {
-        const bidderData = bidders.find((bidder) => bidder.account === account)
+        const bidderData = bidders.find(bidder => bidder.account === account)
         if (bidderData) {
           return bidderData
         }

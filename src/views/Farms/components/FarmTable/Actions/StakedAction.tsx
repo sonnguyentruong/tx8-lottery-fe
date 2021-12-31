@@ -170,7 +170,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
               <IconButton
                 variant="secondary"
                 onClick={onPresentDeposit}
-                disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
+                disabled={['history', 'archived'].some(item => location.pathname.includes(item))}
               >
                 <AddIcon color="primary" width="14px" />
               </IconButton>
@@ -195,7 +195,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
             width="100%"
             onClick={onPresentDeposit}
             variant="secondary"
-            disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
+            disabled={['history', 'archived'].some(item => location.pathname.includes(item))}
           >
             {t('Stake LP')}
           </Button>

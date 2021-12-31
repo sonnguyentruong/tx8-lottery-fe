@@ -11,7 +11,7 @@ import { RefreshContextProvider } from 'contexts/RefreshContext'
 import { ToastsProvider } from 'contexts/ToastsContext'
 import store from 'state'
 
-const ThemeProviderWrapper = (props) => {
+const ThemeProviderWrapper = props => {
   const [isDark] = useThemeManager()
   return <ThemeProvider theme={isDark ? dark : light} {...props} />
 }

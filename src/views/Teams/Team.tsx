@@ -13,7 +13,7 @@ const Team = () => {
   const { id: idStr }: { id: string } = useParams()
   const id = Number(idStr)
   const { t } = useTranslation()
-  const isValidTeamId = teams.findIndex((team) => team.id === id) !== -1
+  const isValidTeamId = teams.findIndex(team => team.id === id) !== -1
   const team = useTeam(id)
 
   if (!isValidTeamId) {

@@ -1,21 +1,24 @@
 import { parseUnits } from '@ethersproject/units'
-import { Currency, CurrencyAmount, ETHER, Fraction, JSBI, Token, TokenAmount, Trade } from '@pancakeswap/sdk'
+import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade } from '@pancakeswap/sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useENS from 'hooks/ENS/useENS'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useAllTokens, useCurrency } from 'hooks/Tokens'
+import { TX8, USDT, useAllTokens, useCurrency } from 'hooks/Tokens'
 import { useTradeExactIn, useTradeExactOut } from 'hooks/Trades'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import { useTranslation } from 'contexts/Localization'
 import { isAddress } from 'utils'
 import { computeSlippageAdjustedAmounts } from 'utils/prices'
+import { BigNumber } from 'ethers'
+import Web3 from 'web3'
 import { AppDispatch, AppState } from '../index'
 import { useCurrencyBalances } from '../wallet/hooks'
 import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
 import { SwapState } from './reducer'
 import { useUserSlippageTolerance } from '../user/hooks'
+import { useTokenContract, useTx8SwapContract } from '../../hooks/useContract'
 
 export function useSwapState(): AppState['swap'] {
   return useSelector<AppState, AppState['swap']>(state => state.swap)
@@ -275,8 +278,10 @@ export function useDefaultsFromURLSearch():
         field: parsed.independentField,
         // inputCurrencyId: parsed[Field.INPUT].currencyId,
         // outputCurrencyId: parsed[Field.OUTPUT].currencyId,
-        inputCurrencyId: '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', // tx8
-        outputCurrencyId: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', // usdt
+        // inputCurrencyId: '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', // tx8
+        // outputCurrencyId: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', // usdt
+        inputCurrencyId: '0xA849E889479906B4656eEE3ce5D3814fd7B0c6fe', // tx8
+        outputCurrencyId: '0xc131a3569b06FEe183676813bc260aD197BFB9F5', // usdt
         recipient: null,
       }),
     )
@@ -288,7 +293,9 @@ export function useDefaultsFromURLSearch():
   return result
 }
 
-export const useTradeInfo = (): { inputAmount?: CurrencyAmount; outputAmount?: CurrencyAmount } => {
+const USDT_TO_TX8_RATE = '200'
+
+export const useSwapInfo = (): { inputAmount?: CurrencyAmount; outputAmount?: CurrencyAmount } => {
   const {
     independentField,
     typedValue,
@@ -302,17 +309,47 @@ export const useTradeInfo = (): { inputAmount?: CurrencyAmount; outputAmount?: C
     return { inputAmount: undefined, outputAmount: undefined }
   }
 
-  if (independentField === Field.INPUT) {
-    const inputAmount = tryParseAmount(typedValue, inputToken)
-    return {
-      inputAmount,
-      outputAmount: tryParseAmount(inputAmount?.divide('200').toSignificant(6), outputToken),
-    }
-  }
+  const usdt2tx8 = inputCurrencyId === USDT.address
+  const independentToken = independentField === Field.INPUT ? inputToken : outputToken
+  const dependentToken = independentField === Field.INPUT ? outputToken : inputToken
+  const independentAmount = tryParseAmount(typedValue, independentToken)
 
-  const outputAmount = tryParseAmount(typedValue, outputToken)
+  const dependentAmount = tryParseAmount(
+    (usdt2tx8 !== (independentField === Field.INPUT)
+      ? independentAmount?.divide(USDT_TO_TX8_RATE)
+      : independentAmount?.multiply(USDT_TO_TX8_RATE)
+    )?.toSignificant(6),
+    dependentToken,
+  )
+
   return {
-    outputAmount,
-    inputAmount: tryParseAmount(outputAmount?.multiply('200').toSignificant(6), inputToken),
+    inputAmount: independentField === Field.INPUT ? independentAmount : dependentAmount,
+    outputAmount: independentField === Field.INPUT ? dependentAmount : independentAmount,
   }
+}
+
+export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<void> } => {
+  const tx8TokenContract = useTokenContract(TX8.address)
+  const usdtTokenContract = useTokenContract(USDT.address)
+  const swapContract = useTx8SwapContract()
+
+  const swap = useCallback(async () => {
+    if (!inputAmount) {
+      return
+    }
+    const usdt2tx8 = inputAmount.currency.symbol === USDT.symbol
+    const amount = Web3.utils.toWei(inputAmount.toExact(), 'ether')
+    try {
+      if (usdt2tx8) {
+        await usdtTokenContract.approve(swapContract.address, amount)
+      } else {
+        await tx8TokenContract.approve(swapContract.address, amount)
+      }
+      await swapContract.swap(amount, usdt2tx8)
+    } catch (e) {
+      console.error(e)
+    }
+  }, [inputAmount, swapContract, tx8TokenContract, usdtTokenContract])
+
+  return { swap }
 }

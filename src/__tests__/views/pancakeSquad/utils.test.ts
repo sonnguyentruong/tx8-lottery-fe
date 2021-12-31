@@ -117,7 +117,7 @@ describe('PancakeSquad/utils/getEventText', () => {
     const eventStatus = [SaleStatusEnum.DrawingRandomness]
     const saleStatus = SaleStatusEnum.DrawingRandomness
     const startTimestamp = undefined
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getEventText({ eventStatus, saleStatus, startTimestamp, t })
@@ -131,7 +131,7 @@ describe('PancakeSquad/utils/getEventText', () => {
     const eventStatus = [SaleStatusEnum.Sale]
     const saleStatus = SaleStatusEnum.Sale
     const startTimestamp = undefined
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getEventText({ eventStatus, saleStatus, startTimestamp, t })
@@ -145,7 +145,7 @@ describe('PancakeSquad/utils/getEventText', () => {
     const eventStatus = [SaleStatusEnum.Sale]
     const saleStatus = SaleStatusEnum.Pending
     const startTimestamp = undefined
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getEventText({ eventStatus, saleStatus, startTimestamp, t })
@@ -159,7 +159,7 @@ describe('PancakeSquad/utils/getEventText', () => {
     const eventStatus = [SaleStatusEnum.Sale]
     const saleStatus = SaleStatusEnum.Claim
     const startTimestamp = undefined
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getEventText({ eventStatus, saleStatus, startTimestamp, t })
@@ -175,7 +175,7 @@ describe('PancakeSquad/utils/getAltText', () => {
     const eventStatus = [SaleStatusEnum.Claim]
     const saleStatus = SaleStatusEnum.DrawingRandomness
     const startTimestamp = undefined
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getAltText({ eventStatus, saleStatus, startTimestamp, t })
@@ -189,7 +189,7 @@ describe('PancakeSquad/utils/getAltText', () => {
     const eventStatus = [SaleStatusEnum.Sale]
     const saleStatus = SaleStatusEnum.Presale
     const startTimestamp = Date.now() + HOUR_IN_MS + HOUR_IN_MS / 2
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getAltText({ eventStatus, saleStatus, startTimestamp, t })
@@ -203,7 +203,7 @@ describe('PancakeSquad/utils/getAltText', () => {
     const eventStatus = [SaleStatusEnum.Sale]
     const saleStatus = SaleStatusEnum.Claim
     const startTimestamp = undefined
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getAltText({ eventStatus, saleStatus, startTimestamp, t })

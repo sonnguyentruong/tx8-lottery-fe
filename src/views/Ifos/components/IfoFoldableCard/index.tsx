@@ -146,7 +146,7 @@ const IfoFoldableCard: React.FC<IfoFoldableCardProps> = ({ ifo, publicIfoData, w
   return (
     <StyledCard ribbon={Ribbon}>
       <Header ifoId={ifo.id}>
-        <ExpandableButton expanded={isVisible} onClick={() => setIsVisible((prev) => !prev)} />
+        <ExpandableButton expanded={isVisible} onClick={() => setIsVisible(prev => !prev)} />
       </Header>
       <FoldableContent isVisible={isVisible} isActive={publicIfoData.status !== 'idle' && isActive}>
         {isActive && <Progress variant="flat" primaryStep={publicIfoData.progress} />}

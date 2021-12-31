@@ -209,14 +209,14 @@ const Search = () => {
   const [showWatchlist, setShowWatchlist] = useState(false)
   const tokensForList = useMemo(() => {
     if (showWatchlist) {
-      return watchListTokenData.filter((token) => tokenIncludesSearchTerm(token, value))
+      return watchListTokenData.filter(token => tokenIncludesSearchTerm(token, value))
     }
     return tokens.sort((t0, t1) => (t0.volumeUSD > t1.volumeUSD ? -1 : 1))
   }, [showWatchlist, tokens, watchListTokenData, value])
 
   const poolForList = useMemo(() => {
     if (showWatchlist) {
-      return watchListPoolData.filter((pool) => poolIncludesSearchTerm(pool, value))
+      return watchListPoolData.filter(pool => poolIncludesSearchTerm(pool, value))
     }
     return pools.sort((p0, p1) => (p0.volumeUSD > p1.volumeUSD ? -1 : 1))
   }, [pools, showWatchlist, watchListPoolData, value])
@@ -264,7 +264,7 @@ const Search = () => {
         <StyledInput
           type="text"
           value={value}
-          onChange={(e) => {
+          onChange={e => {
             setValue(e.target.value)
           }}
           placeholder={t('Search pools or tokens')}
@@ -318,7 +318,7 @@ const Search = () => {
                       id="watchlist-icon"
                       style={{ marginLeft: '8px' }}
                       fill={savedTokens.includes(token.address)}
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation()
                         addSavedToken(token.address)
                       }}
@@ -377,7 +377,7 @@ const Search = () => {
                       id="watchlist-icon"
                       style={{ marginLeft: '10px' }}
                       fill={savedPools.includes(p.address)}
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation()
                         addSavedPool(p.address)
                       }}

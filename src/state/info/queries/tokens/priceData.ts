@@ -75,7 +75,7 @@ const fetchTokenPriceData = async (
     }[] = []
 
     // Get Token prices in BNB
-    Object.keys(prices).forEach((priceKey) => {
+    Object.keys(prices).forEach(priceKey => {
       const timestamp = priceKey.split('t')[1]
       // if its BNB price e.g. `b123` split('t')[1] will be undefined and skip BNB price entry
       if (timestamp) {
@@ -88,11 +88,11 @@ const fetchTokenPriceData = async (
     })
 
     // Go through BNB USD prices and calculate Token price based on it
-    Object.keys(prices).forEach((priceKey) => {
+    Object.keys(prices).forEach(priceKey => {
       const timestamp = priceKey.split('b')[1]
       // if its Token price e.g. `t123` split('b')[1] will be undefined and skip Token price entry
       if (timestamp) {
-        const tokenPriceIndex = tokenPrices.findIndex((tokenPrice) => tokenPrice.timestamp === timestamp)
+        const tokenPriceIndex = tokenPrices.findIndex(tokenPrice => tokenPrice.timestamp === timestamp)
         if (tokenPriceIndex >= 0) {
           const { derivedBNB } = tokenPrices[tokenPriceIndex]
           tokenPrices[tokenPriceIndex].priceUSD = parseFloat(prices[priceKey]?.bnbPrice ?? 0) * derivedBNB

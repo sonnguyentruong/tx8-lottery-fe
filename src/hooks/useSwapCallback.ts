@@ -82,7 +82,7 @@ function useSwapCallArguments(
       )
     }
 
-    return swapMethods.map((parameters) => ({ parameters, contract }))
+    return swapMethods.map(parameters => ({ parameters, contract }))
   }, [account, allowedSlippage, chainId, deadline, library, recipient, trade])
 }
 
@@ -118,7 +118,7 @@ export function useSwapCallback(
       state: SwapCallbackState.VALID,
       callback: async function onSwap(): Promise<string> {
         const estimatedCalls: EstimatedSwapCall[] = await Promise.all(
-          swapCalls.map((call) => {
+          swapCalls.map(call => {
             const {
               parameters: { methodName, args, value },
               contract,
@@ -126,21 +126,21 @@ export function useSwapCallback(
             const options = !value || isZero(value) ? {} : { value }
 
             return contract.estimateGas[methodName](...args, options)
-              .then((gasEstimate) => {
+              .then(gasEstimate => {
                 return {
                   call,
                   gasEstimate,
                 }
               })
-              .catch((gasError) => {
+              .catch(gasError => {
                 console.error('Gas estimate failed, trying eth_call to extract error', call)
 
                 return contract.callStatic[methodName](...args, options)
-                  .then((result) => {
+                  .then(result => {
                     console.error('Unexpected successful call after failed estimate gas', call, gasError, result)
                     return { call, error: new Error('Unexpected issue with estimating the gas. Please try again.') }
                   })
-                  .catch((callError) => {
+                  .catch(callError => {
                     console.error('Call threw error', call, callError)
                     const reason: string = callError.reason || callError.data?.message || callError.message
                     const errorMessage = `The transaction cannot succeed due to error: ${

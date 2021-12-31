@@ -61,7 +61,7 @@ const Overview: React.FC = () => {
 
   const formattedLiquidityData = useMemo(() => {
     if (chartData) {
-      return chartData.map((day) => {
+      return chartData.map(day => {
         return {
           time: fromUnixTime(day.date),
           value: day.liquidityUSD,
@@ -73,7 +73,7 @@ const Overview: React.FC = () => {
 
   const formattedVolumeData = useMemo(() => {
     if (chartData) {
-      return chartData.map((day) => {
+      return chartData.map(day => {
         return {
           time: fromUnixTime(day.date),
           value: day.volumeUSD,
@@ -87,19 +87,19 @@ const Overview: React.FC = () => {
 
   const formattedTokens = useMemo(() => {
     return Object.values(allTokens)
-      .map((token) => token.data)
-      .filter((token) => token)
+      .map(token => token.data)
+      .filter(token => token)
   }, [allTokens])
 
   const allPoolData = useAllPoolData()
   const poolDatas = useMemo(() => {
     return Object.values(allPoolData)
-      .map((pool) => pool.data)
-      .filter((pool) => pool)
+      .map(pool => pool.data)
+      .filter(pool => pool)
   }, [allPoolData])
 
   const somePoolsAreLoading = useMemo(() => {
-    return Object.values(allPoolData).some((pool) => !pool.data)
+    return Object.values(allPoolData).some(pool => !pool.data)
   }, [allPoolData])
 
   return (

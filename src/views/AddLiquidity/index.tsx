@@ -177,12 +177,12 @@ export default function AddLiquidity({
 
     setAttemptingTxn(true)
     await estimate(...args, value ? { value } : {})
-      .then((estimatedGasLimit) =>
+      .then(estimatedGasLimit =>
         method(...args, {
           ...(value ? { value } : {}),
           gasLimit: calculateGasMargin(estimatedGasLimit),
           gasPrice,
-        }).then((response) => {
+        }).then(response => {
           setAttemptingTxn(false)
 
           addTransaction(response, {
@@ -194,7 +194,7 @@ export default function AddLiquidity({
           setTxHash(response.hash)
         }),
       )
-      .catch((err) => {
+      .catch(err => {
         setAttemptingTxn(false)
         // we only care if the error is something _other_ than the user rejected the tx
         if (err?.code !== 4001) {

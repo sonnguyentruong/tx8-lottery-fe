@@ -19,7 +19,7 @@ export const fetchProposals = createAsyncThunk<Proposal[], { first?: number; ski
   },
 )
 
-export const fetchProposal = createAsyncThunk<Proposal, string>('voting/fetchProposal', async (proposalId) => {
+export const fetchProposal = createAsyncThunk<Proposal, string>('voting/fetchProposal', async proposalId => {
   const response = await getProposal(proposalId)
   return response
 })
@@ -47,13 +47,13 @@ export const votingSlice = createSlice({
   name: 'voting',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     // Verify Votes
     builder.addCase(verifyVotes.fulfilled, (state, action) => {
       const { proposalId, results } = action.payload
 
       if (state.votes[proposalId]) {
-        state.votes[proposalId] = state.votes[proposalId].map((vote) => {
+        state.votes[proposalId] = state.votes[proposalId].map(vote => {
           return {
             ...vote,
             _inValid: results[vote.id] === false,
@@ -63,7 +63,7 @@ export const votingSlice = createSlice({
     })
 
     // Fetch Proposals
-    builder.addCase(fetchProposals.pending, (state) => {
+    builder.addCase(fetchProposals.pending, state => {
       state.proposalLoadingStatus = VotingStateLoadingStatus.LOADING
     })
     builder.addCase(fetchProposals.fulfilled, (state, action) => {
@@ -79,7 +79,7 @@ export const votingSlice = createSlice({
     })
 
     // Fetch Proposal
-    builder.addCase(fetchProposal.pending, (state) => {
+    builder.addCase(fetchProposal.pending, state => {
       state.proposalLoadingStatus = VotingStateLoadingStatus.LOADING
     })
     builder.addCase(fetchProposal.fulfilled, (state, action) => {
@@ -88,7 +88,7 @@ export const votingSlice = createSlice({
     })
 
     // Fetch Votes
-    builder.addCase(fetchVotes.pending, (state) => {
+    builder.addCase(fetchVotes.pending, state => {
       state.voteLoadingStatus = VotingStateLoadingStatus.LOADING
     })
     builder.addCase(fetchVotes.fulfilled, (state, action) => {

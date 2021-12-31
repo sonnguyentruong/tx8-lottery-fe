@@ -13,7 +13,7 @@ const useGetCollectionDistribution = (collectionAddress: string) => {
 
   useEffect(() => {
     const fetchTokens = async () => {
-      setState((prevState) => ({ ...prevState, isFetching: true }))
+      setState(prevState => ({ ...prevState, isFetching: true }))
       const apiResponse = await getCollectionDistributionApi<ApiCollectionDistribution>(collectionAddress)
       setState({
         isFetching: false,
@@ -37,7 +37,7 @@ export const useGetCollectionDistributionPB = () => {
 
   useEffect(() => {
     const fetchTokens = async () => {
-      setState((prevState) => ({ ...prevState, isFetching: true }))
+      setState(prevState => ({ ...prevState, isFetching: true }))
       const apiResponse = await getCollectionDistributionApi<ApiCollectionDistributionPB>(pancakeBunniesAddress)
       setState({
         isFetching: false,

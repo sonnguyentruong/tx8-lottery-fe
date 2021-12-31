@@ -76,8 +76,8 @@ export const getEventStepStatus = ({
   startTimestamp,
 }: getEventStepStatusType): EventStatus => {
   const now = Date.now()
-  if (eventStatus.every((status) => status < saleStatus)) return 'past'
-  if (eventStatus.some((status) => status === saleStatus)) {
+  if (eventStatus.every(status => status < saleStatus)) return 'past'
+  if (eventStatus.some(status => status === saleStatus)) {
     if (startTimestamp && saleStatus === SaleStatusEnum.Presale && now > startTimestamp - FIFTEEN_MINUTES * 1000) {
       return 'past'
     }

@@ -15,7 +15,7 @@ import { Field, typeInput } from './actions'
 const ZERO = JSBI.BigInt(0)
 
 export function useMintState(): AppState['mint'] {
-  return useSelector<AppState, AppState['mint']>((state) => state.mint)
+  return useSelector<AppState, AppState['mint']>(state => state.mint)
 }
 
 export function useMintActionHandlers(noLiquidity: boolean | undefined): {

@@ -32,7 +32,7 @@ const CollectionTraits: React.FC<CollectionTraitsProps> = ({ collectionAddress }
             </tr>
           </thead>
           <tbody>
-            {times(19).map((bunnyCnt) => (
+            {times(19).map(bunnyCnt => (
               <tr key={bunnyCnt}>
                 <Td>
                   <Skeleton width="100px" />
@@ -70,7 +70,7 @@ const CollectionTraits: React.FC<CollectionTraitsProps> = ({ collectionAddress }
           const sortType = raritySort[traitType] || 'desc'
 
           const toggleRaritySort = () => {
-            setRaritySort((prevRaritySort) => {
+            setRaritySort(prevRaritySort => {
               if (!prevRaritySort[traitType]) {
                 return {
                   ...prevRaritySort,

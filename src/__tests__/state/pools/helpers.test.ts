@@ -34,10 +34,10 @@ describe('transformUserData', () => {
         randomKey: 1,
       },
     ],
-  ])('transforms user data correctly', (value) => {
+  ])('transforms user data correctly', value => {
     const userData = transformUserData(value)
 
-    Object.values(userData).forEach((userDataValue) => {
+    Object.values(userData).forEach(userDataValue => {
       expect(userDataValue).toBeInstanceOf(BigNumber)
     })
 
@@ -50,7 +50,7 @@ describe('transformUserData', () => {
 
 describe('transformPool', () => {
   // Transform pool object with the sous id for a label. For display purposes only.
-  const poolTable: [number, SerializedPoolConfig][] = poolsConfig.map((poolsConfigItem) => [
+  const poolTable: [number, SerializedPoolConfig][] = poolsConfig.map(poolsConfigItem => [
     poolsConfigItem.sousId,
     poolsConfigItem,
   ])

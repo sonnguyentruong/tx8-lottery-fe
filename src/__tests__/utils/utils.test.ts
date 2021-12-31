@@ -1,7 +1,7 @@
 import menuConfig from 'components/Menu/config/config'
 import { getActiveMenuItem, getActiveSubMenuItem } from 'components/Menu/utils'
 
-const mockT = (key) => key
+const mockT = key => key
 
 describe('getActiveMenuItem', () => {
   it('should return an active item', () => {

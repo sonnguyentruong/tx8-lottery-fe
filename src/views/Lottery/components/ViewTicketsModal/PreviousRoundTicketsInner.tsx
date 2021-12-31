@@ -90,8 +90,8 @@ const PreviousRoundTicketsInner: React.FC<{ roundId: string }> = ({ roundId }) =
       _allTickets: LotteryTicket[],
       _allWinningTickets: LotteryTicket[],
     ): LotteryTicket[] => {
-      const allTicketsWithWinningTickets = _allTickets.map((ticket) => {
-        const winningTicketEquivalent = _allWinningTickets.find((winningTicket) => winningTicket.id === ticket.id)
+      const allTicketsWithWinningTickets = _allTickets.map(ticket => {
+        const winningTicketEquivalent = _allWinningTickets.find(winningTicket => winningTicket.id === ticket.id)
         if (winningTicketEquivalent) {
           return winningTicketEquivalent
         }
@@ -100,7 +100,7 @@ const PreviousRoundTicketsInner: React.FC<{ roundId: string }> = ({ roundId }) =
       return allTicketsWithWinningTickets
     }
 
-    const sortTicketsByWinningBracket = (tickets) => {
+    const sortTicketsByWinningBracket = tickets => {
       return tickets.sort((ticketA, ticketB) => {
         const rewardBracket1 = ticketA.rewardBracket === undefined ? 0 : ticketA.rewardBracket + 1
         const rewardBracket2 = ticketB.rewardBracket === undefined ? 0 : ticketB.rewardBracket + 1
@@ -207,7 +207,7 @@ const PreviousRoundTicketsInner: React.FC<{ roundId: string }> = ({ roundId }) =
           </Text>
         </Flex>
         {allUserTickets ? (
-          allUserTickets.map((ticket) => {
+          allUserTickets.map(ticket => {
             return (
               <TicketNumber
                 key={ticket.id}

@@ -87,7 +87,7 @@ const UserName: React.FC = () => {
   const debouncedUsernameToCheck = useDebounce(usernameToCheck, 200)
 
   useEffect(() => {
-    const fetchUsernameToCheck = async (abortSignal) => {
+    const fetchUsernameToCheck = async abortSignal => {
       try {
         setIsLoading(true)
         if (!debouncedUsernameToCheck) {

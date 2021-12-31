@@ -11,7 +11,7 @@ function useLast<T>(
 ): T | null | undefined {
   const [last, setLast] = useState<T | null | undefined>(filterFn && filterFn(value) ? value : undefined)
   useEffect(() => {
-    setLast((prev) => {
+    setLast(prev => {
       const shouldUse: boolean = filterFn ? filterFn(value) : true
       if (shouldUse) return value
       return prev

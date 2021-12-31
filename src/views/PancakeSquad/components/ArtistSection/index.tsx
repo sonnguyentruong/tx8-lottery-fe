@@ -38,7 +38,7 @@ const ArtistSection = () => {
               </Text>
             </Text>
 
-            {bodyText.map((text) => (
+            {bodyText.map(text => (
               <Text key={text} color="textSubtle">
                 {text}
               </Text>
@@ -51,7 +51,7 @@ const ArtistSection = () => {
             alignItems="center"
             mx={['10%', null, null, '0']}
           >
-            {buttons.map((button) => (
+            {buttons.map(button => (
               <StyledSocialButton
                 key={button.text}
                 mb={['16px', null, null, '0']}

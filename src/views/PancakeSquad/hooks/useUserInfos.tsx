@@ -18,7 +18,7 @@ const useUserInfos = ({ account, refreshCounter, setCallback }) => {
             'numberTicketsUsedForGen0',
             'viewNumberTicketsOfUser',
             'ticketsOfUserBySize',
-          ].map((method) => ({
+          ].map(method => ({
             address: nftSaleAddress,
             name: method,
             params: method === 'ticketsOfUserBySize' ? [account, 0, 600] : [account],

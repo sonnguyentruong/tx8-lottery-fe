@@ -6,7 +6,7 @@ import useTheme from 'hooks/useTheme'
 import AllBunniesImage from '../../pngs/all-bunnies.png'
 import { Heading1Text, Heading2Text } from '../CompetitionHeadingText'
 
-const TextStyles = (theme) => `
+const TextStyles = theme => `
   text-align: center;
   ${theme.mediaQueries.md} {
     text-align: left;

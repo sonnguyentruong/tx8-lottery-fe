@@ -32,7 +32,7 @@ const AchievementsList: React.FC<{ achievements: Achievement[]; isLoading: boole
   return (
     <>
       <Grid>
-        {achievements.map((achievement) => (
+        {achievements.map(achievement => (
           <AchievementCard key={achievement.id} achievement={achievement} />
         ))}
       </Grid>

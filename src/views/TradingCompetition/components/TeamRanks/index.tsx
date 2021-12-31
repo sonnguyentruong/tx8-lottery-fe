@@ -59,7 +59,7 @@ const TeamRanks: React.FC<TeamRanksProps> = ({
 
   const isGlobalLeaderboardDataComplete = Boolean(isTeamLeaderboardDataComplete && globalLeaderboardInformation)
 
-  const getTeamsSortedByVolume = (arrayOfTeams) => {
+  const getTeamsSortedByVolume = arrayOfTeams => {
     return arrayOfTeams.sort((teamA, teamB) => teamB.leaderboardData.volume - teamA.leaderboardData.volume)
   }
 

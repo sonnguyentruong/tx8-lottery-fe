@@ -29,7 +29,7 @@ const Positions: React.FC<{ view?: PageView }> = ({ view }) => {
   const rounds = useGetSortedRounds()
   const currentEpoch = useGetCurrentEpoch()
   const previousEpoch = currentEpoch > 0 ? currentEpoch - 1 : currentEpoch
-  const previousRound = rounds.find((round) => round.epoch === previousEpoch)
+  const previousRound = rounds.find(round => round.epoch === previousEpoch)
   const swiperIndex = rounds.indexOf(previousRound)
 
   useOnNextRound()
@@ -53,7 +53,7 @@ const Positions: React.FC<{ view?: PageView }> = ({ view }) => {
           keyboard
           resizeObserver
         >
-          {rounds.map((round) => (
+          {rounds.map(round => (
             <SwiperSlide key={round.epoch}>
               <RoundCard round={round} />
             </SwiperSlide>

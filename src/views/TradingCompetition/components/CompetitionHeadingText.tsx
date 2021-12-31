@@ -46,12 +46,12 @@ interface HeadingProps {
 
 export const Heading1Text = styled(Heading)<HeadingProps>`
   ${({ theme }) => H1SizeStyles(theme)}
-  ${(props) => sharedStyles(props)}
+  ${props => sharedStyles(props)}
 `
 
 export const Heading2Text = styled(Heading)<HeadingProps>`
   ${({ theme }) => H2SizeStyles(theme)}
-  ${(props) => sharedStyles(props)}
+  ${props => sharedStyles(props)}
 `
 
 export const VisuallyHiddenHeading1Text = styled(Heading)`

@@ -61,7 +61,7 @@ const PancakeBunniesTraits: React.FC<PancakeBunniesTraitsProps> = ({ collectionA
   }, [raritySort, tokenApiResponse])
 
   const toggleRaritySort = () => {
-    setRaritySort((currentValue) => (currentValue === 'asc' ? 'desc' : 'asc'))
+    setRaritySort(currentValue => (currentValue === 'asc' ? 'desc' : 'asc'))
   }
 
   return (
@@ -86,7 +86,7 @@ const PancakeBunniesTraits: React.FC<PancakeBunniesTraitsProps> = ({ collectionA
                 </tr>
               </thead>
               <tbody>
-                {sortedBunnieKeys.map((bunnyId) => {
+                {sortedBunnieKeys.map(bunnyId => {
                   const nft = tokenApiResponse.data[bunnyId]
                   if (!nft) {
                     // Some bunnies don't exist on testnet
@@ -127,7 +127,7 @@ const PancakeBunniesTraits: React.FC<PancakeBunniesTraitsProps> = ({ collectionA
               </tr>
             </thead>
             <tbody>
-              {times(19).map((bunnyCnt) => (
+              {times(19).map(bunnyCnt => (
                 <tr key={bunnyCnt}>
                   <Td>
                     <Flex alignItems="center">

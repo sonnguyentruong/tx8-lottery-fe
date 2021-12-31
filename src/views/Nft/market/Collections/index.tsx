@@ -127,7 +127,7 @@ const Collectible = () => {
               </tr>
             </thead>
             <tbody>
-              {sortedCollections.map((collection) => {
+              {sortedCollections.map(collection => {
                 const volume = collection.totalVolumeBNB
                   ? parseFloat(collection.totalVolumeBNB).toLocaleString(undefined, {
                       minimumFractionDigits: 3,

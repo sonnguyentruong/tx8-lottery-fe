@@ -87,7 +87,7 @@ export const NftTag: React.FC<NftTagProps> = ({ icon, color = 'text', children, 
   </Flex>
 )
 
-export const ProfileNftTag: React.FC<NftTagProps> = (props) => {
+export const ProfileNftTag: React.FC<NftTagProps> = props => {
   const { t } = useTranslation()
 
   return (
@@ -97,7 +97,7 @@ export const ProfileNftTag: React.FC<NftTagProps> = (props) => {
   )
 }
 
-export const WalletNftTag: React.FC<NftTagProps> = (props) => {
+export const WalletNftTag: React.FC<NftTagProps> = props => {
   const { t } = useTranslation()
 
   return (
@@ -107,7 +107,7 @@ export const WalletNftTag: React.FC<NftTagProps> = (props) => {
   )
 }
 
-export const SellingNftTag: React.FC<NftTagProps> = (props) => {
+export const SellingNftTag: React.FC<NftTagProps> = props => {
   const { t } = useTranslation()
 
   return (

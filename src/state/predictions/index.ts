@@ -137,7 +137,7 @@ export const initializePredictions = createAsyncThunk<PredictionInitialization, 
   },
 )
 
-export const fetchRound = createAsyncThunk<ReduxNodeRound, number>('predictions/fetchRound', async (epoch) => {
+export const fetchRound = createAsyncThunk<ReduxNodeRound, number>('predictions/fetchRound', async epoch => {
   const predictionContract = getPredictionsContract()
   const response = await predictionContract.rounds(epoch)
   return serializePredictionsRoundsResponse(response)
@@ -145,7 +145,7 @@ export const fetchRound = createAsyncThunk<ReduxNodeRound, number>('predictions/
 
 export const fetchRounds = createAsyncThunk<{ [key: string]: ReduxNodeRound }, number[]>(
   'predictions/fetchRounds',
-  async (epochs) => {
+  async epochs => {
     const rounds = await getRoundsData(epochs)
     return rounds.reduce((accum, round) => {
       if (!round) {
@@ -227,7 +227,7 @@ export const fetchNodeHistory = createAsyncThunk<
     return emptyResult
   }
 
-  const epochs = Object.keys(userRounds).map((epochStr) => Number(epochStr))
+  const epochs = Object.keys(userRounds).map(epochStr => Number(epochStr))
   const roundData = await getRoundsData(epochs)
   const claimableStatuses = await getClaimStatuses(account, epochs)
 
@@ -375,9 +375,9 @@ export const predictionsSlice = createSlice({
       state.leaderboard.selectedAddress = action.payload
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     // Leaderboard filter
-    builder.addCase(filterLeaderboard.pending, (state) => {
+    builder.addCase(filterLeaderboard.pending, state => {
       // Only mark as loading if we come from IDLE. This allows initialization.
       if (state.leaderboard.loadingState === LeaderboardLoadingState.IDLE) {
         state.leaderboard.loadingState = LeaderboardLoadingState.LOADING
@@ -406,7 +406,7 @@ export const predictionsSlice = createSlice({
     })
 
     // Leaderboard account result
-    builder.addCase(fetchAddressResult.pending, (state) => {
+    builder.addCase(fetchAddressResult.pending, state => {
       state.leaderboard.loadingState = LeaderboardLoadingState.LOADING
     })
     builder.addCase(fetchAddressResult.fulfilled, (state, action) => {
@@ -420,7 +420,7 @@ export const predictionsSlice = createSlice({
     })
 
     // Leaderboard next page
-    builder.addCase(filterNextPageLeaderboard.pending, (state) => {
+    builder.addCase(filterNextPageLeaderboard.pending, state => {
       state.leaderboard.loadingState = LeaderboardLoadingState.LOADING
     })
     builder.addCase(filterNextPageLeaderboard.fulfilled, (state, action) => {
@@ -502,10 +502,10 @@ export const predictionsSlice = createSlice({
     })
 
     // Show History
-    builder.addCase(fetchHistory.pending, (state) => {
+    builder.addCase(fetchHistory.pending, state => {
       state.isFetchingHistory = true
     })
-    builder.addCase(fetchHistory.rejected, (state) => {
+    builder.addCase(fetchHistory.rejected, state => {
       state.isFetchingHistory = false
     })
     builder.addCase(fetchHistory.fulfilled, (state, action) => {
@@ -516,10 +516,10 @@ export const predictionsSlice = createSlice({
     })
 
     // History from the node
-    builder.addCase(fetchNodeHistory.pending, (state) => {
+    builder.addCase(fetchNodeHistory.pending, state => {
       state.isFetchingHistory = true
     })
-    builder.addCase(fetchNodeHistory.rejected, (state) => {
+    builder.addCase(fetchNodeHistory.rejected, state => {
       state.isFetchingHistory = false
     })
     builder.addCase(fetchNodeHistory.fulfilled, (state, action) => {

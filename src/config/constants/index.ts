@@ -1,5 +1,5 @@
 import { ChainId, JSBI, Percent, Token } from '@pancakeswap/sdk'
-import { mainnetTokens, testnetTokens } from './tokens'
+import { mainnetTokens, polygonTokens, testnetTokens } from './tokens'
 
 export const ROUTER_ADDRESS = '0x10ED43C718714eb63d5aA57B78B54704E256024E'
 
@@ -21,6 +21,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     mainnetTokens.usdc,
   ],
   [ChainId.TESTNET]: [testnetTokens.wbnb, testnetTokens.cake, testnetTokens.busd],
+  [137 as ChainId]: [polygonTokens.tx8, polygonTokens.usdt],
 }
 
 /**

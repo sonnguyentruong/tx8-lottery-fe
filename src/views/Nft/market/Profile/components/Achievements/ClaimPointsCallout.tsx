@@ -33,8 +33,8 @@ const ClaimPointsCallout = () => {
     dispatch(addAchievement(achievement))
     dispatch(addPoints(achievement.points))
 
-    setClaimableAchievement((prevClaimableAchievements) =>
-      prevClaimableAchievements.filter((prevClaimableAchievement) => prevClaimableAchievement.id !== achievement.id),
+    setClaimableAchievement(prevClaimableAchievements =>
+      prevClaimableAchievements.filter(prevClaimableAchievement => prevClaimableAchievement.id !== achievement.id),
     )
   }
 
@@ -59,7 +59,7 @@ const ClaimPointsCallout = () => {
         </Flex>
       </CardHeader>
       <CardBody>
-        {claimableAchievements.map((achievement) => (
+        {claimableAchievements.map(achievement => (
           <AchievementRow key={achievement.address} achievement={achievement} onCollectSuccess={handleCollectSuccess} />
         ))}
       </CardBody>

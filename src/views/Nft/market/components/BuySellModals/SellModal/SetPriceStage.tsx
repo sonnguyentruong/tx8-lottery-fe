@@ -98,7 +98,7 @@ const SetPriceStage: React.FC<SetPriceStageProps> = ({
               value={price}
               ref={inputRef}
               isWarning={priceIsOutOfRange}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={e => setPrice(e.target.value)}
             />
           </Flex>
         </Flex>

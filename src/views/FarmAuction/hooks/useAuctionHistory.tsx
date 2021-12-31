@@ -25,7 +25,7 @@ const useAuctionHistory = (auctionId: number) => {
 
         const [auctionBidders] = await farmAuctionContract.viewBidsPerAuction(auctionId, 0, AUCTION_BIDDERS_TO_FETCH)
         const sortedBidders = sortAuctionBidders(auctionBidders, processedAuctionData)
-        setAuctionHistory((prev) => ({
+        setAuctionHistory(prev => ({
           ...prev,
           [auctionId]: { auction: processedAuctionData, bidders: sortedBidders },
         }))

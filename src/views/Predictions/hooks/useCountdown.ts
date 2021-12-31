@@ -21,7 +21,7 @@ const useCountdown = (timestamp: number) => {
 
     if (!isPaused && secondsRemaining > 0) {
       timer = setTimeout(() => {
-        setSecondsRemaining((prevSecondsRemaining) => prevSecondsRemaining - 1)
+        setSecondsRemaining(prevSecondsRemaining => prevSecondsRemaining - 1)
       }, 1000)
     }
 

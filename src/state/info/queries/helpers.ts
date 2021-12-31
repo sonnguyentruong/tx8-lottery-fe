@@ -104,7 +104,7 @@ export const fetchChartData = async (
     }
   }, {})
 
-  const availableDays = Object.keys(formattedDayDatas).map((dayOrdinal) => parseInt(dayOrdinal, 10))
+  const availableDays = Object.keys(formattedDayDatas).map(dayOrdinal => parseInt(dayOrdinal, 10))
 
   const firstAvailableDayData = formattedDayDatas[availableDays[0]]
   // fill in empty days ( there will be no day datas if no trades made that day )

@@ -3,7 +3,7 @@ import { ContextApi } from 'contexts/Localization/types'
 
 export type ConfigMenuItemsType = MenuItemsType & { hideSubNav?: boolean }
 
-const config: (t: ContextApi['t']) => ConfigMenuItemsType[] = (t) => [
+const config: (t: ContextApi['t']) => ConfigMenuItemsType[] = t => [
   {
     label: t('Lottery'),
     icon: 'Trophy',

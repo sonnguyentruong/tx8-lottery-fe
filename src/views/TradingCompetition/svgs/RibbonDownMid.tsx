@@ -1,7 +1,7 @@
 import React from 'react'
 import { Svg, SvgProps } from '@pancakeswap/uikit'
 
-const RibbonDownMid: React.FC<SvgProps> = (props) => {
+const RibbonDownMid: React.FC<SvgProps> = props => {
   return (
     <Svg viewBox="0 0 142 48" {...props}>
       <rect width="142" height="46" fill="#7645D9" />

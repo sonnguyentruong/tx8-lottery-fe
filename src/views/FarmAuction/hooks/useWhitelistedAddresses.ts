@@ -12,7 +12,7 @@ const useWhitelistedAddresses = () => {
     const fetchWhitelistedAddresses = async () => {
       try {
         const [bidderAddresses] = await farmAuctionContract.viewBidders(0, AUCTION_WHITELISTED_BIDDERS_TO_FETCH)
-        const bidders = bidderAddresses.map((address) => getBidderInfo(address))
+        const bidders = bidderAddresses.map(address => getBidderInfo(address))
         setWhitelistedAddresses(bidders)
       } catch (error) {
         console.error('Failed to fetch list of whitelisted addresses', error)

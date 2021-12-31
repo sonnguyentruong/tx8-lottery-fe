@@ -84,7 +84,7 @@ describe('info/utils/infoDataHelpers', () => {
     ({ volumeUSD, volumeUSDWeek, liquidityUSD, expected }) => {
       const actual = getLpFeesAndApr(volumeUSD, volumeUSDWeek, liquidityUSD)
       // Round actual to avoid rounding errors during comparison
-      Object.keys(actual).forEach((key) => {
+      Object.keys(actual).forEach(key => {
         actual[key] = parseFloat(actual[key].toFixed(2))
       })
       expect(actual).toStrictEqual(expected)

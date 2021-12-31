@@ -44,10 +44,10 @@ const ClaimInnerContainer: React.FC<ClaimInnerProps> = ({ onSuccess, roundsToCla
   const dollarRewardAsBalance = getBalanceAmount(dollarReward).toNumber()
 
   const parseUnclaimedTicketDataForClaimCall = (ticketsWithUnclaimedRewards: LotteryTicket[], lotteryId: string) => {
-    const ticketIds = ticketsWithUnclaimedRewards.map((ticket) => {
+    const ticketIds = ticketsWithUnclaimedRewards.map(ticket => {
       return ticket.id
     })
-    const brackets = ticketsWithUnclaimedRewards.map((ticket) => {
+    const brackets = ticketsWithUnclaimedRewards.map(ticket => {
       return ticket.rewardBracket
     })
     return { lotteryId, ticketIds, brackets }

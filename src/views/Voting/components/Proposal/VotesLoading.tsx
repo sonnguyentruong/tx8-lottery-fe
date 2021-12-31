@@ -15,7 +15,7 @@ const StyledSkeleton = styled(Skeleton)`
 const VotesLoading = () => {
   return (
     <Box>
-      {times(10).map((index) => (
+      {times(10).map(index => (
         <Row key={index}>
           <Skeleton height="21px" mr="32px" width="100px" />
           <StyledSkeleton height="21px" mr="32px" width="100%" />

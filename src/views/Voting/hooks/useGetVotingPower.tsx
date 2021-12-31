@@ -49,7 +49,7 @@ const useGetVotingPower = (block?: number, isActive = true): State & { isLoading
         } = await getVotingPower(account, poolAddresses, blockNumber)
 
         if (isActive) {
-          setVotingPower((prevVotingPower) => ({
+          setVotingPower(prevVotingPower => ({
             ...prevVotingPower,
             verificationHash,
             cakeBalance: parseFloat(cakeBalance),

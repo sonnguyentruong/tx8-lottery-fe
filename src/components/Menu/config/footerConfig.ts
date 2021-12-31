@@ -1,7 +1,7 @@
 import { FooterLinkType } from '@pancakeswap/uikit'
 import { ContextApi } from 'contexts/Localization/types'
 
-export const footerLinks: (t: ContextApi['t']) => FooterLinkType[] = (t) => [
+export const footerLinks: (t: ContextApi['t']) => FooterLinkType[] = t => [
   {
     label: t('Win'),
     items: [
@@ -9,7 +9,6 @@ export const footerLinks: (t: ContextApi['t']) => FooterLinkType[] = (t) => [
         label: t('Lottery'),
         href: '/',
       },
-     
     ],
   },
   {
@@ -19,7 +18,6 @@ export const footerLinks: (t: ContextApi['t']) => FooterLinkType[] = (t) => [
         label: t('Exchange'),
         href: '/swap',
       },
-     
     ],
   },
 ]

@@ -102,7 +102,7 @@ const CollectModal: React.FC<CollectModalProps> = ({
             activeIndex={shouldCompound ? 0 : 1}
             scale="sm"
             variant="subtle"
-            onItemClick={(index) => setShouldCompound(!index)}
+            onItemClick={index => setShouldCompound(!index)}
           >
             <ButtonMenuItem as="button">{t('Compound')}</ButtonMenuItem>
             <ButtonMenuItem as="button">{t('Harvest')}</ButtonMenuItem>

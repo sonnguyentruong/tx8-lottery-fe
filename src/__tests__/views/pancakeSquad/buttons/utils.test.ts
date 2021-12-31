@@ -8,7 +8,7 @@ describe('PancakeSquad/buttons/utils/getBuyButtonText', () => {
     const canBuyTickets = false
     const saleStatus = SaleStatusEnum.Sale
     const numberTicketsOfUser = 3
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getBuyButtonText({ canBuyTickets, saleStatus, numberTicketsOfUser, t })
@@ -22,7 +22,7 @@ describe('PancakeSquad/buttons/utils/getBuyButtonText', () => {
     const canBuyTickets = false
     const saleStatus = SaleStatusEnum.Sale
     const numberTicketsOfUser = 0
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getBuyButtonText({ canBuyTickets, saleStatus, numberTicketsOfUser, t })
@@ -36,7 +36,7 @@ describe('PancakeSquad/buttons/utils/getBuyButtonText', () => {
     const canBuyTickets = true
     const saleStatus = SaleStatusEnum.Sale
     const numberTicketsOfUser = 0
-    const t = (key) => key
+    const t = key => key
 
     // When
     const result = getBuyButtonText({ canBuyTickets, saleStatus, numberTicketsOfUser, t })
