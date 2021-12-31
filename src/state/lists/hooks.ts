@@ -32,6 +32,20 @@ export class WrappedTokenInfo extends Token {
 
   public readonly tags: TagInfo[]
 
+  static fromToken({ address, chainId, decimals, name, symbol }: Token, logoURI: string): WrappedTokenInfo {
+    return new WrappedTokenInfo(
+      {
+        address,
+        decimals,
+        chainId,
+        symbol,
+        name,
+        logoURI,
+      },
+      [],
+    )
+  }
+
   constructor(tokenInfo: TokenInfo, tags: TagInfo[]) {
     super(tokenInfo.chainId, tokenInfo.address, tokenInfo.decimals, tokenInfo.symbol, tokenInfo.name)
     this.tokenInfo = tokenInfo

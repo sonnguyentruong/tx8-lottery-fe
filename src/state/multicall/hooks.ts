@@ -222,7 +222,6 @@ export function useMultipleContractSingleData(
   )
 
   const results = useCallsData(calls, options)
-
   const { currentBlock } = useBlock()
 
   return useMemo(() => {

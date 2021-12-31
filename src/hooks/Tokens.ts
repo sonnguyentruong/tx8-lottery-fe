@@ -18,6 +18,14 @@ import { isAddress } from '../utils'
 
 import { useBytes32TokenContract, useTokenContract } from './useContract'
 import { filterTokens } from '../components/SearchModal/filtering'
+import { polygonTokens } from '../config/constants/tokens'
+
+const POLYGON_CHAINID = 137
+export const TX8 = WrappedTokenInfo.fromToken(polygonTokens.tx8, 'https://i.imgur.com/TFCiyH4.png')
+export const USDT = WrappedTokenInfo.fromToken(
+  polygonTokens.usdt,
+  'https://pancakeswap.finance/images/tokens/0x55d398326f99059ff775485246999027b3197955.png',
+)
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens
 function useTokensFromMap(tokenMap: TokenAddressMap): {
@@ -49,35 +57,12 @@ export function useDefaultTokens(): { [address: string]: Token } {
 
 export function useAllTokens(): { [address: string]: Token } {
   // const allTokens = useCombinedActiveList()
-  const chainId = 137
-  const tx8 = new WrappedTokenInfo(
-    {
-      chainId,
-      address: '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc',
-      decimals: 18,
-      symbol: 'TX8',
-      name: 'NCC Token',
-      logoURI: 'https://i.imgur.com/TFCiyH4.png',
-    },
-    [],
-  )
-  const usdt = new WrappedTokenInfo(
-    {
-      chainId,
-      address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
-      decimals: 18,
-      symbol: 'USDT',
-      name: 'Tether USD',
-      logoURI: 'https://pancakeswap.finance/images/tokens/0x55d398326f99059ff775485246999027b3197955.png',
-    },
-    [],
-  )
   const allTokens = {
     56: {},
     97: {},
-    [chainId]: {
-      [tx8.address]: { token: tx8 },
-      [usdt.address]: { token: usdt },
+    [POLYGON_CHAINID]: {
+      [TX8.address]: { token: TX8 },
+      [USDT.address]: { token: USDT },
     },
   }
 

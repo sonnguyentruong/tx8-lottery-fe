@@ -34,7 +34,8 @@ import {
   useDerivedSwapInfo,
   useSwapActionHandlers,
   useSwapState,
-  useTradeInfo,
+  useSwap,
+  useSwapInfo,
 } from '../../state/swap/hooks'
 import { useExpertModeManager, useUserSlippageTolerance, useUserSingleHopOnly } from '../../state/user/hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
@@ -92,7 +93,8 @@ export default function Swap({ history }: RouteComponentProps) {
   const showWrap: boolean = wrapType !== WrapType.NOT_APPLICABLE
   const trade = showWrap ? undefined : v2Trade
 
-  const { inputAmount, outputAmount } = useTradeInfo()
+  const { inputAmount, outputAmount } = useSwapInfo()
+  const { swap } = useSwap(inputAmount)
 
   const parsedAmounts = showWrap
     ? {
@@ -388,7 +390,7 @@ export default function Swap({ history }: RouteComponentProps) {
             )}
           </AutoColumn>
           <Box mt="1rem">
-            {swapIsUnsupported ? (
+            {/* {swapIsUnsupported ? (
               <Button width="100%" disabled mb="4px">
                 {t('Unsupported Asset')}
               </Button>
@@ -483,7 +485,28 @@ export default function Swap({ history }: RouteComponentProps) {
                     ? t('Swap Anyway')
                     : t('Swap'))}
               </Button>
-            )}
+            )} */}
+            <Button
+              variant={isValid && priceImpactSeverity > 2 && !swapCallbackError ? 'danger' : 'primary'}
+              onClick={() => {
+                swap()
+                // if (isExpertMode) {
+                // } else {
+                //   setSwapState({
+                //     tradeToConfirm: trade,
+                //     attemptingTxn: false,
+                //     swapErrorMessage: undefined,
+                //     txHash: undefined,
+                //   })
+                //   onPresentConfirmModal()
+                // }
+              }}
+              id="swap-button"
+              width="100%"
+              disabled={!isValid}
+            >
+              {swapInputError || t('Swap')}
+            </Button>
             {showApproveFlow && (
               <Column style={{ marginTop: '1rem' }}>
                 <ProgressSteps steps={[approval === ApprovalState.APPROVED]} />
