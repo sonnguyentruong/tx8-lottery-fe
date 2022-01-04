@@ -47,12 +47,12 @@ const Footer = () => {
         </ButtonMenu> */}
         <LinkExternal
           id="ercBridge"
-          href="https://www.binance.org/en/bridge?utm_source=PancakeSwap"
+          href="https://ant.nccsoft.vn/t/h-ng-d-n-add-tx8-token-vao-vi-va-swap-tx8-sang-polygon/76"
           ml={[0, 0, '40px']}
           mt={['20px', '20px', 0]}
           mb={['8px', '8px', 0]}
         >
-          {t('Convert ERC-20 to BEP-20')}
+          {t('Convert BEP-20 to Polygon ERC-20')}
         </LinkExternal>
       </Flex>
       <Flex
@@ -61,7 +61,7 @@ const Footer = () => {
         width={['100%', '100%', '100%', 'auto']}
         justifyContent={['center', 'center', 'center', 'flex-end']}
       >
-        <BubbleWrapper>
+        {/* <BubbleWrapper>
           <Button
             id="clickExchangeHelp"
             as="a"
@@ -74,7 +74,7 @@ const Footer = () => {
           <Svg viewBox="0 0 16 16">
             <path d="M0 16V0C0 0 3 1 6 1C9 1 16 -2 16 3.5C16 10.5 7.5 16 0 16Z" />
           </Svg>
-        </BubbleWrapper>
+        </BubbleWrapper> */}
         <Image src="/images/help.svg" alt="Get some help" width={160} height={108} />
       </Flex>
     </Wrapper>

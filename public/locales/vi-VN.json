@@ -1180,6 +1180,7 @@
   "Settings": "Thiết lập",
   "Transaction deadline": "Hạn chót giao dịch",
   "Convert ERC-20 to BEP-20": "Chuyển đổi ERC-20 thành BEP-20",
+  "Convert BEP-20 to Polygon ERC-20": "Chuyển đổi TX8 từ Binnance Smart Chain (BSC) sang Polygon (Matic Mainnet)",
   "Need help ?": "Bạn cần trợ giúp?",
   "Select a token": "Chọn một token",
   "Enter a recipient": "Nhập một người nhận",
