@@ -10,7 +10,7 @@ export const swapSectionData: SalesSectionProps = {
     external: false,
   },
   secondaryButton: {
-    to: 'https://docs.pancakeswap.finance/',
+    to: 'https://docs.tx8.vn/',
     text: 'Learn',
     external: true,
   },
@@ -34,7 +34,7 @@ export const earnSectionData: SalesSectionProps = {
     external: false,
   },
   secondaryButton: {
-    to: 'https://docs.pancakeswap.finance/products/yield-farming',
+    to: 'https://docs.tx8.vn/products/yield-farming',
     text: 'Learn',
     external: true,
   },
@@ -59,7 +59,7 @@ export const cakeSectionData: SalesSectionProps = {
     external: false,
   },
   secondaryButton: {
-    to: 'https://docs.pancakeswap.finance/tokenomics/cake',
+    to: 'https://docs.tx8.vn/tokenomics/cake',
     text: 'Learn',
     external: true,
   },

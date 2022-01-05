@@ -24,7 +24,7 @@ const POLYGON_CHAINID = 137
 export const TX8 = WrappedTokenInfo.fromToken(polygonTokens.tx8, 'https://i.imgur.com/TFCiyH4.png')
 export const USDT = WrappedTokenInfo.fromToken(
   polygonTokens.usdt,
-  'https://pancakeswap.finance/images/tokens/0x55d398326f99059ff775485246999027b3197955.png',
+  'https://tx8.vn/images/tokens/0x55d398326f99059ff775485246999027b3197955.png',
 )
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens

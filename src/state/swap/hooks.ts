@@ -347,7 +347,7 @@ export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<voi
       }
       await swapContract.swap(amount, usdt2tx8)
     } catch (e) {
-      console.error(e)
+      console.error('error ', e)
     }
   }, [inputAmount, swapContract, tx8TokenContract, usdtTokenContract])
 

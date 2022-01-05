@@ -1736,7 +1736,7 @@
   "Other collections will be coming soon. We’ll make an announcement soon about the launch of the V2 Market.": "Σύντομα θα ακολουθήσουν και άλλες συλλογές. Θα κάνουμε μια ανακοίνωση σύντομα σχετικά με την κυκλοφορία της έκδοσης V2 Market.",
   "How can I list my NFT collection on the Market?": "Πώς μπορώ να καταχωρήσω τη συλλογή μου NFT στην Αγορά;",
   "In Phase 2 of the NFT Marketplace, collections must be whitelisted before they may be listed.": "Στη Φάση 2 της Αγοράς NFT, οι συλλογές πρέπει να είναι στη λευκή λίστα για να μπορέσουν να καταχωρηθούν στη λίστα.",
-  "We are now accepting applications from NFT collection owners seeking to list their collections. Please apply here: https://docs.pancakeswap.finance/contact-us/nft-market-applications": "Τώρα δεχόμαστε αιτήσεις από κατόχους συλλογών NFT που θέλουν να καταχωρίσουν τις συλλογές τους. Κάντε αίτηση εδώ: https://docs.pancakeswap.finance/contact-us/nft-market-applications",
+  "We are now accepting applications from NFT collection owners seeking to list their collections. Please apply here: https://docs.tx8.vn/contact-us/nft-market-applications": "Τώρα δεχόμαστε αιτήσεις από κατόχους συλλογών NFT που θέλουν να καταχωρίσουν τις συλλογές τους. Κάντε αίτηση εδώ: https://docs.tx8.vn/contact-us/nft-market-applications",
   "What are the fees?": "Πως είναι τα τέλη;",
   "100% of all platform fees taken by PancakeSwap from sales are used to buy back and BURN TX8 tokens in our weekly TX8 burns.": "Το 100% όλων των τελών της πλατφόρμας που λαμβάνονται από το PancakeSwap από τις πωλήσεις, χρησιμοποιούνται για την επαναγορά και για το ΚΑΨΙΜΟ TX8 στο εβδομαδιαίο κάψιμο TX8.",
   "Platform fees: 2% is subtracted from NFT sales on the market. Subject to change.Collection fees: Additional fees may be taken by collection creators, once those collections are live. These will not contribute to the TX8 burns.": "Τέλη πλατφόρμας: 2% αφαιρείται από τις πωλήσεις NFT στην αγορά. Μπορεί να αλλάξει. Τέλη συλλογής: Οι δημιουργοί συλλογών ενδέχεται να λάβουν πρόσθετα τέλη, μόλις οι συλλογές δημοσιευτούν ζωντανά. Αυτά δεν υπολογίζονται στο κάψιμο TX8.",
@@ -1749,5 +1749,5 @@
   "Unwrap": "Ξετύλιγμα",
   "Go to IFO": "Go to IFO",
   "Phishing warning: ": "Phishing warning: ",
-  "please make sure you're visiting https://pancakeswap.finance - check the URL carefully.": "please make sure you're visiting https://pancakeswap.finance - check the URL carefully."
+  "please make sure you're visiting https://tx8.vn - check the URL carefully.": "please make sure you're visiting https://tx8.vn - check the URL carefully."
 }

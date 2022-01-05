@@ -14,9 +14,9 @@ interface SerializedTokenList {
 
 export const polygonTokens = {
   tx8: new Token(137, '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', 18, 'TX8', 'TX8 Token'),
-  usdt: new Token(137, '0xc2132d05d31c914a87c6611c10748aeb04b58e8f', 18, 'USDT', 'Tether USD'),
+  usdt: new Token(137, '0xc2132d05d31c914a87c6611c10748aeb04b58e8f', 6, 'USDT', 'Tether USD'),
   // tx8: new Token(137, '0xA849E889479906B4656eEE3ce5D3814fd7B0c6fe', 18, 'TX8', 'TX8 Token'), // Polygon Testnet
-  // usdt: new Token(137, '0xc131a3569b06FEe183676813bc260aD197BFB9F5', 18, 'USDT', 'Tether USD'), // Polygon Testnet
+  //  usdt: new Token(137, '0xc131a3569b06FEe183676813bc260aD197BFB9F5', 18, 'USDT', 'Tether USD'), // Polygon Testnet
 }
 
 export const mainnetTokens = {
@@ -36,7 +36,7 @@ export const mainnetTokens = {
     18,
     'TX8',
     'PancakeSwap Token',
-    'https://pancakeswap.finance/',
+    'https://tx8.vn/',
   ),
   tx8: new Token(MAINNET, '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', 18, 'TX8', 'TX8 Token', 'https://tx8.vn/'),
   tlos: new Token(MAINNET, '0xb6C53431608E626AC81a9776ac3e999c5556717c', 18, 'TLOS', 'Telos', 'https://www.telos.net/'),
@@ -225,7 +225,7 @@ export const mainnetTokens = {
     18,
     'SYRUP',
     'SyrupBar Token',
-    'https://pancakeswap.finance/',
+    'https://tx8.vn/',
   ),
   pha: new Token(
     MAINNET,
@@ -1791,7 +1791,7 @@ export const testnetTokens = {
     18,
     'TX8',
     'PancakeSwap Token',
-    'https://pancakeswap.finance/',
+    'https://tx8.vn/',
   ),
   busd: new Token(
     TESTNET,
@@ -1807,7 +1807,7 @@ export const testnetTokens = {
     18,
     'SYRUP',
     'SyrupBar Token',
-    'https://pancakeswap.finance/',
+    'https://tx8.vn/',
   ),
   bake: new Token(
     TESTNET,
