@@ -11,7 +11,6 @@ import useParsedQueryString from 'hooks/useParsedQueryString'
 import { useTranslation } from 'contexts/Localization'
 import { isAddress } from 'utils'
 import { computeSlippageAdjustedAmounts } from 'utils/prices'
-import { BigNumber } from 'ethers'
 import Web3 from 'web3'
 import { AppDispatch, AppState } from '../index'
 import { useCurrencyBalances } from '../wallet/hooks'
@@ -19,6 +18,8 @@ import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies
 import { SwapState } from './reducer'
 import { useUserSlippageTolerance } from '../user/hooks'
 import { useTokenContract, useTx8SwapContract } from '../../hooks/useContract'
+import { addresses } from '../../config/constants/tokens'
+import useToast from '../../hooks/useToast'
 
 export function useSwapState(): AppState['swap'] {
   return useSelector<AppState, AppState['swap']>(state => state.swap)
@@ -280,8 +281,8 @@ export function useDefaultsFromURLSearch():
         // outputCurrencyId: parsed[Field.OUTPUT].currencyId,
         // inputCurrencyId: '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', // tx8
         // outputCurrencyId: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', // usdt
-        inputCurrencyId: '0xA849E889479906B4656eEE3ce5D3814fd7B0c6fe', // tx8
-        outputCurrencyId: '0xc131a3569b06FEe183676813bc260aD197BFB9F5', // usdt
+        inputCurrencyId: addresses.tx8, // tx8
+        outputCurrencyId: addresses.usdt, // usdt
         recipient: null,
       }),
     )
@@ -328,28 +329,55 @@ export const useSwapInfo = (): { inputAmount?: CurrencyAmount; outputAmount?: Cu
   }
 }
 
-export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<void> } => {
+const WeiUnit = {
+  6: 'mwei', // mainnet
+  18: 'ether', // testnet
+}
+
+export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<void>; swapping: boolean } => {
+  const [swapping, setSwapping] = useState(false)
   const tx8TokenContract = useTokenContract(TX8.address)
   const usdtTokenContract = useTokenContract(USDT.address)
   const swapContract = useTx8SwapContract()
+  const { toastError, toastSuccess } = useToast()
+  const { t } = useTranslation()
 
   const swap = useCallback(async () => {
     if (!inputAmount) {
       return
     }
+    setSwapping(true)
     const usdt2tx8 = inputAmount.currency.symbol === USDT.symbol
-    const amount = Web3.utils.toWei(inputAmount.toExact(), 'ether')
+    const amount = Web3.utils.toWei(inputAmount.toExact(), usdt2tx8 ? WeiUnit[USDT.decimals] : 'ether')
     try {
-      if (usdt2tx8) {
-        await usdtTokenContract.approve(swapContract.address, amount)
-      } else {
-        await tx8TokenContract.approve(swapContract.address, amount)
+      try {
+        const approveTx = await (usdt2tx8 ? usdtTokenContract : tx8TokenContract).approve(swapContract.address, amount)
+        const approveResult = await approveTx.wait()
+        if (!approveResult?.status) {
+          throw Error('Approve failed')
+        }
+      } catch (approveError) {
+        toastError(t('Error'), t('An error occurred approving transaction'))
+        throw approveError
       }
-      await swapContract.swap(amount, usdt2tx8)
-    } catch (e) {
-      console.error('error ', e)
-    }
-  }, [inputAmount, swapContract, tx8TokenContract, usdtTokenContract])
 
-  return { swap }
+      try {
+        const swapTx = await swapContract.swap(amount, usdt2tx8)
+        const swapResult = await swapTx.wait()
+        if (!swapResult?.status) {
+          throw Error('Swap failed')
+        }
+        toastSuccess(t('Success'))
+      } catch (swapError) {
+        toastError(t('Error'), t('An error occurred approving transaction'))
+        throw swapError
+      }
+    } catch (e) {
+      console.error('Swap Error ', e)
+    } finally {
+      setSwapping(false)
+    }
+  }, [inputAmount, swapContract, t, toastError, toastSuccess, tx8TokenContract, usdtTokenContract])
+
+  return { swap, swapping }
 }

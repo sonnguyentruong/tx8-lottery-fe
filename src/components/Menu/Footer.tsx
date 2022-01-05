@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { LinkExternal, Flex, Svg, Image, Button } from '@pancakeswap/uikit'
+import { LinkExternal, Flex, Image } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 
 const Wrapper = styled.div`
@@ -17,22 +17,22 @@ const Wrapper = styled.div`
   }
 `
 
-const BubbleWrapper = styled(Flex)`
-  svg {
-    fill: ${({ theme }) => theme.colors.textSubtle};
-    transition: background-color 0.2s, opacity 0.2s;
-  }
-  &:hover {
-    svg {
-      opacity: 0.65;
-    }
-  }
-  &:active {
-    svg {
-      opacity: 0.85;
-    }
-  }
-`
+// const BubbleWrapper = styled(Flex)`
+//   svg {
+//     fill: ${({ theme }) => theme.colors.textSubtle};
+//     transition: background-color 0.2s, opacity 0.2s;
+//   }
+//   &:hover {
+//     svg {
+//       opacity: 0.65;
+//     }
+//   }
+//   &:active {
+//     svg {
+//       opacity: 0.85;
+//     }
+//   }
+// `
 
 const Footer = () => {
   const { t } = useTranslation()

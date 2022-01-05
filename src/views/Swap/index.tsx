@@ -1,30 +1,21 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import styled from 'styled-components'
+/* eslint @typescript-eslint/no-unused-vars: 0 */
 import { CurrencyAmount, JSBI, Token, Trade } from '@pancakeswap/sdk'
-import { Button, Text, ArrowDownIcon, Box, useModal } from '@pancakeswap/uikit'
-import { useIsTransactionUnsupported } from 'hooks/Trades'
+import { ArrowDownIcon, Box, Button, Text, useModal } from '@pancakeswap/uikit'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'
-import { RouteComponentProps } from 'react-router-dom'
-import { useTranslation } from 'contexts/Localization'
 import SwapWarningTokens from 'config/constants/swapWarningTokens'
-import AddressInputPanel from './components/AddressInputPanel'
-import { GreyCard } from '../../components/Card'
-import Column, { AutoColumn } from '../../components/Layout/Column'
-import ConfirmSwapModal from './components/ConfirmSwapModal'
+import { useTranslation } from 'contexts/Localization'
+import { useIsTransactionUnsupported } from 'hooks/Trades'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { RouteComponentProps } from 'react-router-dom'
+import styled from 'styled-components'
+import { AppBody, AppHeader } from '../../components/App'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
+import Column, { AutoColumn } from '../../components/Layout/Column'
 import { AutoRow, RowBetween } from '../../components/Layout/Row'
-import AdvancedSwapDetailsDropdown from './components/AdvancedSwapDetailsDropdown'
-import confirmPriceImpactWithoutFee from './components/confirmPriceImpactWithoutFee'
-import { ArrowWrapper, SwapCallbackError, Wrapper } from './components/styleds'
-import TradePrice from './components/TradePrice'
-import ImportTokenWarningModal from './components/ImportTokenWarningModal'
-import ProgressSteps from './components/ProgressSteps'
-import { AppHeader, AppBody } from '../../components/App'
-import ConnectWalletButton from '../../components/ConnectWalletButton'
-
+import CircleLoader from '../../components/Loader/CircleLoader'
 import { INITIAL_ALLOWED_SLIPPAGE } from '../../config/constants'
+import { useAllTokens, useCurrency } from '../../hooks/Tokens'
 import useActiveWeb3React from '../../hooks/useActiveWeb3React'
-import { useCurrency, useAllTokens } from '../../hooks/Tokens'
 import { ApprovalState, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
 import { useSwapCallback } from '../../hooks/useSwapCallback'
 import useWrapCallback, { WrapType } from '../../hooks/useWrapCallback'
@@ -32,17 +23,24 @@ import { Field } from '../../state/swap/actions'
 import {
   useDefaultsFromURLSearch,
   useDerivedSwapInfo,
-  useSwapActionHandlers,
-  useSwapState,
   useSwap,
+  useSwapActionHandlers,
   useSwapInfo,
+  useSwapState,
 } from '../../state/swap/hooks'
-import { useExpertModeManager, useUserSlippageTolerance, useUserSingleHopOnly } from '../../state/user/hooks'
+import { useExpertModeManager, useUserSingleHopOnly, useUserSlippageTolerance } from '../../state/user/hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
-import CircleLoader from '../../components/Loader/CircleLoader'
 import Page from '../Page'
+import AddressInputPanel from './components/AddressInputPanel'
+import AdvancedSwapDetailsDropdown from './components/AdvancedSwapDetailsDropdown'
+import confirmPriceImpactWithoutFee from './components/confirmPriceImpactWithoutFee'
+import ConfirmSwapModal from './components/ConfirmSwapModal'
+import ImportTokenWarningModal from './components/ImportTokenWarningModal'
+import ProgressSteps from './components/ProgressSteps'
+import { ArrowWrapper, SwapCallbackError, Wrapper } from './components/styleds'
 import SwapWarningModal from './components/SwapWarningModal'
+import TradePrice from './components/TradePrice'
 
 const Label = styled(Text)`
   font-size: 12px;
@@ -94,7 +92,7 @@ export default function Swap({ history }: RouteComponentProps) {
   const trade = showWrap ? undefined : v2Trade
 
   const { inputAmount, outputAmount } = useSwapInfo()
-  const { swap } = useSwap(inputAmount)
+  const { swap, swapping } = useSwap(inputAmount)
 
   const parsedAmounts = showWrap
     ? {
@@ -490,22 +488,14 @@ export default function Swap({ history }: RouteComponentProps) {
               variant={isValid && priceImpactSeverity > 2 && !swapCallbackError ? 'danger' : 'primary'}
               onClick={() => {
                 swap()
-                // if (isExpertMode) {
-                // } else {
-                //   setSwapState({
-                //     tradeToConfirm: trade,
-                //     attemptingTxn: false,
-                //     swapErrorMessage: undefined,
-                //     txHash: undefined,
-                //   })
-                //   onPresentConfirmModal()
-                // }
               }}
               id="swap-button"
               width="100%"
               disabled={!isValid}
+              isLoading={swapping}
             >
-              {swapInputError || t('Swap')}
+              {swapInputError || `${t('Swap')}`}
+              {swapping && <CircleLoader left="3px" stroke="white" style={{ marginLeft: '8px' }} />}
             </Button>
             {showApproveFlow && (
               <Column style={{ marginTop: '1rem' }}>

@@ -3,6 +3,12 @@ import { serializeToken } from 'state/user/hooks/helpers'
 import { SerializedToken } from './types'
 
 const { MAINNET, TESTNET } = ChainId
+export const addresses = {
+  tx8: process.env.REACT_APP_TX8_TOKEN_ADDRESS,
+  usdt: process.env.REACT_APP_USDT_TOKEN_ADDRESS,
+  swap: process.env.REACT_APP_SWAP_CONTRACT_ADDRESS,
+}
+const inProd = process.env.NODE_ENV?.includes('prod')
 
 interface TokenList {
   [symbol: string]: Token
@@ -13,10 +19,8 @@ interface SerializedTokenList {
 }
 
 export const polygonTokens = {
-  tx8: new Token(137, '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', 18, 'TX8', 'TX8 Token'),
-  usdt: new Token(137, '0xc2132d05d31c914a87c6611c10748aeb04b58e8f', 6, 'USDT', 'Tether USD'),
-  // tx8: new Token(137, '0xA849E889479906B4656eEE3ce5D3814fd7B0c6fe', 18, 'TX8', 'TX8 Token'), // Polygon Testnet
-  //  usdt: new Token(137, '0xc131a3569b06FEe183676813bc260aD197BFB9F5', 18, 'USDT', 'Tether USD'), // Polygon Testnet
+  tx8: new Token(137, addresses.tx8, 18, 'TX8', 'TX8 Token'),
+  usdt: new Token(137, addresses.usdt, inProd ? 6 : 18, 'USDT', 'Tether USD'),
 }
 
 export const mainnetTokens = {

@@ -23,11 +23,13 @@ import { polygonTokens } from '../config/constants/tokens'
 const POLYGON_CHAINID = 137
 export const TX8 = WrappedTokenInfo.fromToken(
   polygonTokens.tx8,
-  'https://tx8.vn/images/tokens/0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc.png',
+  // 'https://tx8.vn/images/tokens/0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc.png',
+  '/images/tokens/tx8.png',
 )
 export const USDT = WrappedTokenInfo.fromToken(
   polygonTokens.usdt,
-  'https://tx8.vn/images/tokens/0x55d398326f99059ff775485246999027b3197955.png',
+  // 'https://tx8.vn/images/tokens/0x55d398326f99059ff775485246999027b3197955.png',
+  '/images/tokens/usdt.png',
 )
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens

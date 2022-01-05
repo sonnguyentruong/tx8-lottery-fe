@@ -5,7 +5,7 @@ import { languageList } from 'config/localization/languages'
 import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
 import { usePriceCakeBusd } from 'state/farms/hooks'
-import { usePhishingBannerManager } from 'state/user/hooks'
+// import { usePhishingBannerManager } from 'state/user/hooks'
 import { useHistory } from 'react-router-dom'
 import config from './config/config'
 import UserMenu from './UserMenu'
@@ -18,7 +18,7 @@ const Menu = props => {
   const cakePriceUsd = usePriceCakeBusd()
   const { currentLanguage, setLanguage, t } = useTranslation()
   const { pathname } = useLocation()
-  const [showPhishingWarningBanner] = usePhishingBannerManager()
+  // const [showPhishingWarningBanner] = usePhishingBannerManager()
   const history = useHistory()
   const menuConfig = config(t)
   const activeMenuItem = getActiveMenuItem({ menuConfig, pathname })

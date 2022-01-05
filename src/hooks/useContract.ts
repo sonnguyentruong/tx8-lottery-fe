@@ -45,6 +45,7 @@ import WETH_ABI from '../config/abi/weth.json'
 import multiCallAbi from '../config/abi/Multicall.json'
 import TX8_SWAP_ABI from '../config/abi/tx8Swap.json'
 import { getContract } from '../utils'
+import { addresses } from '../config/constants/tokens'
 
 /**
  * Helper hooks to get specific contracts (by ABI)
@@ -269,6 +270,6 @@ export function useMulticallContract(): Contract | null {
 }
 
 export function useTx8SwapContract(): Contract | null {
-  return useContract('0x4de24c5d6574bd2a8f105868f2df4a2e31973918', TX8_SWAP_ABI, true)
-  // return useContract('0xa295497E756463f732ea31E576839C36671d5512', TX8_SWAP_ABI, true)
+  return useContract(addresses.swap, TX8_SWAP_ABI, true)
+  // return useContract('0x4de24c5d6574bd2a8f105868f2df4a2e31973918', TX8_SWAP_ABI, true)
 }

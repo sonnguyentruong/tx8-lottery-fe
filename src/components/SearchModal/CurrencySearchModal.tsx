@@ -9,7 +9,6 @@ import {
   ModalBody,
   InjectedModalProps,
   Heading,
-  Button,
 } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import usePrevious from 'hooks/usePreviousValue'
