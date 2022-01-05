@@ -21,7 +21,10 @@ import { filterTokens } from '../components/SearchModal/filtering'
 import { polygonTokens } from '../config/constants/tokens'
 
 const POLYGON_CHAINID = 137
-export const TX8 = WrappedTokenInfo.fromToken(polygonTokens.tx8, 'https://i.imgur.com/TFCiyH4.png')
+export const TX8 = WrappedTokenInfo.fromToken(
+  polygonTokens.tx8,
+  'https://tx8.vn/images/tokens/0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc.png',
+)
 export const USDT = WrappedTokenInfo.fromToken(
   polygonTokens.usdt,
   'https://tx8.vn/images/tokens/0x55d398326f99059ff775485246999027b3197955.png',
