@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useENS from 'hooks/ENS/useENS'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { TX8, USDT, useAllTokens, useCurrency } from 'hooks/Tokens'
+import { TX8, USDT, useCurrency } from 'hooks/Tokens'
 import { useTradeExactIn, useTradeExactOut } from 'hooks/Trades'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import { useTranslation } from 'contexts/Localization'
@@ -279,8 +279,6 @@ export function useDefaultsFromURLSearch():
         field: parsed.independentField,
         // inputCurrencyId: parsed[Field.INPUT].currencyId,
         // outputCurrencyId: parsed[Field.OUTPUT].currencyId,
-        // inputCurrencyId: '0x55E6DDbA23300306d1a804d27E3d22b14c2E0BDc', // tx8
-        // outputCurrencyId: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', // usdt
         inputCurrencyId: addresses.tx8, // tx8
         outputCurrencyId: addresses.usdt, // usdt
         recipient: null,
@@ -303,9 +301,9 @@ export const useSwapInfo = (): { inputAmount?: CurrencyAmount; outputAmount?: Cu
     [Field.INPUT]: { currencyId: inputCurrencyId },
     [Field.OUTPUT]: { currencyId: outputCurrencyId },
   } = useSwapState()
-  const allTokens = useAllTokens()
-  const inputToken = allTokens[inputCurrencyId]
-  const outputToken = allTokens[outputCurrencyId]
+  const inputToken = useCurrency(inputCurrencyId)
+  const outputToken = useCurrency(outputCurrencyId)
+
   if (!inputToken || !outputToken) {
     return { inputAmount: undefined, outputAmount: undefined }
   }
@@ -335,6 +333,7 @@ const WeiUnit = {
 }
 
 export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<void>; swapping: boolean } => {
+  const { account } = useActiveWeb3React()
   const [swapping, setSwapping] = useState(false)
   const tx8TokenContract = useTokenContract(TX8.address)
   const usdtTokenContract = useTokenContract(USDT.address)
@@ -349,16 +348,30 @@ export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<voi
     setSwapping(true)
     const usdt2tx8 = inputAmount.currency.symbol === USDT.symbol
     const amount = Web3.utils.toWei(inputAmount.toExact(), usdt2tx8 ? WeiUnit[USDT.decimals] : 'ether')
+    const source = usdt2tx8 ? usdtTokenContract : tx8TokenContract
     try {
       try {
-        const approveTx = await (usdt2tx8 ? usdtTokenContract : tx8TokenContract).approve(swapContract.address, amount)
+        const allowed = await source.allowance(account, swapContract.address)
+        if (allowed) {
+          const resetAllowedTx = await source.approve(swapContract.address, 0)
+          await resetAllowedTx.wait()
+        }
+      } catch (allowanceError) {
+        toastError(t('Error'))
+        const error = { ...allowanceError, message: `Reset Allowance error: ${allowanceError.message}` }
+        throw error
+      }
+
+      try {
+        const approveTx = await source.approve(swapContract.address, amount)
         const approveResult = await approveTx.wait()
         if (!approveResult?.status) {
           throw Error('Approve failed')
         }
       } catch (approveError) {
         toastError(t('Error'), t('An error occurred approving transaction'))
-        throw approveError
+        const error = { ...approveError, message: `Approve error: ${approveError.message}` }
+        throw error
       }
 
       try {
@@ -370,14 +383,15 @@ export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<voi
         toastSuccess(t('Success'))
       } catch (swapError) {
         toastError(t('Error'), t('An error occurred approving transaction'))
-        throw swapError
+        const error = { ...swapError, message: `Approve error: ${swapError.message}` }
+        throw error
       }
     } catch (e) {
-      console.error('Swap Error ', e)
+      console.error('Error during Swap transaction', e)
     } finally {
       setSwapping(false)
     }
-  }, [inputAmount, swapContract, t, toastError, toastSuccess, tx8TokenContract, usdtTokenContract])
+  }, [account, inputAmount, swapContract, t, toastError, toastSuccess, tx8TokenContract, usdtTokenContract])
 
   return { swap, swapping }
 }

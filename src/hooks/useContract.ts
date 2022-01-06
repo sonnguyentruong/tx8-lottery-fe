@@ -271,5 +271,4 @@ export function useMulticallContract(): Contract | null {
 
 export function useTx8SwapContract(): Contract | null {
   return useContract(addresses.swap, TX8_SWAP_ABI, true)
-  // return useContract('0x4de24c5d6574bd2a8f105868f2df4a2e31973918', TX8_SWAP_ABI, true)
 }
