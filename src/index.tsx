@@ -4,13 +4,12 @@ import useActiveWeb3React from './hooks/useActiveWeb3React'
 import { BLOCKED_ADDRESSES } from './config/constants'
 import App from './App'
 import Providers from './Providers'
+import MulticallUpdater from './state/multicall/updater'
 
 function Updaters() {
   return (
     <>
-      {/* <ListsUpdater />
-      <TransactionUpdater />
-      <MulticallUpdater /> */}
+      <MulticallUpdater />
     </>
   )
 }
