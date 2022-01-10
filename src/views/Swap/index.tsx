@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/no-unused-vars: 0 */
 import { CurrencyAmount, JSBI, Token, Trade } from '@pancakeswap/sdk'
-import { ArrowDownIcon, Box, Button, Text, useModal } from '@pancakeswap/uikit'
+import { ArrowDownIcon, Box, Button, Message, Text, useModal } from '@pancakeswap/uikit'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'
 import SwapWarningTokens from 'config/constants/swapWarningTokens'
 import { useTranslation } from 'contexts/Localization'
@@ -48,6 +48,11 @@ const Label = styled(Text)`
   color: ${({ theme }) => theme.colors.secondary};
 `
 
+const ButtonBox = styled(Box)`
+  display: flex;
+  gap: 8px;
+`
+
 export default function Swap({ history }: RouteComponentProps) {
   const loadedUrlParams = useDefaultsFromURLSearch()
 
@@ -91,8 +96,19 @@ export default function Swap({ history }: RouteComponentProps) {
   const showWrap: boolean = wrapType !== WrapType.NOT_APPLICABLE
   const trade = showWrap ? undefined : v2Trade
 
-  const { inputAmount, outputAmount } = useSwapInfo()
-  const { swap, swapping } = useSwap(inputAmount)
+  // const { inputAmount, outputAmount } = useSwapInfo()
+  const {
+    inputAmount,
+    outputAmount,
+    swap,
+    approve,
+    resetAllowance,
+    swapping,
+    resetting,
+    approving,
+    isApproveNecessary,
+    isResetNecessary,
+  } = useSwap()
 
   const parsedAmounts = showWrap
     ? {
@@ -387,103 +403,46 @@ export default function Swap({ history }: RouteComponentProps) {
               </AutoColumn>
             )}
           </AutoColumn>
-          <Box mt="1rem">
-            {/* {swapIsUnsupported ? (
-              <Button width="100%" disabled mb="4px">
-                {t('Unsupported Asset')}
-              </Button>
-            ) : !account ? (
-              <ConnectWalletButton width="100%" />
-            ) : showWrap ? (
-              <Button width="100%" disabled={Boolean(wrapInputError)} onClick={onWrap}>
-                {wrapInputError ??
-                  (wrapType === WrapType.WRAP ? t('Wrap') : wrapType === WrapType.UNWRAP ? t('Unwrap') : null)}
-              </Button>
-            ) : noRoute && userHasSpecifiedInputOutput ? (
-              <GreyCard style={{ textAlign: 'center' }}>
-                <Text color="textSubtle" mb="4px">
-                  {t('Insufficient liquidity for this trade.')}
-                </Text>
-                {singleHopOnly && (
-                  <Text color="textSubtle" mb="4px">
-                    {t('Try enabling multi-hop trades.')}
-                  </Text>
+          {isResetNecessary && (
+            <Message variant="warning" mt="1rem" mb="24px">
+              <Text>
+                {t(
+                  'Swap amount is greater than the allowed amount. You need to reset the allowance to 0, then approve new amount.',
                 )}
-              </GreyCard>
-            ) : showApproveFlow ? (
-              <RowBetween>
-                <Button
-                  variant={approval === ApprovalState.APPROVED ? 'success' : 'primary'}
-                  onClick={approveCallback}
-                  disabled={approval !== ApprovalState.NOT_APPROVED || approvalSubmitted}
-                  width="48%"
-                >
-                  {approval === ApprovalState.PENDING ? (
-                    <AutoRow gap="6px" justify="center">
-                      {t('Enabling')} <CircleLoader stroke="white" />
-                    </AutoRow>
-                  ) : approvalSubmitted && approval === ApprovalState.APPROVED ? (
-                    t('Enabled')
-                  ) : (
-                    t('Enable %asset%', { asset: currencies[Field.INPUT]?.symbol ?? '' })
-                  )}
-                </Button>
-                <Button
-                  variant={isValid && priceImpactSeverity > 2 ? 'danger' : 'primary'}
-                  onClick={() => {
-                    if (isExpertMode) {
-                      handleSwap()
-                    } else {
-                      setSwapState({
-                        tradeToConfirm: trade,
-                        attemptingTxn: false,
-                        swapErrorMessage: undefined,
-                        txHash: undefined,
-                      })
-                      onPresentConfirmModal()
-                    }
-                  }}
-                  width="48%"
-                  id="swap-button"
-                  disabled={
-                    !isValid || approval !== ApprovalState.APPROVED || (priceImpactSeverity > 3 && !isExpertMode)
-                  }
-                >
-                  {priceImpactSeverity > 3 && !isExpertMode
-                    ? t('Price Impact High')
-                    : priceImpactSeverity > 2
-                    ? t('Swap Anyway')
-                    : t('Swap')}
-                </Button>
-              </RowBetween>
-            ) : (
+              </Text>
+            </Message>
+          )}
+          <ButtonBox mt="1rem">
+            {isApproveNecessary && !isResetNecessary && (
               <Button
                 variant={isValid && priceImpactSeverity > 2 && !swapCallbackError ? 'danger' : 'primary'}
                 onClick={() => {
-                  if (isExpertMode) {
-                    handleSwap()
-                  } else {
-                    setSwapState({
-                      tradeToConfirm: trade,
-                      attemptingTxn: false,
-                      swapErrorMessage: undefined,
-                      txHash: undefined,
-                    })
-                    onPresentConfirmModal()
-                  }
+                  approve()
                 }}
                 id="swap-button"
                 width="100%"
-                disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
+                disabled={!isValid || swapping || resetting}
+                isLoading={approving}
               >
-                {swapInputError ||
-                  (priceImpactSeverity > 3 && !isExpertMode
-                    ? t('Price Impact Too High')
-                    : priceImpactSeverity > 2
-                    ? t('Swap Anyway')
-                    : t('Swap'))}
+                {`${t('Approve')}`}
+                {approving && <CircleLoader left="3px" stroke="white" style={{ marginLeft: '8px' }} />}
               </Button>
-            )} */}
+            )}
+            {isResetNecessary && (
+              <Button
+                variant={isValid && priceImpactSeverity > 2 && !swapCallbackError ? 'danger' : 'primary'}
+                onClick={() => {
+                  resetAllowance()
+                }}
+                id="swap-button"
+                width="100%"
+                disabled={!isValid || approving || swapping}
+                isLoading={resetting}
+              >
+                {`${t('Reset Allowance')}`}
+                {resetting && <CircleLoader left="3px" stroke="white" style={{ marginLeft: '8px' }} />}
+              </Button>
+            )}
             <Button
               variant={isValid && priceImpactSeverity > 2 && !swapCallbackError ? 'danger' : 'primary'}
               onClick={() => {
@@ -491,10 +450,10 @@ export default function Swap({ history }: RouteComponentProps) {
               }}
               id="swap-button"
               width="100%"
-              disabled={!isValid}
+              disabled={!isValid || approving || isApproveNecessary}
               isLoading={swapping}
             >
-              {swapInputError || `${t('Swap')}`}
+              {`${t('Swap')}`}
               {swapping && <CircleLoader left="3px" stroke="white" style={{ marginLeft: '8px' }} />}
             </Button>
             {showApproveFlow && (
@@ -503,7 +462,7 @@ export default function Swap({ history }: RouteComponentProps) {
               </Column>
             )}
             {isExpertMode && swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
-          </Box>
+          </ButtonBox>
         </Wrapper>
       </AppBody>
       {!swapIsUnsupported ? (

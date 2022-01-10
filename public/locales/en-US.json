@@ -1749,5 +1749,10 @@
   "Unwrap": "Unwrap",
   "Go to IFO": "Go to IFO",
   "Phishing warning: ": "Phishing warning: ",
-  "please make sure you're visiting https://tx8.vn - check the URL carefully.": "please make sure you're visiting https://tx8.vn - check the URL carefully."
+  "please make sure you're visiting https://tx8.vn - check the URL carefully.": "please make sure you're visiting https://tx8.vn - check the URL carefully.",
+  "Approve": "Approve",
+  "An error occurred resetting allowance": "An error occurred resetting allowance",
+  "An error occurred during swap transaction": "An error occurred during swap transaction",
+  "Reset Allowance": "Reset Allowance",
+  "Swap amount is greater than the allowed amount. You need to reset the allowance to 0, then approve new amount.": "Swap amount is greater than the allowed amount. You need to reset the allowance to 0, then approve new amount."
 }

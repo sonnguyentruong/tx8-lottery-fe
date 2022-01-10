@@ -1750,5 +1750,10 @@
   "Unwrap": "Mở bọc",
   "Go to IFO": "Go to IFO",
   "Phishing warning: ": "Phishing warning: ",
-  "please make sure you're visiting https://tx8.vn - check the URL carefully.": "please make sure you're visiting https://tx8.vn - check the URL carefully."
+  "please make sure you're visiting https://tx8.vn - check the URL carefully.": "please make sure you're visiting https://tx8.vn - check the URL carefully.",
+  "Approve": "Phê duyệt",
+  "An error occurred resetting allowance": "Đã có lỗi xảy ra khi đặt lại hạn mức giao dịch",
+  "An error occurred during swap transaction": "Đã có lỗi xảy ra khi hoán đổi",
+  "Reset Allowance": "Đặt lại hạn mức",
+  "Swap amount is greater than the allowed amount. You need to reset the allowance to 0, then approve new amount.": "Giao dịch vượt quá hạn mức giao dịch đã cấp phép. Bạn cần đặt lại hạn mức về 0, sau đó phê duyệt hạn mức mới."
 }

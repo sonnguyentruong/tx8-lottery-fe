@@ -1,7 +1,7 @@
 import { parseUnits } from '@ethersproject/units'
 import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade } from '@pancakeswap/sdk'
 import { ParsedQs } from 'qs'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useENS from 'hooks/ENS/useENS'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
@@ -12,6 +12,8 @@ import { useTranslation } from 'contexts/Localization'
 import { isAddress } from 'utils'
 import { computeSlippageAdjustedAmounts } from 'utils/prices'
 import Web3 from 'web3'
+import BN from 'bn.js'
+import BigNumber from 'bignumber.js'
 import { AppDispatch, AppState } from '../index'
 import { useCurrencyBalances } from '../wallet/hooks'
 import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
@@ -20,6 +22,7 @@ import { useUserSlippageTolerance } from '../user/hooks'
 import { useTokenContract, useTx8SwapContract } from '../../hooks/useContract'
 import { addresses } from '../../config/constants/tokens'
 import useToast from '../../hooks/useToast'
+import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate'
 
 export function useSwapState(): AppState['swap'] {
   return useSelector<AppState, AppState['swap']>(state => state.swap)
@@ -332,57 +335,165 @@ const WeiUnit = {
   18: 'ether', // testnet
 }
 
-export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<void>; swapping: boolean } => {
+class HandledError extends Error {}
+
+type SwapType = {
+  inputAmount?: CurrencyAmount
+  outputAmount?: CurrencyAmount
+  swap: () => Promise<void>
+  approve: () => Promise<void>
+  resetAllowance: () => Promise<void>
+  swapping: boolean
+  resetting: boolean
+  approving: boolean
+  isApproveNecessary: boolean
+  isResetNecessary: boolean
+}
+
+export const useSwap = (): SwapType => {
+  // info
+  const {
+    independentField,
+    typedValue,
+    [Field.INPUT]: { currencyId: inputCurrencyId },
+    [Field.OUTPUT]: { currencyId: outputCurrencyId },
+  } = useSwapState()
+  const inputToken = useCurrency(inputCurrencyId)
+  const outputToken = useCurrency(outputCurrencyId)
+
+  const { inputAmount, outputAmount } = useMemo(() => {
+    if (!inputToken || !outputToken) {
+      return { inputAmount: undefined, outputAmount: undefined }
+    }
+
+    const usdt2tx8 = inputCurrencyId === USDT.address
+    const independentToken = independentField === Field.INPUT ? inputToken : outputToken
+    const dependentToken = independentField === Field.INPUT ? outputToken : inputToken
+    const independentAmount = tryParseAmount(typedValue, independentToken)
+
+    const dependentAmount = tryParseAmount(
+      (usdt2tx8 !== (independentField === Field.INPUT)
+        ? independentAmount?.divide(USDT_TO_TX8_RATE)
+        : independentAmount?.multiply(USDT_TO_TX8_RATE)
+      )?.toSignificant(6),
+      dependentToken,
+    )
+
+    return {
+      inputAmount: independentField === Field.INPUT ? independentAmount : dependentAmount,
+      outputAmount: independentField === Field.INPUT ? dependentAmount : independentAmount,
+    }
+  }, [independentField, inputCurrencyId, inputToken, outputToken, typedValue])
+
+  // actions
   const { account } = useActiveWeb3React()
+  const [approving, setApproving] = useState(false)
   const [swapping, setSwapping] = useState(false)
+  const [resetting, setResetting] = useState(false)
+  const [allowed, setAllowed] = useState(new BN(0))
   const tx8TokenContract = useTokenContract(TX8.address)
   const usdtTokenContract = useTokenContract(USDT.address)
   const swapContract = useTx8SwapContract()
   const { toastError, toastSuccess } = useToast()
   const { t } = useTranslation()
 
-  const swap = useCallback(async () => {
-    if (!inputAmount) {
-      return
-    }
-    setSwapping(true)
-    const usdt2tx8 = inputAmount.currency.symbol === USDT.symbol
-    const amount = Web3.utils.toWei(inputAmount.toExact(), usdt2tx8 ? WeiUnit[USDT.decimals] : 'ether')
-    const source = usdt2tx8 ? usdtTokenContract : tx8TokenContract
-    try {
-      try {
-        const allowed = await source.allowance(account, swapContract.address)
-        if (allowed) {
-          const resetAllowedTx = await source.approve(swapContract.address, 0)
-          await resetAllowedTx.wait()
+  const usdt2tx8 = useMemo(() => (inputAmount ? inputAmount.currency.symbol === USDT.symbol : undefined), [inputAmount])
+  const amount = useMemo(
+    () =>
+      inputAmount
+        ? new BN(Web3.utils.toWei(inputAmount.toExact(), usdt2tx8 ? WeiUnit[USDT.decimals] : 'ether'))
+        : undefined,
+    [inputAmount, usdt2tx8],
+  )
+  const source = useMemo(
+    () => (usdt2tx8 ? usdtTokenContract : tx8TokenContract),
+    [tx8TokenContract, usdt2tx8, usdtTokenContract],
+  )
+
+  // useWhyDidYouUpdate('amount', { inputAmount, usdt2tx8 })
+  // useWhyDidYouUpdate('inputAmount', { independentField, inputCurrencyId, inputToken, outputToken, typedValue })
+
+  useEffect(() => {
+    source
+      .allowance(account, swapContract.address)
+      .then((_allowed: BigNumber) => {
+        if (!amount) {
+          return
         }
-      } catch (allowanceError) {
-        toastError(t('Error'))
-        const error = { ...allowanceError, message: `Reset Allowance error: ${allowanceError.message}` }
+        setAllowed(new BN(_allowed.toString()))
+      })
+      .catch(console.warn)
+  }, [account, amount, source, swapContract.address])
+
+  const resetAllowance = useCallback(async () => {
+    try {
+      setResetting(true)
+      try {
+        if (!allowed) {
+          return
+        }
+        const resetAllowedTx = await source.approve(swapContract.address, 0)
+        const resetResult = await resetAllowedTx.wait()
+        if (!resetResult.status) {
+          throw new HandledError('Reset failed.')
+        }
+        setAllowed(new BN(0))
+        toastSuccess(t('Success'))
+      } catch (resetError) {
+        toastError(t('An error occurred resetting allowance'))
+        const error = { ...resetError, message: `Reset Allowance error: ${resetError.message}` }
         throw error
       }
+    } catch (e) {
+      console.error('Error during Reset Allowance transaction', e)
+    } finally {
+      setResetting(false)
+    }
+  }, [allowed, source, swapContract.address, t, toastError, toastSuccess])
 
+  const approve = useCallback(async () => {
+    if (!amount) {
+      return
+    }
+
+    try {
+      setApproving(true)
       try {
-        const approveTx = await source.approve(swapContract.address, amount)
+        const approveTx = await source.approve(swapContract.address, amount.toString())
         const approveResult = await approveTx.wait()
         if (!approveResult?.status) {
-          throw Error('Approve failed')
+          throw new HandledError('Approve failed.')
         }
+        setAllowed(new BN(amount))
+        toastSuccess(t('Success'))
       } catch (approveError) {
-        toastError(t('Error'), t('An error occurred approving transaction'))
+        toastError(t('An error occurred approving transaction'))
         const error = { ...approveError, message: `Approve error: ${approveError.message}` }
         throw error
       }
+    } catch (e) {
+      console.error('Error during Approve transaction', e)
+    } finally {
+      setApproving(false)
+    }
+  }, [amount, source, swapContract.address, t, toastError, toastSuccess])
 
+  const swap = useCallback(async () => {
+    if (!amount) {
+      return
+    }
+
+    setSwapping(true)
+    try {
       try {
-        const swapTx = await swapContract.swap(amount, usdt2tx8)
+        const swapTx = await swapContract.swap(amount.toString(), usdt2tx8)
         const swapResult = await swapTx.wait()
         if (!swapResult?.status) {
-          throw Error('Swap failed')
+          throw new HandledError('Swap failed.')
         }
         toastSuccess(t('Success'))
       } catch (swapError) {
-        toastError(t('Error'), t('An error occurred approving transaction'))
+        toastError(t('An error occurred during swap transaction'))
         const error = { ...swapError, message: `Approve error: ${swapError.message}` }
         throw error
       }
@@ -391,7 +502,18 @@ export const useSwap = (inputAmount?: CurrencyAmount): { swap: () => Promise<voi
     } finally {
       setSwapping(false)
     }
-  }, [account, inputAmount, swapContract, t, toastError, toastSuccess, tx8TokenContract, usdtTokenContract])
+  }, [amount, swapContract, t, toastError, toastSuccess, usdt2tx8])
 
-  return { swap, swapping }
+  return {
+    inputAmount,
+    outputAmount,
+    swap,
+    approve,
+    resetAllowance,
+    swapping,
+    approving,
+    resetting,
+    isApproveNecessary: amount && allowed.lt(amount),
+    isResetNecessary: !allowed.eqn(0) && amount && allowed.lt(amount),
+  }
 }
