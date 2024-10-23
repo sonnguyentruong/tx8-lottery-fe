@@ -6,12 +6,15 @@ BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
 })
-
+const POLYGON_CHAIN = {
+  MAINNET: 137,
+}
 export const BSC_BLOCK_TIME = 3
 
-export const BASE_BSC_SCAN_URLS = {
+export const BASE_POLYGON_SCAN_URLS = {
   [ChainId.MAINNET]: 'https://polygonscan.com',
   [ChainId.TESTNET]: 'https://testnet.polygonscan.com',
+  [POLYGON_CHAIN.MAINNET as ChainId]: 'https://polygonscan.com',
 }
 
 // CAKE_PER_BLOCK details
@@ -26,7 +29,7 @@ export const BLOCKS_PER_YEAR = (60 / BSC_BLOCK_TIME) * 60 * 24 * 365 // 10512000
 export const CAKE_PER_YEAR = CAKE_PER_BLOCK * BLOCKS_PER_YEAR
 export const BASE_URL = 'https://tx8.vn'
 export const BASE_ADD_LIQUIDITY_URL = `${BASE_URL}/add`
-export const BASE_BSC_SCAN_URL = BASE_BSC_SCAN_URLS[ChainId.MAINNET]
+export const BASE_POLYGON_SCAN_URL = BASE_POLYGON_SCAN_URLS[137 as ChainId]
 export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
 export const DEFAULT_GAS_LIMIT = 200000
 export const AUCTION_BIDDERS_TO_FETCH = 500
